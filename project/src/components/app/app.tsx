@@ -1,11 +1,11 @@
 import MainPage from '../mainPage/mainPage';
 
 type AppProps = {
-  cityCardCount: number;
+  pointCardCount: number;
 }
 
-function App({cityCardCount}: AppProps): JSX.Element {
-  return <MainPage cityCardCount={cityCardCount} />;
+function App({pointCardCount}: AppProps): JSX.Element {
+  return <MainPage pointCardCount={pointCardCount} />;
 }
 
 export default App;
