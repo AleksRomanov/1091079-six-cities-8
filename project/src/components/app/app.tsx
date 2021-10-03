@@ -1,11 +1,11 @@
-import MainPage from '../mainPage/mainPage';
+import Main from '../main/main';
 
 type AppProps = {
-  pointCardCount: number;
+  placeCardCount: number;
 }
 
-function App({pointCardCount}: AppProps): JSX.Element {
-  return <MainPage pointCardCount={pointCardCount} />;
+function App({placeCardCount}: AppProps): JSX.Element {
+  return <Main placeCardCount={placeCardCount} />;
 }
 
 export default App;

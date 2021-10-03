@@ -1,4 +1,4 @@
-function PointCardParametersNotLogin(): JSX.Element {
+function CardProperty(): JSX.Element {
   return (
     <div className="page">
       <header className="header">
@@ -281,4 +281,4 @@ function PointCardParametersNotLogin(): JSX.Element {
   );
 }
 
-export default PointCardParametersNotLogin;
+export default CardProperty;

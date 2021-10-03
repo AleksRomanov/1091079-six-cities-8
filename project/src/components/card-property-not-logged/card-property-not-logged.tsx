@@ -1,4 +1,4 @@
-function PointCardParameters(): JSX.Element {
+function CardPropertyNotLogged(): JSX.Element {
   return (
     <div className="page">
       <header className="header">
@@ -281,4 +281,4 @@ function PointCardParameters(): JSX.Element {
   );
 }
 
-export default PointCardParameters;
+export default CardPropertyNotLogged;
