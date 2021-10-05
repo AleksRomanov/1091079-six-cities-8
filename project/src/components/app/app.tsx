@@ -1,4 +1,5 @@
 import Main from '../main/main';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 type AppProps = {
   placeCardCount: number;
