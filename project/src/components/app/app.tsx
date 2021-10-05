@@ -1,9 +1,12 @@
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Main from '../main/main';
 import Login from '../login/login';
 import Favorites from '../favorites/favorites';
 import CardPropertyNotLogged from '../card-property-not-logged/card-property-not-logged';
 import MainPage404 from '../main-page-404/main-page-404';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {AppRoute, AuthorizationStat} from '../../constants';
+import PrivateRoute from '../private-route/private-route';
+
 
 type AppProps = {
   placeCardCount: number;
@@ -13,16 +16,20 @@ function App({placeCardCount}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact>
+        <Route path={AppRoute.Main} exact>
           <Main placeCardCount={placeCardCount}/>
         </Route>
-        <Route path="/login" exact>
+        <Route path={AppRoute.Login} exact>
           <Login/>
         </Route>
-        <Route path="/favorites" exact>
-          <Favorites/>
-        </Route>
-        <Route path="/offer/:id" exact>
+        <PrivateRoute
+          exact
+          path={AppRoute.Favorites}
+          render={() => <Favorites/>}
+          authorizationStat={AuthorizationStat.NoAuth}
+        >
+        </PrivateRoute>
+        <Route path={AppRoute.Offer} exact>
           <CardPropertyNotLogged/>
         </Route>
         <Route
