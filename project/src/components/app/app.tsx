@@ -22,13 +22,7 @@ function App({placeCardCount}: AppProps): JSX.Element {
         <Route path={AppRoute.Login} exact>
           <Login/>
         </Route>
-        <PrivateRoute
-          exact
-          path={AppRoute.Favorites}
-          render={() => <Favorites/>}
-          authorizationStat={AuthorizationStat.NoAuth}
-        >
-        </PrivateRoute>
+        <PrivateRoute path={AppRoute.Favorites} render={() => <Favorites/>} authorizationStat={AuthorizationStat.NoAuth} exact/>
         <Route path={AppRoute.Offer} exact>
           <CardPropertyNotLogged/>
         </Route>
