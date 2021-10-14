@@ -6,23 +6,24 @@ import MainPage404 from '../main-page-404/main-page-404';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {AppRoute, AuthorizationStat} from '../../constants';
 import PrivateRoute from '../private-route/private-route';
+import {Offer} from '../../types/offer';
 
 
 type AppProps = {
-  placeCardCount: number;
+  offers: Offer[];
 }
 
-function App({placeCardCount}: AppProps): JSX.Element {
+function App({offers}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route path={AppRoute.Main} exact>
-          <Main placeCardCount={placeCardCount}/>
+          <Main offers={offers}/>
         </Route>
         <Route path={AppRoute.Login} exact>
           <Login/>
         </Route>
-        <PrivateRoute path={AppRoute.Favorites} render={() => <Favorites/>} authorizationStat={AuthorizationStat.NoAuth} exact/>
+        <PrivateRoute path={AppRoute.Favorites} render={() => <Favorites/>} authorizationStat={AuthorizationStat.NoAuth}/>
         <Route path={AppRoute.Offer} exact>
           <CardPropertyNotLogged/>
         </Route>
