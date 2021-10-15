@@ -7,6 +7,7 @@ type Offer = {
   type: string,
   rating: number,
   bedrooms: number,
+  cityName: string,
   maxAdults: number,
   price: number,
   goods: string[],

@@ -1,7 +1,7 @@
 import Main from '../main/main';
 import Login from '../login/login';
 import Favorites from '../favorites/favorites';
-import CardPropertyNotLogged from '../card-property-not-logged/card-property-not-logged';
+import CardProperty from '../card-property/card-property';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {AppRoute, AuthorizationStat} from '../../constants';
 import PrivateRoute from '../private-route/private-route';
@@ -25,9 +25,9 @@ function App({offers, reviews}: AppProps): JSX.Element {
         <Route path={AppRoute.Login} exact>
           <Login/>
         </Route>
-        <PrivateRoute path={AppRoute.Favorites} render={() => <Favorites/>} authorizationStat={AuthorizationStat.NoAuth}/>
+        <PrivateRoute path={AppRoute.Favorites} render={() => <Favorites offers={offers}/>} authorizationStat={AuthorizationStat.Auth}/>
         <Route path={AppRoute.Offer} exact>
-          <CardPropertyNotLogged offer={offers[2]} offers={offers} reviews={reviews}/>
+          <CardProperty offer={offers[2]} offers={offers} reviews={reviews}/>
         </Route>
         <Route
           render={(props) => (
