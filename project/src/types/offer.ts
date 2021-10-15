@@ -19,4 +19,4 @@ type Offer = {
   isFavorite: boolean,
 };
 
-export type { Offer };
+export type {Offer};

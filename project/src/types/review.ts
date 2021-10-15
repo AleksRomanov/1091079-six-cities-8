@@ -10,4 +10,4 @@ type Review = {
   userId: number,
 };
 
-export type { Review };
+export type {Review};
