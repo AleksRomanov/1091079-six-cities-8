@@ -10,5 +10,4 @@ type Review = {
   userId: number,
 };
 
-
 export type { Review };
