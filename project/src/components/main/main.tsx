@@ -1,10 +1,11 @@
-import PlaceCard from '../place-card/place-card';
+import OffersList from '../offers-list/offers-list';
+import {Offer} from '../../types/offer';
 
 type MainPageProps = {
-  placeCardCount: number;
+  offers: Offer[];
 }
 
-function Main({placeCardCount}: MainPageProps): JSX.Element {
+function Main({offers}: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -18,14 +19,14 @@ function Main({placeCardCount}: MainPageProps): JSX.Element {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="/">
+                  <a className="header__nav-link header__nav-link--profile" href="/favorites">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                   </a>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="/">
+                  <a className="header__nav-link" href="/login">
                     <span className="header__signout">Sign out</span>
                   </a>
                 </li>
@@ -77,7 +78,7 @@ function Main({placeCardCount}: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placeCardCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -94,12 +95,7 @@ function Main({placeCardCount}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCard />
-                <PlaceCard />
-                <PlaceCard />
-                <PlaceCard />
-                <PlaceCard />
-                <PlaceCard />
+                <OffersList offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">

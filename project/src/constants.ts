@@ -10,3 +10,10 @@ export const enum AuthorizationStat {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const enum OfferType {
+  apartment = 'Apartment',
+  hotel = 'Hotel',
+  house = 'House',
+  room = 'Private Room',
+}

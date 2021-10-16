@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-
-const Param = {
-  PLACE_CARD_COUNT: 6,
-};
+import {offers} from './mocks/offers';
+import {reviews} from './mocks/reviews';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App placeCardCount={Param.PLACE_CARD_COUNT}/>
+    <App
+      offers={offers}
+      reviews={reviews}
+    />
   </React.StrictMode>,
   document.getElementById('root'));
