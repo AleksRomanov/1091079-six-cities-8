@@ -9,7 +9,7 @@ function FavoritesEmpty(): JSX.Element {
           <div className="header__wrapper">
             <div className="header__left">
               <Link className="header__logo-link" to={AppRoute.Main}>
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
+                <img className="header__logo" src="../img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </Link>
             </div>
             <nav className="header__nav">
@@ -45,7 +45,7 @@ function FavoritesEmpty(): JSX.Element {
       </main>
       <footer className="footer">
         <Link className="footer__logo-link" to={AppRoute.Main}>
-          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
+          <img className="footer__logo" src="../img/logo.svg" alt="6 cities logo" width="64" height="33"/>
         </Link>
       </footer>
     </div>

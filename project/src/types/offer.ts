@@ -6,7 +6,7 @@ type Offer = {
   isPremium: boolean,
   type: string,
   rating: number,
-  bedrooms: number,
+  amountOfBedrooms: number,
   cityName: string,
   maxAdults: number,
   price: number,
@@ -18,5 +18,6 @@ type Offer = {
   id: number,
   isFavorite: boolean,
 };
+
 
 export type {Offer};

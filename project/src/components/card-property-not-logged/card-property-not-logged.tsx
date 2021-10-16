@@ -2,7 +2,8 @@ import {Offer} from '../../types/offer';
 import OffersList from '../offers-list/offers-list';
 import {Review} from '../../types/review';
 import ReviewsList from '../reviews-list/reviews-list';
-import {OfferType} from '../../constants';
+import {AppRoute, OfferType} from '../../constants';
+import {Link} from 'react-router-dom';
 
 
 type CardPropertyNotLoggedProps = {
@@ -18,10 +19,9 @@ function CardPropertyNotLogged({offer, offers, reviews}: CardPropertyNotLoggedPr
     description,
     isPremium,
     rating,
-    bedrooms,
+    amountOfBedrooms,
     maxAdults,
     price,
-    type,
     goods,
     hostIsPro,
     hostName,
@@ -37,18 +37,18 @@ function CardPropertyNotLogged({offer, offers, reviews}: CardPropertyNotLoggedPr
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="/">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              <Link className="header__logo-link" to={AppRoute.Main}>
+                <img className="header__logo" src="../img/logo.svg" alt="6 cities logo" width="81" height="41"/>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="/login">
+                  <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__login">Sign in</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -62,21 +62,21 @@ function CardPropertyNotLogged({offer, offers, reviews}: CardPropertyNotLoggedPr
             <div className="property__gallery">
               {images.map((image) => (
                 <div className="property__image-wrapper" key={id}>
-                  <img className="property__image" src={`${image}`} alt=""/>
+                  <img className="property__image" src={image} alt=""/>
                 </div>),
               )}
             </div>
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {isPremium ?
-                <div className="property__mark"><span>Premium</span>
-                </div> : ''}
+              {isPremium &&
+              <div className="property__mark"><span>Premium</span>
+              </div>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={isFavorite ? 'property__bookmark-button property__bookmark-button--active button' : 'property__bookmark-button  button'} type="button">
+                <button className={`'property__bookmark-button button' ${isFavorite ? 'property__bookmark - button--active' : null}`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -92,10 +92,10 @@ function CardPropertyNotLogged({offer, offers, reviews}: CardPropertyNotLoggedPr
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {OfferType[type]}
+                  {OfferType['apartment']}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {bedrooms} Bedrooms
+                  {amountOfBedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
                   Max {maxAdults} adults
@@ -118,12 +118,12 @@ function CardPropertyNotLogged({offer, offers, reviews}: CardPropertyNotLoggedPr
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" alt="Host avatar" width="74" height="74"/>
+                    <img className="property__avatar user__avatar" src="../img/avatar-angelina.jpg" alt="Host avatar" width="74" height="74"/>
                   </div>
                   <span className="property__user-name">
                     {hostName}
                   </span>
-                  {hostIsPro ? <span className="property__user-status">Pro</span> : ''}
+                  {hostIsPro && <span className="property__user-status">Pro</span>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
