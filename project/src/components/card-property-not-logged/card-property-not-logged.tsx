@@ -4,15 +4,18 @@ import {Review} from '../../types/review';
 import ReviewsList from '../reviews-list/reviews-list';
 import {AppRoute, OfferType} from '../../constants';
 import {Link} from 'react-router-dom';
+import Map from '../map/map';
+import {City} from '../../types/city';
 
 
 type CardPropertyNotLoggedProps = {
   offer: Offer,
   offers: Offer[],
   reviews: Review[],
+  city: City,
 }
 
-function CardPropertyNotLogged({offer, offers, reviews}: CardPropertyNotLoggedProps): JSX.Element {
+function CardPropertyNotLogged({offer, offers, reviews, city}: CardPropertyNotLoggedProps): JSX.Element {
   const {
     images,
     title,
@@ -139,7 +142,9 @@ function CardPropertyNotLogged({offer, offers, reviews}: CardPropertyNotLoggedPr
               </section>
             </div>
           </div>
-          <section className="property__map map"/>
+          <section className="property__map map">
+            <Map offers={placesInNearby} city={city} activeCard={null}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">

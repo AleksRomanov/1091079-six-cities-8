@@ -8,26 +8,27 @@ import PrivateRoute from '../private-route/private-route';
 import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 import MainEmpty from '../main-empty/main-empty';
-
+import {City} from '../../types/city';
 
 type AppProps = {
   offers: Offer[];
   reviews: Review[];
+  city: City;
 }
 
-function App({offers, reviews}: AppProps): JSX.Element {
+function App({offers, reviews, city}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route path={AppRoute.Main} exact>
-          <Main offers={offers}/>
+          <Main offers={offers} city={city}/>
         </Route>
         <Route path={AppRoute.Login} exact>
           <Login/>
         </Route>
         <PrivateRoute path={AppRoute.Favorites} render={() => <Favorites offers={offers}/>} authorizationStat={AuthorizationStat.Auth}/>
         <Route path={AppRoute.Offer} exact>
-          <CardProperty offer={offers[2]} offers={offers} reviews={reviews}/>
+          <CardProperty offer={offers[2]} offers={offers} reviews={reviews} city={city}/>
         </Route>
         <Route
           render={(props) => (

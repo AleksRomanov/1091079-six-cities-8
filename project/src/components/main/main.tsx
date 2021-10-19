@@ -1,34 +1,44 @@
 import OffersList from '../offers-list/offers-list';
 import {Offer} from '../../types/offer';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../constants';
+import {useState} from 'react';
+import Map from '../map/map';
+import {City} from '../../types/city';
 
 type MainPageProps = {
   offers: Offer[];
+  city: City;
 }
 
-function Main({offers}: MainPageProps): JSX.Element {
+function Main({offers, city}: MainPageProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState<Offer | null>(null);
+  const handleActiveSelectOffer = (offer: Offer | null): void => {
+    setActiveCard(offer);
+  };
   return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active" href="/">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              <Link to={AppRoute.Main} className="header__logo-link header__logo-link--active">
+                <img className="header__logo" src="../img/logo.svg" alt="6 cities logo" width="81" height="41"/>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="/favorites">
+                  <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="/login">
+                  <Link to={AppRoute.Login} className="header__nav-link">
                     <span className="header__signout">Sign out</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -42,34 +52,34 @@ function Main({offers}: MainPageProps): JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
+                <Link to={AppRoute.Main} className="locations__item-link tabs__item">
                   <span>Paris</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
+                <Link to={AppRoute.Main} className="locations__item-link tabs__item">
                   <span>Cologne</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
+                <Link to={AppRoute.Main} className="locations__item-link tabs__item">
                   <span>Brussels</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href="/">
+                <Link to={AppRoute.Main} className="locations__item-link tabs__item tabs__item--active">
                   <span>Amsterdam</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
+                <Link to={AppRoute.Main} className="locations__item-link tabs__item">
                   <span>Hamburg</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
+                <Link to={AppRoute.Main} className="locations__item-link tabs__item">
                   <span>Dusseldorf</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </section>
@@ -95,11 +105,13 @@ function Main({offers}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers}/>
+                <OffersList offers={offers} handleActiveSelectOffer={handleActiveSelectOffer}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"/>
+              <section className="cities__map map">
+                <Map offers={offers} city={city} activeCard={activeCard}/>
+              </section>
             </div>
           </div>
         </div>

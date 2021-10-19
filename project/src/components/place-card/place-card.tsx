@@ -4,8 +4,8 @@ import {AppRoute} from '../../constants';
 
 type PlaceCardProps = {
   offer: Offer,
-  onCardSelect: (offer: Offer) => void,
-  onCardNotSelect: () => void,
+  onCardSelect?: (offer: Offer | null) => void,
+  onCardNotSelect?: (offer: Offer | null) => void,
 }
 
 function PlaceCard({offer, onCardSelect, onCardNotSelect}: PlaceCardProps): JSX.Element {
@@ -19,8 +19,19 @@ function PlaceCard({offer, onCardSelect, onCardNotSelect}: PlaceCardProps): JSX.
     type,
   } = offer;
 
+  const handleMouseEnter = () => {
+    if (onCardSelect) {
+      onCardSelect(offer);
+    }
+  };
+  const handleMouseLeave = () => {
+    if (onCardNotSelect) {
+      onCardNotSelect(null);
+    }
+  };
+
   return (
-    <article className="cities__place-card place-card" onMouseEnter={() => onCardSelect(offer)} onMouseLeave={() => onCardNotSelect()}>
+    <article className="cities__place-card place-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>

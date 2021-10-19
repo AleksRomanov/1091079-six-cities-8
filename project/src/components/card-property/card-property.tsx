@@ -6,14 +6,17 @@ import {Review} from '../../types/review';
 import OffersList from '../offers-list/offers-list';
 import ReviewsList from '../reviews-list/reviews-list';
 import SubmitFormComment from '../submit-form-comment/submit-form-comment';
+import {City} from '../../types/city';
+import Map from '../map/map';
 
 type CardPropertyProps = {
   offer: Offer,
   offers: Offer[],
   reviews: Review[],
+  city: City,
 }
 
-function CardProperty({offer, offers, reviews}: CardPropertyProps): JSX.Element {
+function CardProperty({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [commentValueStar, setCommentValueStar] = useState<string | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -158,7 +161,9 @@ function CardProperty({offer, offers, reviews}: CardPropertyProps): JSX.Element 
               </section>
             </div>
           </div>
-          <section className="property__map map"/>
+          <section className="property__map map">
+            <Map offers={placesInNearby} city={city} activeCard={null}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
