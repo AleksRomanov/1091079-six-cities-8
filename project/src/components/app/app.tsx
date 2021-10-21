@@ -28,7 +28,7 @@ function App({offers, reviews, city}: AppProps): JSX.Element {
         </Route>
         <PrivateRoute path={AppRoute.Favorites} render={() => <Favorites offers={offers}/>} authorizationStat={AuthorizationStat.Auth}/>
         <Route path={AppRoute.Offer} exact>
-          <CardProperty offer={offers[2]} offers={offers} reviews={reviews} city={city}/>
+          <CardProperty offer={offers[3]} offers={offers} reviews={reviews} city={city}/>
         </Route>
         <Route
           render={(props) => (

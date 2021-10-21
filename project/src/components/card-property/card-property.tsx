@@ -17,10 +17,8 @@ type CardPropertyProps = {
 }
 
 function CardProperty({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [commentValueStar, setCommentValueStar] = useState<string | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [commentValueText, setCommentValueText] = useState<string | null>(null);
+  const [, setCommentValueStar] = useState<string | null>(null);
+  const [, setCommentValueText] = useState<string | null>(null);
   const handleSelectStarRating = (value: string): void => {
     setCommentValueStar(value);
   };
