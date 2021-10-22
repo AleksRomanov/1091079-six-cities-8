@@ -17,7 +17,6 @@ function Map(props: MapProps): JSX.Element {
   const {offers, activeCard, city} = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-
   useEffect(() => {
     if (map) {
       offers.forEach((offer) => {

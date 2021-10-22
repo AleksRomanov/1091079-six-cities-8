@@ -5,6 +5,7 @@ import {AppRoute} from '../../constants';
 import {useState} from 'react';
 import Map from '../map/map';
 import {City} from '../../types/city';
+import LocationsList from '../locations-list/locations-list';
 
 type MainPageProps = {
   offers: Offer[];
@@ -50,38 +51,7 @@ function Main({offers, city}: MainPageProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <Link to={AppRoute.Main} className="locations__item-link tabs__item">
-                  <span>Paris</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link to={AppRoute.Main} className="locations__item-link tabs__item">
-                  <span>Cologne</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link to={AppRoute.Main} className="locations__item-link tabs__item">
-                  <span>Brussels</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link to={AppRoute.Main} className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link to={AppRoute.Main} className="locations__item-link tabs__item">
-                  <span>Hamburg</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link to={AppRoute.Main} className="locations__item-link tabs__item">
-                  <span>Dusseldorf</span>
-                </Link>
-              </li>
-            </ul>
+            {LocationsList()}
           </section>
         </div>
         <div className="cities">
