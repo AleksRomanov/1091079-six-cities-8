@@ -1,14 +1,14 @@
-import Main from '../main/main';
-import Login from '../login/login';
-import Favorites from '../favorites/favorites';
-import CardProperty from '../card-property/card-property';
+import Main from './main/main';
+import Login from './login/login';
+import Favorites from './favorites/favorites';
+import CardProperty from './card-property/card-property';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import {AppRoute, AuthorizationStat} from '../../constants';
-import PrivateRoute from '../private-route/private-route';
-import {Offer} from '../../types/offer';
-import {Review} from '../../types/review';
-import MainEmpty from '../main-empty/main-empty';
-import {City} from '../../types/city';
+import {AppRoute, AuthorizationStat} from '../constants';
+import PrivateRoute from './private-route';
+import {Offer} from '../types/offer';
+import {Review} from '../types/review';
+import {City} from '../types/city';
+import MainPage404 from './main-page-404/main-page-404';
 
 type AppProps = {
   offers: Offer[];
@@ -32,7 +32,7 @@ function App({offers, reviews, city}: AppProps): JSX.Element {
         </Route>
         <Route
           render={(props) => (
-            <MainEmpty/>
+            <MainPage404/>
           )}
         />
       </Switch>
