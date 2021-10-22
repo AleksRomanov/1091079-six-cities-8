@@ -5,6 +5,7 @@ export const enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
+  OfferLink = '/offer/',
 }
 
 export const enum AuthorizationStat {

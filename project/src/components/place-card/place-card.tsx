@@ -17,6 +17,7 @@ function PlaceCard({offer, onCardSelect, onCardNotSelect}: PlaceCardProps): JSX.
     rating,
     title,
     type,
+    id,
   } = offer;
 
   const handleMouseEnter = () => {
@@ -37,7 +38,7 @@ function PlaceCard({offer, onCardSelect, onCardNotSelect}: PlaceCardProps): JSX.
         <span>Premium</span>
       </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={AppRoute.Offer}>
+        <Link to={`${AppRoute.OfferLink}${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place card"/>
         </Link>
       </div>
