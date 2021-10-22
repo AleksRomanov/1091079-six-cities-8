@@ -1,10 +1,10 @@
 import PlaceCard from '../place-card/place-card';
-import {Offer} from '../../types/offer';
+import {OffersType} from '../../types/offersType';
 
 type OffersListProps = {
-  offers: Offer[];
-  handleActiveSelectOffer?: (offer: Offer | null) => void,
-  handleNotActiveSelectOffer?: (offer: Offer | null) => void,
+  offers: OffersType[];
+  handleActiveSelectOffer?: (offer: OffersType | null) => void,
+  handleNotActiveSelectOffer?: (offer: OffersType | null) => void,
 }
 
 function OffersList({offers, handleActiveSelectOffer, handleNotActiveSelectOffer}: OffersListProps): JSX.Element {

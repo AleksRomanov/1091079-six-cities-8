@@ -1,11 +1,11 @@
-import {Offer} from '../../types/offer';
+import {OffersType} from '../../types/offersType';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants';
 
 type PlaceCardProps = {
-  offer: Offer,
-  onCardSelect?: (offer: Offer | null) => void,
-  onCardNotSelect?: (offer: Offer | null) => void,
+  offer: OffersType,
+  onCardSelect?: (offer: OffersType | null) => void,
+  onCardNotSelect?: (offer: OffersType | null) => void,
 }
 
 function PlaceCard({offer, onCardSelect, onCardNotSelect}: PlaceCardProps): JSX.Element {

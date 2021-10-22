@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute, OfferType} from '../../constants';
-import {Offer} from '../../types/offer';
-import {Review} from '../../types/review';
+import {OffersType} from '../../types/offersType';
+import {ReviewType} from '../../types/reviewType';
 import OffersList from '../offers-list/offers-list';
 import ReviewsList from '../reviews-list/reviews-list';
 import SubmitFormComment from '../submit-form-comment/submit-form-comment';
@@ -10,9 +10,9 @@ import {City} from '../../types/city';
 import Map from '../map/map';
 
 type CardPropertyProps = {
-  offer: Offer,
-  offers: Offer[],
-  reviews: Review[],
+  offer: OffersType,
+  offers: OffersType[],
+  reviews: ReviewType[],
   city: City,
 }
 

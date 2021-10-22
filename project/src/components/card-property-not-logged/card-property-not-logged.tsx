@@ -1,6 +1,6 @@
-import {Offer} from '../../types/offer';
+import {OffersType} from '../../types/offersType';
 import OffersList from '../offers-list/offers-list';
-import {Review} from '../../types/review';
+import {ReviewType} from '../../types/reviewType';
 import ReviewsList from '../reviews-list/reviews-list';
 import {AppRoute, OfferType} from '../../constants';
 import {Link} from 'react-router-dom';
@@ -9,9 +9,9 @@ import {City} from '../../types/city';
 
 
 type CardPropertyNotLoggedProps = {
-  offer: Offer,
-  offers: Offer[],
-  reviews: Review[],
+  offer: OffersType,
+  offers: OffersType[],
+  reviews: ReviewType[],
   city: City,
 }
 

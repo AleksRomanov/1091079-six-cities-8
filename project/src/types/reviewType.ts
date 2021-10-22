@@ -1,4 +1,4 @@
-type Review = {
+type ReviewType = {
   offersID: number,
   comment: string,
   date: string,
@@ -10,4 +10,4 @@ type Review = {
   userId: number,
 };
 
-export type {Review};
+export type {ReviewType};

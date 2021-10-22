@@ -5,14 +5,14 @@ import CardProperty from './card-property/card-property';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {AppRoute, AuthorizationStat} from '../constants';
 import PrivateRoute from './private-route';
-import {Offer} from '../types/offer';
-import {Review} from '../types/review';
+import {OffersType} from '../types/offersType';
+import {ReviewType} from '../types/reviewType';
 import {City} from '../types/city';
 import MainPage404 from './main-page-404/main-page-404';
 
 type AppProps = {
-  offers: Offer[];
-  reviews: Review[];
+  offers: OffersType[];
+  reviews: ReviewType[];
   city: City;
 }
 

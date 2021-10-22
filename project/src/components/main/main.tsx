@@ -1,5 +1,5 @@
 import OffersList from '../offers-list/offers-list';
-import {Offer} from '../../types/offer';
+import {OffersType} from '../../types/offersType';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants';
 import {useState} from 'react';
@@ -8,13 +8,13 @@ import {City} from '../../types/city';
 import LocationsList from '../locations-list/locations-list';
 
 type MainPageProps = {
-  offers: Offer[];
+  offers: OffersType[];
   city: City;
 }
 
 function Main({offers, city}: MainPageProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState<Offer | null>(null);
-  const handleActiveSelectOffer = (offer: Offer | null): void => {
+  const [activeCard, setActiveCard] = useState<OffersType | null>(null);
+  const handleActiveSelectOffer = (offer: OffersType | null): void => {
     setActiveCard(offer);
   };
   return (

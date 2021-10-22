@@ -1,10 +1,10 @@
-import {Offer} from '../../types/offer';
+import {OffersType} from '../../types/offersType';
 import FavoriteCard from '../favorites-card/favorites-card';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants';
 
 type FavoritesOffersListProps = {
-  offers: Offer[],
+  offers: OffersType[],
   location: string,
 }
 

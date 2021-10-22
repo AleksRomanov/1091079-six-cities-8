@@ -1,4 +1,4 @@
-import {Offer} from '../../types/offer';
+import {OffersType} from '../../types/offersType';
 import {City} from '../../types/city';
 import {defaultIcon} from '../../constants';
 import {currentIcon} from '../../constants';
@@ -8,9 +8,9 @@ import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 
 type MapProps = {
-  offers: Offer[];
+  offers: OffersType[];
   city: City;
-  activeCard: Offer | null;
+  activeCard: OffersType | null;
 };
 
 function Map(props: MapProps): JSX.Element {

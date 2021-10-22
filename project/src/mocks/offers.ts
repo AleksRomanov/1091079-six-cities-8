@@ -1,7 +1,7 @@
-import {Offer} from '../types/offer';
+import {OffersType} from '../types/offersType';
 import {OfferType} from '../constants';
 
-const offers: Offer[] = [
+const offers: OffersType[] = [
   {
     images: ['../img/studio-01.jpg', '../img/room.jpg', '../img/apartment-02.jpg', '../img/apartment-01.jpg', '../img/apartment-03.jpg', '../img/apartment-01.jpg'],
     previewImage: '../img/apartment-01.jpg',
