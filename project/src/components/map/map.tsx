@@ -36,7 +36,7 @@ function Map(props: MapProps): JSX.Element {
           .addTo(map);
       });
     }
-  }, [map, offers, activeCard, currentIcon, defaultIcon]);
+  }, [map, offers, activeCard, defaultIcon, currentIcon]);
 
   return <div style={{height: '500px'}} ref={mapRef}/>;
 }

@@ -2,7 +2,6 @@ import OffersList from '../offers-list/offers-list';
 import {OffersType} from '../../types/offersType';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants';
-import {useState} from 'react';
 import Map from '../map/map';
 import {City} from '../../types/city';
 import LocationsList from '../locations-list/locations-list';
@@ -13,10 +12,6 @@ type MainPageProps = {
 }
 
 function Main({offers, city}: MainPageProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState<OffersType | null>(null);
-  const handleActiveSelectOffer = (offer: OffersType | null): void => {
-    setActiveCard(offer);
-  };
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -75,12 +70,12 @@ function Main({offers, city}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers} handleActiveSelectOffer={handleActiveSelectOffer}/>
+                <OffersList offers={offers} isMain={false}/>
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers} city={city} activeCard={activeCard}/>
+                <Map offers={offers} city={city}  activeCard={null}/>
               </section>
             </div>
           </div>

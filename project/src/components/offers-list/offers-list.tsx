@@ -1,19 +1,27 @@
-import PlaceCard from '../place-card/place-card';
+import OfferCard from '../offer-card/offer-card';
 import {OffersType} from '../../types/offersType';
+import {useState} from 'react';
 
 type OffersListProps = {
   offers: OffersType[];
-  handleActiveSelectOffer?: (offer: OffersType | null) => void,
-  handleNotActiveSelectOffer?: (offer: OffersType | null) => void,
+  isMain: boolean,
 }
 
-function OffersList({offers, handleActiveSelectOffer, handleNotActiveSelectOffer}: OffersListProps): JSX.Element {
+function OffersList({offers, isMain}: OffersListProps): JSX.Element {
+  const [, setActiveCard] = useState<OffersType | null>(null);
+  const handleActiveSelectOffer = (offer: OffersType): void => {
+    setActiveCard(offer);
+  };
+  const handleNotActiveSelectOffer = (): void => {
+    setActiveCard(null);
+  };
   return (
     <>
       {offers.map((offer) => (
-        <PlaceCard
+        <OfferCard
           offer={offer}
           key={offer.id}
+          isMain={isMain}
           onCardSelect={handleActiveSelectOffer}
           onCardNotSelect={handleNotActiveSelectOffer}
         />

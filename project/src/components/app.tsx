@@ -1,6 +1,6 @@
-import Main from './main/main';
-import Login from './login/login';
-import Favorites from './favorites/favorites';
+import Main from './pages/main';
+import Login from './pages/login';
+import Favorites from './pages/favorites';
 import CardProperty from './card-property/card-property';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {AppRoute, AuthorizationStat} from '../constants';
@@ -8,7 +8,7 @@ import PrivateRoute from './private-route';
 import {OffersType} from '../types/offersType';
 import {ReviewType} from '../types/reviewType';
 import {City} from '../types/city';
-import MainPage404 from './main-page-404/main-page-404';
+import MainPage404 from './pages/main-page-404';
 
 type AppProps = {
   offers: OffersType[];

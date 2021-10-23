@@ -33,6 +33,7 @@ function CardPropertyNotLogged({offer, offers, reviews, city}: CardPropertyNotLo
   } = offer;
 
   const placesInNearby = offers.slice(0, 3);
+  const reviewsOnPlace = reviews.filter((review) => offer.id === review.offersID);
 
   return (
     <div className="page">
@@ -137,7 +138,7 @@ function CardPropertyNotLogged({offer, offers, reviews, city}: CardPropertyNotLo
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
                 <ul className="reviews__list">
-                  <ReviewsList reviews={reviews} offer={offer}/>
+                  <ReviewsList reviews={reviewsOnPlace} offer={offer}/>
                 </ul>
               </section>
             </div>
@@ -150,7 +151,7 @@ function CardPropertyNotLogged({offer, offers, reviews, city}: CardPropertyNotLo
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={placesInNearby}/>
+              <OffersList offers={placesInNearby} isMain/>
             </div>
           </section>
         </div>

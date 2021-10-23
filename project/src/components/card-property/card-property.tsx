@@ -89,7 +89,7 @@ function CardProperty({offer, offers, reviews, city}: CardPropertyProps): JSX.El
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={`'property__bookmark-button button' ${isFavorite ? 'property__bookmark - button--active' : null}`} type="button">
+                <button className={isFavorite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -167,7 +167,7 @@ function CardProperty({offer, offers, reviews, city}: CardPropertyProps): JSX.El
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={placesInNearby}/>
+              <OffersList offers={placesInNearby} isMain/>
             </div>
           </section>
         </div>

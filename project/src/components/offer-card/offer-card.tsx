@@ -1,14 +1,15 @@
 import {OffersType} from '../../types/offersType';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../constants';
+import {AppRoute, offerCardClasses} from '../../constants';
 
-type PlaceCardProps = {
+type OfferCardProps = {
   offer: OffersType,
-  onCardSelect?: (offer: OffersType | null) => void,
-  onCardNotSelect?: (offer: OffersType | null) => void,
+  isMain: boolean,
+  onCardSelect: (offer: OffersType) => void,
+  onCardNotSelect: () => void,
 }
 
-function PlaceCard({offer, onCardSelect, onCardNotSelect}: PlaceCardProps): JSX.Element {
+function OfferCard({offer, isMain, onCardSelect, onCardNotSelect}: OfferCardProps): JSX.Element {
   const {
     isPremium,
     previewImage,
@@ -20,26 +21,29 @@ function PlaceCard({offer, onCardSelect, onCardNotSelect}: PlaceCardProps): JSX.
     id,
   } = offer;
 
-  const handleMouseEnter = () => {
-    if (onCardSelect) {
-      onCardSelect(offer);
-    }
-  };
-  const handleMouseLeave = () => {
-    if (onCardNotSelect) {
-      onCardNotSelect(null);
-    }
-  };
+  // const handleMouseEnter = () => {
+  //   if (onCardSelect) {
+  //     onCardSelect(offer);
+  //   }
+  // };
+  // const handleMouseLeave = () => {
+  //   if (onCardNotSelect) {
+  //     onCardNotSelect(null);
+  //   }
+  // };
+
+  const articleClass = isMain ? offerCardClasses.mainArticleClass : offerCardClasses.favoritesArticleClass;
+  const imageData = isMain ? offerCardClasses.mainImageData : offerCardClasses.favoritesImageData;
 
   return (
-    <article className="cities__place-card place-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <article className={articleClass} onMouseEnter={() => onCardSelect(offer)} onMouseLeave={() => onCardNotSelect()}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
       </div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={imageData.imageClass}>
         <Link to={`${AppRoute.OfferLink}${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place card"/>
+          <img className="place-card__image" src={previewImage} width={imageData.imageSizes.width} height={imageData.imageSizes.height} alt="Place card"/>
         </Link>
       </div>
       <div className="place-card__info">
@@ -70,4 +74,4 @@ function PlaceCard({offer, onCardSelect, onCardNotSelect}: PlaceCardProps): JSX.
   );
 }
 
-export default PlaceCard;
+export default OfferCard;
