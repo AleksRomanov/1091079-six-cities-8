@@ -1,4 +1,4 @@
-type Offer = {
+type OffersType = {
   images: string[],
   previewImage: string,
   title: string,
@@ -8,6 +8,12 @@ type Offer = {
   rating: number,
   amountOfBedrooms: number,
   cityName: string,
+  cityLatitude: number,
+  cityLongitude: number,
+  cityZoom: number,
+  latitude: number,
+  longitude: number,
+  zoom: number,
   maxAdults: number,
   price: number,
   goods: string[],
@@ -20,4 +26,4 @@ type Offer = {
 };
 
 
-export type {Offer};
+export type {OffersType};

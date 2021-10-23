@@ -1,10 +1,10 @@
 import PlaceReview from '../place-review/place-review';
-import {Offer} from '../../types/offer';
-import {Review} from '../../types/review';
+import {OffersType} from '../../types/offersType';
+import {ReviewType} from '../../types/reviewType';
 
 type ReviewsListProps = {
-  offer: Offer;
-  reviews: Review[];
+  offer: OffersType;
+  reviews: ReviewType[];
 }
 
 function ReviewsList({reviews, offer}: ReviewsListProps): JSX.Element {

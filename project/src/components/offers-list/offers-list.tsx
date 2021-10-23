@@ -1,20 +1,13 @@
 import PlaceCard from '../place-card/place-card';
-import {Offer} from '../../types/offer';
-import {useState} from 'react';
+import {OffersType} from '../../types/offersType';
 
 type OffersListProps = {
-  offers: Offer[];
+  offers: OffersType[];
+  handleActiveSelectOffer?: (offer: OffersType | null) => void,
+  handleNotActiveSelectOffer?: (offer: OffersType | null) => void,
 }
 
-function OffersList({offers}: OffersListProps): JSX.Element {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [activeCard, setActiveCard] = useState<Offer | null>(null);
-  const handleActiveSelectOffer = (offer: Offer): void => {
-    setActiveCard(offer);
-  };
-  const handleNotActiveSelectOffer = (): void => {
-    setActiveCard(null);
-  };
+function OffersList({offers, handleActiveSelectOffer, handleNotActiveSelectOffer}: OffersListProps): JSX.Element {
   return (
     <>
       {offers.map((offer) => (

@@ -1,14 +1,14 @@
-import {Offer} from '../../types/offer';
+import {OffersType} from '../../types/offersType';
 import FavoritesOffersList from '../favorites-offers-list/favorites-offers-list';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants';
 
 type FavoritesProps = {
-  offers: Offer[],
+  offers: OffersType[],
 }
 
 function Favorites({offers}: FavoritesProps): JSX.Element {
-  const favoriteLoc: Set<Offer> = new Set(offers.filter((offer) => offer.isFavorite));
+  const favoriteLoc: Set<OffersType> = new Set(offers.filter((offer) => offer.isFavorite));
 
   return (
     <div className="page">
