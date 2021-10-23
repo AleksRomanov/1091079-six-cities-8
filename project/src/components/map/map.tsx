@@ -1,7 +1,7 @@
 import {OffersType} from '../../types/offersType';
 import {City} from '../../types/city';
 import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../constants';
-import {useEffect, useRef} from 'react';
+import {useEffect, useMemo, useRef} from 'react';
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
@@ -16,16 +16,9 @@ function Map(props: MapProps): JSX.Element {
   const {offers, activeCard, city} = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  const defaultIcon = new Icon({
-    iconUrl: URL_MARKER_DEFAULT,
-    iconSize: [27, 39],
-    iconAnchor: [13.5, 39],
-  });
-  const currentIcon = new Icon({
-    iconUrl: URL_MARKER_CURRENT,
-    iconSize: [27, 39],
-    iconAnchor: [13.5, 39],
-  });
+  const defaultIcon = useMemo(() => new Icon({iconUrl: URL_MARKER_DEFAULT, iconSize: [27, 39], iconAnchor: [13.5, 39]}), []);
+  const currentIcon = useMemo(() => new Icon({iconUrl: URL_MARKER_CURRENT, iconSize: [27, 39], iconAnchor: [13.5, 39]}), []);
+
   useEffect(() => {
     if (map) {
       offers.forEach((offer) => {
@@ -43,7 +36,7 @@ function Map(props: MapProps): JSX.Element {
           .addTo(map);
       });
     }
-  }, [map, offers, activeCard]);
+  }, [map, offers, activeCard, currentIcon, defaultIcon]);
 
   return <div style={{height: '500px'}} ref={mapRef}/>;
 }
