@@ -28,12 +28,12 @@ function OfferCard({offer, isMain, onCardSelect, onCardNotSelect}: OfferCardProp
   // };
   // const handleMouseLeave = () => {
   //   if (onCardNotSelect) {
-  //     onCardNotSelect(null);
+  //     onCardNotSelect();
   //   }
   // };
 
-  const articleClass = isMain ? offerCardClasses.mainArticleClass : offerCardClasses.favoritesArticleClass;
-  const imageData = isMain ? offerCardClasses.mainImageData : offerCardClasses.favoritesImageData;
+  const articleClass = isMain ? offerCardClasses.favoritesArticleClass : offerCardClasses.mainArticleClass;
+  const imageData = isMain ? offerCardClasses.favoritesImageData : offerCardClasses.mainImageData;
 
   return (
     <article className={articleClass} onMouseEnter={() => onCardSelect(offer)} onMouseLeave={() => onCardNotSelect()}>
@@ -47,7 +47,7 @@ function OfferCard({offer, isMain, onCardSelect, onCardNotSelect}: OfferCardProp
         </Link>
       </div>
       <div className="place-card__info">
-        <div className="place-card__price-wrapper">
+        <div className="place-card__price-wrapper" key={offer.key}>
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>

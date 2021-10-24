@@ -6,6 +6,7 @@ import {AppRoute, OfferType} from '../../constants';
 import {Link} from 'react-router-dom';
 import Map from '../map/map';
 import {City} from '../../types/city';
+import {nanoid} from "nanoid";
 
 
 type CardPropertyNotLoggedProps = {
@@ -28,7 +29,6 @@ function CardPropertyNotLogged({offer, offers, reviews, city}: CardPropertyNotLo
     goods,
     hostIsPro,
     hostName,
-    id,
     isFavorite,
   } = offer;
 
@@ -65,7 +65,7 @@ function CardPropertyNotLogged({offer, offers, reviews, city}: CardPropertyNotLo
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {images.map((image) => (
-                <div className="property__image-wrapper" key={id}>
+                <div className="property__image-wrapper" key={nanoid()}>
                   <img className="property__image" src={image} alt=""/>
                 </div>),
               )}

@@ -34,7 +34,7 @@ export const URL_MARKER_CURRENT =
 
 export const offerCardClasses = {
   mainArticleClass: 'cities__place-card place-card',
-  mainImageData: {imageClass: 'cities__image-wrapper place-card__image-wrapper', imageSizes: {width: '260', height: '200'} },
+  mainImageData: {imageClass: 'cities__image-wrapper place-card__image-wrapper', imageSizes: {width: '260', height: '200'}},
   favoritesArticleClass: 'favorites__card place-card',
-  favoritesImageData: {imageClass: 'favorites__image-wrapper place-card__image-wrapper', imageSizes: {width: '150', height: '110'} },
+  favoritesImageData: {imageClass: 'favorites__image-wrapper place-card__image-wrapper', imageSizes: {width: '150', height: '110'}},
 };

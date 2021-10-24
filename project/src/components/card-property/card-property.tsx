@@ -8,6 +8,7 @@ import ReviewsList from '../reviews-list/reviews-list';
 import SubmitFormComment from '../submit-form-comment/submit-form-comment';
 import {City} from '../../types/city';
 import Map from '../map/map';
+import {nanoid} from 'nanoid';
 
 type CardPropertyProps = {
   offer: OffersType,
@@ -73,7 +74,7 @@ function CardProperty({offer, offers, reviews, city}: CardPropertyProps): JSX.El
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {images.map((image) => (
-                <div className="property__image-wrapper" key={image}>
+                <div className="property__image-wrapper" key={nanoid()}>
                   <img className="property__image" src={image} alt="Room"/>
                 </div>),
               )}
