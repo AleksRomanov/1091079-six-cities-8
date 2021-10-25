@@ -6,7 +6,7 @@ import {AppRoute, OfferType} from '../../constants';
 import {Link} from 'react-router-dom';
 import Map from '../map/map';
 import {City} from '../../types/city';
-import {nanoid} from "nanoid";
+import {nanoid} from 'nanoid';
 
 
 type CardPropertyNotLoggedProps = {
