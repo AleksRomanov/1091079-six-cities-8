@@ -10,7 +10,6 @@ type FavoritesProps = {
 }
 
 function Favorites({offers}: FavoritesProps): JSX.Element {
-  // const favoriteLoc: Set<OfferType> = new Set(offers.filter((offer) => offer.isFavorite));
 
   return (
     <>
@@ -28,15 +27,9 @@ function Favorites({offers}: FavoritesProps): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <OffersList offers={offers} setActiveCard={undefined} isFavourite/>
+                  <OffersList offers={offers} isFavourite/>
                 </div>
               </li>
-              {/*{[...favoriteLoc].map((location) => (*/}
-              {/*  <FavoritesOffersList*/}
-              {/*    offers={offers}*/}
-              {/*    location={location.cityName}*/}
-              {/*    key={location.id}*/}
-              {/*  />))}*/}
             </ul>
           </section>
         </div>

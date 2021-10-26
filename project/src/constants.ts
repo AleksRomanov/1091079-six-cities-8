@@ -1,9 +1,3 @@
-import {CSSProperties} from 'react';
-
-export const WIDTH_80: CSSProperties = {width: '80%'};
-export const WIDTH_100: CSSProperties = {width: '100%'};
-export const getRatingStarsWidth = (rating: number): number => (20 * Math.round(rating));
-
 export const enum AppRoute {
   Main = '/',
   Login = '/login',

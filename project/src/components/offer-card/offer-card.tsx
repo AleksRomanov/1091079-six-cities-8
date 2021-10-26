@@ -1,6 +1,6 @@
 import {OfferType} from '../../types/offerType';
 import {Link} from 'react-router-dom';
-import {AppRoute, getRatingStarsWidth, offerCardClasses} from '../../constants';
+import {AppRoute, offerCardClasses} from '../../constants';
 
 type OfferCardProps = {
   offer: OfferType,
@@ -20,17 +20,6 @@ function OfferCard({offer, isFavourite, onCardSelect, onCardNotSelect}: OfferCar
     type,
     id,
   } = offer;
-
-  // const handleMouseEnter = () => {
-  //   if (onCardSelect) {
-  //     onCardSelect(offer);
-  //   }
-  // };
-  // const handleMouseLeave = () => {
-  //   if (onCardNotSelect) {
-  //     onCardNotSelect();
-  //   }
-  // };
 
   const articleClass = isFavourite ? offerCardClasses.favoritesArticleClass : offerCardClasses.mainArticleClass;
   const imageData = isFavourite ? offerCardClasses.favoritesImageData : offerCardClasses.mainImageData;
@@ -61,7 +50,7 @@ function OfferCard({offer, isFavourite, onCardSelect, onCardNotSelect}: OfferCar
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${getRatingStarsWidth(rating)}%`}}/>
+            <span style={{width: `${20 * Math.round(rating)}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

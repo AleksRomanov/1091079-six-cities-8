@@ -4,15 +4,19 @@ import {OfferType} from '../../types/offerType';
 type OffersListProps = {
   offers: OfferType[];
   isFavourite: boolean,
-  setActiveCard: any,
+  setActiveCard?: (offer: OfferType | null) => void,
 }
 
 function OffersList({offers, isFavourite, setActiveCard}: OffersListProps): JSX.Element {
   const handleActiveSelectOffer = (offer: OfferType): void => {
-    setActiveCard(offer);
+    if (setActiveCard) {
+      setActiveCard(offer);
+    }
   };
   const handleNotActiveSelectOffer = (): void => {
-    setActiveCard(null);
+    if (setActiveCard) {
+      setActiveCard(null);
+    }
   };
   return (
     <>
