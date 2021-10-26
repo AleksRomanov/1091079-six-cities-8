@@ -1,15 +1,15 @@
-import {OffersType} from '../../types/offersType';
+import {OfferType} from '../../types/offerType';
 import {Link} from 'react-router-dom';
 import {AppRoute, getRatingStarsWidth, offerCardClasses} from '../../constants';
 
 type OfferCardProps = {
-  offer: OffersType,
-  isMain: boolean,
-  onCardSelect: (offer: OffersType) => void,
+  offer: OfferType,
+  isFavourite: boolean,
+  onCardSelect: (offer: OfferType) => void,
   onCardNotSelect: () => void,
 }
 
-function OfferCard({offer, isMain, onCardSelect, onCardNotSelect}: OfferCardProps): JSX.Element {
+function OfferCard({offer, isFavourite, onCardSelect, onCardNotSelect}: OfferCardProps): JSX.Element {
   const {
     isPremium,
     previewImage,
@@ -32,8 +32,8 @@ function OfferCard({offer, isMain, onCardSelect, onCardNotSelect}: OfferCardProp
   //   }
   // };
 
-  const articleClass = isMain ? offerCardClasses.favoritesArticleClass : offerCardClasses.mainArticleClass;
-  const imageData = isMain ? offerCardClasses.favoritesImageData : offerCardClasses.mainImageData;
+  const articleClass = isFavourite ? offerCardClasses.favoritesArticleClass : offerCardClasses.mainArticleClass;
+  const imageData = isFavourite ? offerCardClasses.favoritesImageData : offerCardClasses.mainImageData;
 
   return (
     <article className={articleClass} onMouseEnter={() => onCardSelect(offer)} onMouseLeave={() => onCardNotSelect()}>

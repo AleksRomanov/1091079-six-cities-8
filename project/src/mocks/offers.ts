@@ -1,14 +1,14 @@
-import {OffersType} from '../types/offersType';
-import {OfferType} from '../constants';
+import {OfferType} from '../types/offerType';
+import {OfferKinds} from '../constants';
 
-const offers: OffersType[] = [
+const offers: OfferType[] = [
   {
     images: ['../img/studio-01.jpg', '../img/room.jpg', '../img/apartment-02.jpg', '../img/apartment-01.jpg', '../img/apartment-03.jpg', '../img/apartment-01.jpg'],
     previewImage: '../img/apartment-small-03.jpg',
     title: 'Beautiful & luxurious studio at great location',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     isPremium: false,
-    type: OfferType.apartment,
+    type: OfferKinds.apartment,
     rating: 4.8,
     amountOfBedrooms: 3,
     cityName: 'Amsterdam',
@@ -35,7 +35,7 @@ const offers: OffersType[] = [
     title: 'Wood and stone place',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     isPremium: false,
-    type: OfferType.hotel,
+    type: OfferKinds.hotel,
     rating: 5,
     amountOfBedrooms: 4,
     cityName: 'Amsterdam',
@@ -62,7 +62,7 @@ const offers: OffersType[] = [
     title: 'Canal View Prinsengracht',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     isPremium: true,
-    type: OfferType.house,
+    type: OfferKinds.house,
     rating: 4.1,
     amountOfBedrooms: 2,
     cityName: 'Amsterdam',
@@ -89,7 +89,7 @@ const offers: OffersType[] = [
     title: 'Nice, cozy, warm big bed apartment',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     isPremium: true,
-    type: OfferType.room,
+    type: OfferKinds.room,
     rating: 3.2,
     amountOfBedrooms: 1,
     cityName: 'Amsterdam',

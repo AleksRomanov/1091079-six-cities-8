@@ -1,4 +1,4 @@
-type OffersType = {
+type OfferType = {
   images: string[],
   previewImage: string,
   title: string,
@@ -27,4 +27,4 @@ type OffersType = {
 };
 
 
-export type {OffersType};
+export type {OfferType};

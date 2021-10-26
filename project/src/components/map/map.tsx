@@ -1,4 +1,4 @@
-import {OffersType} from '../../types/offersType';
+import {OfferType} from '../../types/offerType';
 import {City} from '../../types/city';
 import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../constants';
 import {useEffect, useMemo, useRef} from 'react';
@@ -7,9 +7,9 @@ import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 
 type MapProps = {
-  offers: OffersType[];
-  city: City;
-  activeCard: OffersType | null;
+  offers: OfferType[],
+  city: City,
+  activeCard: OfferType | null,
 };
 
 function Map(props: MapProps): JSX.Element {
@@ -26,19 +26,12 @@ function Map(props: MapProps): JSX.Element {
           lat: offer.latitude,
           lng: offer.longitude,
         });
-
-        marker
-          .setIcon(
-            activeCard !== null && offer.id === activeCard.id
-              ? currentIcon
-              : defaultIcon,
-          )
-          .addTo(map);
+        marker.setIcon(activeCard !== null && offer.id === activeCard.id ? currentIcon : defaultIcon).addTo(map);
       });
     }
   }, [map, offers, activeCard, defaultIcon, currentIcon]);
 
-  return <div style={{height: '500px'}} ref={mapRef}/>;
+  return <div style={{height: '100%'}} ref={mapRef}/>;
 }
 
 export default Map;

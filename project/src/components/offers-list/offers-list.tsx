@@ -1,15 +1,14 @@
 import OfferCard from '../offer-card/offer-card';
-import {OffersType} from '../../types/offersType';
-import {useState} from 'react';
+import {OfferType} from '../../types/offerType';
 
 type OffersListProps = {
-  offers: OffersType[];
-  isMain: boolean,
+  offers: OfferType[];
+  isFavourite: boolean,
+  setActiveCard: any,
 }
 
-function OffersList({offers, isMain}: OffersListProps): JSX.Element {
-  const [, setActiveCard] = useState<OffersType | null>(null);
-  const handleActiveSelectOffer = (offer: OffersType): void => {
+function OffersList({offers, isFavourite, setActiveCard}: OffersListProps): JSX.Element {
+  const handleActiveSelectOffer = (offer: OfferType): void => {
     setActiveCard(offer);
   };
   const handleNotActiveSelectOffer = (): void => {
@@ -21,7 +20,7 @@ function OffersList({offers, isMain}: OffersListProps): JSX.Element {
         <OfferCard
           offer={offer}
           key={offer.id}
-          isMain={isMain}
+          isFavourite={isFavourite}
           onCardSelect={handleActiveSelectOffer}
           onCardNotSelect={handleNotActiveSelectOffer}
         />

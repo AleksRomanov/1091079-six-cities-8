@@ -18,7 +18,7 @@ export const enum AuthorizationStat {
   Unknown = 'UNKNOWN',
 }
 
-export const enum OfferType {
+export const enum OfferKinds {
   apartment = 'Apartment',
   hotel = 'Hotel',
   house = 'House',
