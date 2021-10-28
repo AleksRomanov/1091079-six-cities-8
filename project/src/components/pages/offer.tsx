@@ -61,7 +61,7 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
               <h1 className="property__name">
                 {currenOffer && currenOffer.title}
               </h1>
-              <button className={`property__bookmark-button button ${currenOffer && currenOffer.isFavorite ? 'property__bookmark - button--active' : null}`} type="button">
+              <button className={`property__bookmark-button button ${currenOffer && currenOffer.isFavorite ? 'property__bookmark-button--active' : null}`} type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"/>
                 </svg>
@@ -103,7 +103,7 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src="../img/avatar-angelina.jpg" alt="Host avatar" width="74" height="74"/>
+                  <img className="property__avatar user__avatar" src={currenOffer && currenOffer.hostAvatarUrl} alt="Host avatar" width="74" height="74"/>
                 </div>
                 <span className="property__user-name">
                   {currenOffer && currenOffer.hostName}
