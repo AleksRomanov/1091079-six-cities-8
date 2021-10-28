@@ -80,7 +80,7 @@ const offers: OfferType[] = [
     hostId: 3,
     hostName: 'Max',
     id: 33333,
-    isFavorite: true,
+    isFavorite: false,
     key: 33,
   },
   {

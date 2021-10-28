@@ -1,5 +1,4 @@
 import {OfferType} from '../../types/offerType';
-// import FavoritesOffersList from '../favorites-offers-list/favorites-offers-list';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants';
 import {withHeader} from '../../hocks/withHeader';

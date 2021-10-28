@@ -1,5 +1,4 @@
-import {useState} from 'react';
-import {OfferKinds} from '../../constants';
+import {useMemo, useState} from 'react';
 import {OfferType} from '../../types/offerType';
 import {ReviewType} from '../../types/reviewType';
 import OffersList from '../offers-list/offers-list';
@@ -9,6 +8,7 @@ import {City} from '../../types/city';
 import Map from '../map/map';
 import {nanoid} from 'nanoid';
 import {withHeader} from '../../hocks/withHeader';
+import {useParams} from 'react-router-dom';
 
 type CardPropertyProps = {
   offer: OfferType,
@@ -16,10 +16,14 @@ type CardPropertyProps = {
   reviews: ReviewType[],
   city: City,
 }
+type offerId = {
+  id: string,
+}
 
 function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
+  const {id}: offerId = useParams();
+  const currenOffer = useMemo(() => offers.find((offerItem) => offerItem.id.toString() === id), [offers, id]);
   const [activeCard, setActiveCard] = useState<OfferType | null>(null);
-
   const [, setCommentValueStar] = useState<string | null>(null);
   const [, setCommentValueText] = useState<string | null>(null);
   const handleSelectStarRating = (value: string): void => {
@@ -30,18 +34,7 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
   };
 
   const {
-    images,
-    title,
-    description,
-    isPremium,
     rating,
-    amountOfBedrooms,
-    maxAdults,
-    price,
-    goods,
-    hostIsPro,
-    hostName,
-    isFavorite,
   } = offer;
 
   const placesInNearby = offers.slice(0, 3);
@@ -51,24 +44,24 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            {images.map((image) => (
+            {currenOffer && currenOffer.images.map((image) => (
               <div className="property__image-wrapper" key={nanoid()}>
-                <img className="property__image" src={image} alt="Room"/>
+                <img className="property__image" src={image} alt=""/>
               </div>),
             )}
           </div>
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
-            {isPremium &&
+            {currenOffer && currenOffer.isPremium &&
             <div className="property__mark">
               <span>Premium</span>
             </div>}
             <div className="property__name-wrapper">
               <h1 className="property__name">
-                {title}
+                {currenOffer && currenOffer.title}
               </h1>
-              <button className={`property__bookmark-button button ${isFavorite ? 'property__bookmark - button--active' : null}`} type="button">
+              <button className={`property__bookmark-button button ${currenOffer && currenOffer.isFavorite ? 'property__bookmark - button--active' : null}`} type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"/>
                 </svg>
@@ -80,27 +73,27 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
                 <span style={{width: `${Math.round(20 * rating)}%`}}/>
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="property__rating-value rating__value">{rating}</span>
+              <span className="property__rating-value rating__value">{currenOffer && currenOffer.rating}</span>
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
-                {OfferKinds['apartment']}
+                {currenOffer && currenOffer.type}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                {amountOfBedrooms} Bedrooms
+                {currenOffer && currenOffer.amountOfBedrooms} Bedrooms
               </li>
               <li className="property__feature property__feature--adults">
-                Max {maxAdults} adults
+                Max {currenOffer && currenOffer.maxAdults} adults
               </li>
             </ul>
             <div className="property__price">
-              <b className="property__price-value">€{price}</b>
+              <b className="property__price-value">€{currenOffer && currenOffer.price}</b>
               <span className="property__price-text">&nbsp;night</span>
             </div>
             <div className="property__inside">
               <h2 className="property__inside-title">What&apos;s inside</h2>
               <ul className="property__inside-list">
-                {goods.map((good) => (
+                {currenOffer && currenOffer.goods.map((good) => (
                   <li className="property__inside-item" key={good}>
                     {good}
                   </li>))};
@@ -113,16 +106,14 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
                   <img className="property__avatar user__avatar" src="../img/avatar-angelina.jpg" alt="Host avatar" width="74" height="74"/>
                 </div>
                 <span className="property__user-name">
-                  {hostName}
+                  {currenOffer && currenOffer.hostName}
                 </span>
-                {hostIsPro &&
-                <span className="property__user-status">
-                      Pro
-                </span>}
+                {currenOffer && currenOffer.hostIsPro &&
+                <span className="property__user-status">Pro</span>}
               </div>
               <div className="property__description">
                 <p className="property__text">
-                  {description}
+                  {currenOffer && currenOffer.description}
                 </p>
               </div>
             </div>
