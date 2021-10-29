@@ -8,6 +8,8 @@ import {City} from '../../types/city';
 import Map from '../map/map';
 import {withHeader} from '../../hocks/withHeader';
 import {useParams} from 'react-router-dom';
+import Icon from '../icon';
+import {nanoid} from 'nanoid';
 
 type CardPropertyProps = {
   offer: OfferType,
@@ -42,7 +44,7 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
     return (
       <div className="property__gallery">
         {currenOffer && currenOffer.images.map((image) => (
-          <div className="property__image-wrapper" key={offer.key}>
+          <div className="property__image-wrapper" key={nanoid()}>
             <img className="property__image" src={image} alt=""/>
           </div>))}
       </div>
