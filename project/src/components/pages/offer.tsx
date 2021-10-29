@@ -8,7 +8,7 @@ import {City} from '../../types/city';
 import Map from '../map/map';
 import {withHeader} from '../../hocks/withHeader';
 import {useParams} from 'react-router-dom';
-import Icon from '../icon';
+// import Icon from '../icon';
 import {nanoid} from 'nanoid';
 
 type CardPropertyProps = {

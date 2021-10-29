@@ -6,6 +6,7 @@ import LocationsList from '../locations-list/locations-list';
 import {withHeader} from '../../hocks/withHeader';
 import {useState} from 'react';
 import React from 'react';
+import {ReactComponent as IconArrowSelect} from '../../static/icon-arrow-select.svg';
 
 type MainPageProps = {
   offers: OfferType[];
@@ -31,9 +32,10 @@ function Main({offers, city}: MainPageProps): JSX.Element {
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
                   Popular
-                <svg className="places__sorting-arrow" width="7" height="4">
+                {/* <svg className="places__sorting-arrow" width="7" height="4">
                   <use xlinkHref="#icon-arrow-select"/>
-                </svg>
+                </svg> */}
+                <IconArrowSelect />
               </span>
               <ul className="places__options places__options--custom places__options--opened">
                 <li className="places__option places__option--active" tabIndex={0}>Popular</li>
