@@ -40,7 +40,7 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
 
   const placesInNearby = offers.slice(0, 3);
 
-  function renderImages() {
+  function RenderImages() {
     return (
       <div className="property__gallery">
         {currenOffer && currenOffer.images.map((image) => (
@@ -55,7 +55,7 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
     <main className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">
-          {renderImages()}
+          <RenderImages/>
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
@@ -68,9 +68,7 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
                 {currenOffer && currenOffer.title}`
               </h1>
               <button className={`property__bookmark-button button ${currenOffer && currenOffer.isFavorite ? 'property__bookmark-button--active' : null}`} type="button">
-                <svg className="property__bookmark-icon" width="31" height="33">
-                  <use xlinkHref="#icon-bookmark"/>
-                </svg>
+                <IconBookmark/>
                 <span className="visually-hidden">To bookmarks</span>
               </button>
             </div>
