@@ -32,7 +32,7 @@ function Main({offers, city}: MainPageProps): JSX.Element {
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
                   Popular
-              <IconArrowSelect/>
+                <IconArrowSelect/>
               </span>
               <ul className="places__options places__options--custom places__options--opened">
                 <li className="places__option places__option--active" tabIndex={0}>Popular</li>
