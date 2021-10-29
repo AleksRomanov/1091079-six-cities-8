@@ -8,8 +8,8 @@ import {City} from '../../types/city';
 import Map from '../map/map';
 import {withHeader} from '../../hocks/withHeader';
 import {useParams} from 'react-router-dom';
-import Icon from '../icon';
 import {nanoid} from 'nanoid';
+import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
 
 type CardPropertyProps = {
   offer: OfferType,
@@ -65,7 +65,7 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
             </div>}
             <div className="property__name-wrapper">
               <h1 className="property__name">
-                {currenOffer && currenOffer.title}
+                {currenOffer && currenOffer.title}`
               </h1>
               <button className={`property__bookmark-button button ${currenOffer && currenOffer.isFavorite ? 'property__bookmark-button--active' : null}`} type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
