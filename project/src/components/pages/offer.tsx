@@ -44,8 +44,7 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
         {currenOffer && currenOffer.images.map((image) => (
           <div className="property__image-wrapper" key={offer.key}>
             <img className="property__image" src={image} alt=""/>
-          </div>),
-        )}
+          </div>))}
       </div>
     );
   }
