@@ -1,9 +1,9 @@
 import PlaceReview from '../place-review/place-review';
-import {OffersType} from '../../types/offersType';
+import {OfferType} from '../../types/offerType';
 import {ReviewType} from '../../types/reviewType';
 
 type ReviewsListProps = {
-  offer: OffersType;
+  offer: OfferType;
   reviews: ReviewType[];
 }
 

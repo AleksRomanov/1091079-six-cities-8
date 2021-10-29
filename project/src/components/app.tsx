@@ -1,40 +1,31 @@
-import Main from './main/main';
-import Login from './login/login';
-import Favorites from './favorites/favorites';
-import CardProperty from './card-property/card-property';
+import Main from './pages/main';
+import Login from './pages/login';
+import Favorites from './pages/favorites';
+import Offer from './pages/offer';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {AppRoute, AuthorizationStat} from '../constants';
 import PrivateRoute from './private-route';
-import {OffersType} from '../types/offersType';
+import {OfferType} from '../types/offerType';
 import {ReviewType} from '../types/reviewType';
 import {City} from '../types/city';
-import MainPage404 from './main-page-404/main-page-404';
+import MainPage404 from './pages/main-page-404';
+import React from 'react';
 
 type AppProps = {
-  offers: OffersType[];
-  reviews: ReviewType[];
-  city: City;
+  offers: OfferType[],
+  reviews: ReviewType[],
+  city: City,
 }
 
 function App({offers, reviews, city}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path={AppRoute.Main} exact>
-          <Main offers={offers} city={city}/>
-        </Route>
-        <Route path={AppRoute.Login} exact>
-          <Login/>
-        </Route>
+        <Route path={AppRoute.Main} exact><Main offers={offers} city={city}/></Route>
+        <Route path={AppRoute.Offer} exact render={() => <Offer offer={offers[3]} offers={offers} reviews={reviews} city={city}/>}/>
+        <Route path={AppRoute.Login} exact><Login/></Route>
         <PrivateRoute path={AppRoute.Favorites} render={() => <Favorites offers={offers}/>} authorizationStat={AuthorizationStat.Auth}/>
-        <Route path={AppRoute.Offer} exact>
-          <CardProperty offer={offers[3]} offers={offers} reviews={reviews} city={city}/>
-        </Route>
-        <Route
-          render={(props) => (
-            <MainPage404/>
-          )}
-        />
+        <Route render={(props) => (<MainPage404/>)}/>
       </Switch>
     </BrowserRouter>
   );

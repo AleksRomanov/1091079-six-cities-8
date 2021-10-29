@@ -1,14 +1,15 @@
-import {OffersType} from '../../types/offersType';
+import {OfferType} from '../../types/offerType';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../constants';
+import {AppRoute, offerCardClasses} from '../../constants';
 
-type PlaceCardProps = {
-  offer: OffersType,
-  onCardSelect?: (offer: OffersType | null) => void,
-  onCardNotSelect?: (offer: OffersType | null) => void,
+type OfferCardProps = {
+  offer: OfferType,
+  isFavourite: boolean,
+  onCardSelect: (offer: OfferType) => void,
+  onCardNotSelect: () => void,
 }
 
-function PlaceCard({offer, onCardSelect, onCardNotSelect}: PlaceCardProps): JSX.Element {
+function OfferCard({offer, isFavourite, onCardSelect, onCardNotSelect}: OfferCardProps): JSX.Element {
   const {
     isPremium,
     previewImage,
@@ -20,30 +21,22 @@ function PlaceCard({offer, onCardSelect, onCardNotSelect}: PlaceCardProps): JSX.
     id,
   } = offer;
 
-  const handleMouseEnter = () => {
-    if (onCardSelect) {
-      onCardSelect(offer);
-    }
-  };
-  const handleMouseLeave = () => {
-    if (onCardNotSelect) {
-      onCardNotSelect(null);
-    }
-  };
+  const articleClass = isFavourite ? offerCardClasses.favoritesArticleClass : offerCardClasses.mainArticleClass;
+  const imageData = isFavourite ? offerCardClasses.favoritesImageData : offerCardClasses.mainImageData;
 
   return (
-    <article className="cities__place-card place-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <article className={articleClass} onMouseEnter={() => onCardSelect(offer)} onMouseLeave={() => onCardNotSelect()}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
       </div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={imageData.imageClass}>
         <Link to={`${AppRoute.OfferLink}${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place card"/>
+          <img className="place-card__image" src={previewImage} width={imageData.imageSizes.width} height={imageData.imageSizes.height} alt="Place card"/>
         </Link>
       </div>
       <div className="place-card__info">
-        <div className="place-card__price-wrapper">
+        <div className="place-card__price-wrapper" key={offer.key}>
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
@@ -57,12 +50,12 @@ function PlaceCard({offer, onCardSelect, onCardNotSelect}: PlaceCardProps): JSX.
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${rating}%`}}/>
+            <span style={{width: `${20 * Math.round(rating)}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Offer}>{title}</Link>
+          <Link to={AppRoute.OfferLink}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -70,4 +63,4 @@ function PlaceCard({offer, onCardSelect, onCardNotSelect}: PlaceCardProps): JSX.
   );
 }
 
-export default PlaceCard;
+export default OfferCard;

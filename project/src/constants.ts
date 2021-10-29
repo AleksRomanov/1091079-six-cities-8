@@ -1,4 +1,3 @@
-
 export const enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -13,7 +12,7 @@ export const enum AuthorizationStat {
   Unknown = 'UNKNOWN',
 }
 
-export const enum OfferType {
+export const enum OfferKinds {
   apartment = 'Apartment',
   hotel = 'Hotel',
   house = 'House',
@@ -28,3 +27,9 @@ export const URL_MARKER_DEFAULT =
 export const URL_MARKER_CURRENT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
 
+export const offerCardClasses = {
+  mainArticleClass: 'cities__place-card place-card',
+  mainImageData: {imageClass: 'cities__image-wrapper place-card__image-wrapper', imageSizes: {width: '260', height: '200'}},
+  favoritesArticleClass: 'favorites__card place-card',
+  favoritesImageData: {imageClass: 'favorites__image-wrapper place-card__image-wrapper', imageSizes: {width: '150', height: '110'}},
+};
