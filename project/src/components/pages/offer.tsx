@@ -6,7 +6,6 @@ import ReviewsList from '../reviews-list/reviews-list';
 import SubmitFormComment from '../submit-form-comment/submit-form-comment';
 import {City} from '../../types/city';
 import Map from '../map/map';
-import {nanoid} from 'nanoid';
 import {withHeader} from '../../hocks/withHeader';
 import {useParams} from 'react-router-dom';
 
@@ -43,7 +42,7 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
     return (
       <div className="property__gallery">
         {currenOffer && currenOffer.images.map((image) => (
-          <div className="property__image-wrapper" key={nanoid()}>
+          <div className="property__image-wrapper" key={offer.key}>
             <img className="property__image" src={image} alt=""/>
           </div>),
         )}
@@ -55,7 +54,7 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
     <main className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">
-          {renderImages}
+          {renderImages()}
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
