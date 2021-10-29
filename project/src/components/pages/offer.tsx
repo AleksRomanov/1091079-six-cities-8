@@ -9,7 +9,6 @@ import Map from '../map/map';
 import {withHeader} from '../../hocks/withHeader';
 import {useParams} from 'react-router-dom';
 import {nanoid} from 'nanoid';
-
 import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
 
 type CardPropertyProps = {
