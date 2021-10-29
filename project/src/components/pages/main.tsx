@@ -5,6 +5,7 @@ import {City} from '../../types/city';
 import LocationsList from '../locations-list/locations-list';
 import {withHeader} from '../../hocks/withHeader';
 import {useState} from 'react';
+import React from 'react';
 
 type MainPageProps = {
   offers: OfferType[];
@@ -47,7 +48,7 @@ function Main({offers, city}: MainPageProps): JSX.Element {
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map offers={offers} city={city} activeCard={activeCard} />
+              <Map offers={offers} city={city} activeCard={activeCard}/>
             </section>
           </div>
         </div>

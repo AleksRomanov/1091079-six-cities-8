@@ -1,4 +1,4 @@
-import {useMemo, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {OfferType} from '../../types/offerType';
 import {ReviewType} from '../../types/reviewType';
 import OffersList from '../offers-list/offers-list';
@@ -39,17 +39,23 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
 
   const placesInNearby = offers.slice(0, 3);
 
+  function renderImages() {
+    return (
+      <div className="property__gallery">
+        {currenOffer && currenOffer.images.map((image) => (
+          <div className="property__image-wrapper" key={nanoid()}>
+            <img className="property__image" src={image} alt=""/>
+          </div>),
+        )}
+      </div>
+    );
+  }
+
   return (
     <main className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">
-          <div className="property__gallery">
-            {currenOffer && currenOffer.images.map((image) => (
-              <div className="property__image-wrapper" key={nanoid()}>
-                <img className="property__image" src={image} alt=""/>
-              </div>),
-            )}
-          </div>
+          {renderImages}
         </div>
         <div className="property__container container">
           <div className="property__wrapper">

@@ -9,6 +9,7 @@ import {OfferType} from '../types/offerType';
 import {ReviewType} from '../types/reviewType';
 import {City} from '../types/city';
 import MainPage404 from './pages/main-page-404';
+import React from 'react';
 
 type AppProps = {
   offers: OfferType[],
