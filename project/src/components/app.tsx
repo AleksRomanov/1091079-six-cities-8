@@ -2,7 +2,6 @@ import Main from './pages/main';
 // import Login from './pages/login';
 // import Favorites from './pages/favorites';
 // import Offer from './pages/offer';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {AppRoute} from '../constants';
 // import {AppRoute, AuthorizationStat} from '../constants';
 // import PrivateRoute from './private-route';
@@ -11,7 +10,8 @@ import {AppRoute} from '../constants';
 // import {City} from '../types/city';
 // import MainPage404 from './pages/main-page-404';
 import React from 'react';
-import {offers} from '../mocks/offers';
+// import {offers} from '../mocks/offers';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 // type AppProps = {
 //   offers: OfferType[],
@@ -20,11 +20,13 @@ import {offers} from '../mocks/offers';
 // }
 
 function App(): JSX.Element {
+  // console.log('');
+  // console.log(props);
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Main}>
-          <Main offers={offers} currentCity='Paris'/>
+          <Main/>
         </Route>
         {/*<Route path={AppRoute.Offer} exact render={() => <Offer offer={offers[3]} offers={offers} reviews={reviews} city={city}/>}/>*/}
         {/*<Route path={AppRoute.Login} exact><Login/></Route>*/}

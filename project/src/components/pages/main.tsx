@@ -6,24 +6,21 @@
 // import {withHeader} from '../../hocks/withHeader';
 // import {useState} from 'react';
 import React from 'react';
-// import {ReactComponent as IconArrowSelect} from '../../static/icon-arrow-select.svg';
+import {ReactComponent as IconArrowSelect} from '../../static/icon-arrow-select.svg';
 import {connect, ConnectedProps} from 'react-redux';
 import {State} from '../../types/state';
 import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
+import {withHeader} from '../../hocks/withHeader';
+import LocationsList from '../locations-list/locations-list';
+// import OffersList from '../offers-list/offers-list';
+import {getOffersByCity, selectCity} from '../../store/action';
 
 // type MainPageProps = {
 //   offers: OfferType[];
 //   city: City;
 // }
 
-
-function mapStateToProps({offers, currentCity}: State) {
-  return ({
-    offers,
-    currentCity,
-  });
-}
 
 // const mapStateToProps = ({offers, currentCity}: State) => ({
 //   offers,
@@ -36,25 +33,35 @@ function mapStateToProps({offers, currentCity}: State) {
 // //   //   dispatch(checkUserAnswer(question, userAnswer));
 // //   // },
 // });
+
+function mapStateToProps({offers, currentCity}: State) {
+  return ({
+    offers,
+    currentCity,
+  });
+}
 function mapDispatchToProps(dispatch: Dispatch<Actions>) {
-  return {};
+  return {
+    onSelectCity(city: string) {
+      dispatch(selectCity(city));
+      dispatch(getOffersByCity())
+    },
+  };
 }
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-
 function Main(props: PropsFromRedux): JSX.Element {
-  // console.log(props.offers);
-  const {offers} = props;
-  // const [activeCard, setActiveCard] = useState<OfferType | null>(null);
+  const {offers, onSelectCity} = props;
+  console.log(onSelectCity);
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          {/*<LocationsList/>*/}
+          <LocationsList/>
         </section>
       </div>
       <div className="cities">
@@ -66,7 +73,7 @@ function Main(props: PropsFromRedux): JSX.Element {
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
                   Popular
-                {/*<IconArrowSelect/>*/}
+                <IconArrowSelect/>
               </span>
               <ul className="places__options places__options--custom places__options--opened">
                 <li className="places__option places__option--active" tabIndex={0}>Popular</li>
@@ -91,4 +98,5 @@ function Main(props: PropsFromRedux): JSX.Element {
 }
 
 // export default withHeader(Main);
-export default Main;
+// export withHeader(Main);
+export default connector(withHeader(Main));

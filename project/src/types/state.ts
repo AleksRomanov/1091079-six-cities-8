@@ -4,7 +4,7 @@ import {OfferType} from './offerType';
 type State = {
   currentCity: string,
   offers: OfferType[],
-  // offersByCity: OfferKinds[],
+  offersByCity: OfferType[],
 };
 
 export type {State};
