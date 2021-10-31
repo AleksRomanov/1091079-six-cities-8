@@ -5,16 +5,21 @@
 // import LocationsList from '../locations-list/locations-list';
 // import {withHeader} from '../../hocks/withHeader';
 // import {useState} from 'react';
-import React from 'react';
+import React, {Dispatch} from 'react';
 import {ReactComponent as IconArrowSelect} from '../../static/icon-arrow-select.svg';
 import {connect, ConnectedProps} from 'react-redux';
 import {State} from '../../types/state';
-import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
+// import {Dispatch} from 'redux';
+// import {Actions} from '../../types/action';
 import {withHeader} from '../../hocks/withHeader';
+import {Actions} from '../../types/action';
 import LocationsList from '../locations-list/locations-list';
+// import {OfferType} from '../../types/offerType';
+// import {City} from '../../types/city';
+// import LocationsList from '../locations-list/locations-list';
 // import OffersList from '../offers-list/offers-list';
-import {getOffersByCity, selectCity} from '../../store/action';
+// import {selectCity} from '../../store/action';
+// import {offers} from '../../mocks/offers';
 
 // type MainPageProps = {
 //   offers: OfferType[];
@@ -34,19 +39,23 @@ import {getOffersByCity, selectCity} from '../../store/action';
 // //   // },
 // });
 
+// function mapDispatchToProps(dispatch: Dispatch<Actions>) {
+//   return {
+//     onSelectCity(city: string) {
+//       dispatch(selectCity(city));
+//       // dispatch(getOffersByCity());
+//     },
+//   };
+// }
+
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+});
+
 function mapStateToProps({offers, currentCity}: State) {
   return ({
     offers,
     currentCity,
   });
-}
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
-  return {
-    onSelectCity(city: string) {
-      dispatch(selectCity(city));
-      dispatch(getOffersByCity())
-    },
-  };
 }
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -54,8 +63,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function Main(props: PropsFromRedux): JSX.Element {
-  const {offers, onSelectCity} = props;
-  console.log(onSelectCity);
+  const {offers} = props;
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>

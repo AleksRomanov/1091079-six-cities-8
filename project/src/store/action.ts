@@ -4,9 +4,9 @@ import {OfferType} from '../types/offerType';
 export const selectCity = (city: string): SelectCityAction => ({
   type: ActionType.SelectCity,
   payload: city,
-});
+} as const);
 
 export const getOffersByCity = (offers: OfferType[]): GetOffersByCityAction => ({
   type: ActionType.GetOffersByCity,
   payload: offers,
-});
+} as const);
