@@ -1,5 +1,5 @@
 type City = {
-  name: string,
+  city: string,
   latitude: number,
   longitude: number,
 }

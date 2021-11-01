@@ -19,9 +19,41 @@ export const enum OfferKinds {
   room = 'Private Room',
 }
 
-export const CitiesList = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+// export const CitiesList = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-// const DEFAULT_CITY = 'Paris';
+export const CitiesList = [
+  {
+    city: 'Paris',
+    latitude: 52.370216,
+    longitude: 4.895168,
+  },
+  {
+    city: 'Cologne',
+    latitude: 52.370216,
+    longitude: 4.895168,
+  },
+  {
+    city: 'Brussels',
+    latitude: 52.370216,
+    longitude: 4.895168,
+  },
+  {
+    city: 'Amsterdam',
+    latitude: 52.370216,
+    longitude: 4.895168,
+  },
+  {
+    city: 'Hamburg',
+    latitude: 52.370216,
+    longitude: 4.895168,
+  },
+  {
+    city: 'Dusseldorf',
+    latitude: 52.370216,
+    longitude: 4.895168,
+  },
+];
+
 
 export const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';

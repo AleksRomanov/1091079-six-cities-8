@@ -5,7 +5,7 @@ import {ReviewType} from '../../types/reviewType';
 import ReviewsList from '../reviews-list/reviews-list';
 import SubmitFormComment from '../submit-form-comment/submit-form-comment';
 import {City} from '../../types/city';
-import Map from '../map/map';
+// import Map from '../map/map';
 import {withHeader} from '../../hocks/withHeader';
 import {useParams} from 'react-router-dom';
 import {nanoid} from 'nanoid';
@@ -134,7 +134,7 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
           </div>
         </div>
         <section className="property__map map">
-          <Map offers={placesInNearby} city={city} activeCard={activeCard}/>
+          {/*<Map offers={placesInNearby} city={city} activeCard={activeCard}/>*/}
         </section>
       </section>
       <div className="container">

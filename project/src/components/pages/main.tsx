@@ -56,7 +56,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function Main(props: PropsFromRedux): JSX.Element {
   const {offersByCity, currentCity} = props;
-  // console.log(onSelectCity);
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -69,7 +68,7 @@ function Main(props: PropsFromRedux): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offersByCity && offersByCity.length} places to stay in {currentCity}</b>
+            <b className="places__found">{offersByCity && offersByCity.length} places to stay in {currentCity && currentCity.city}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
@@ -89,7 +88,7 @@ function Main(props: PropsFromRedux): JSX.Element {
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              {/*<Map offers={offers} city={city} activeCard={activeCard}/>*/}
+              {/*<Map />*/}
             </section>
           </div>
         </div>

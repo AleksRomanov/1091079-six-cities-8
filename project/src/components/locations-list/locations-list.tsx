@@ -7,6 +7,7 @@ import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
 import {getOffersByCity, selectCity} from '../../store/action';
+import {City} from '../../types/city';
 
 function mapStateToProps({offersByCity}: State) {
   return ({
@@ -16,6 +17,7 @@ function mapStateToProps({offersByCity}: State) {
 function mapDispatchToProps(dispatch: Dispatch<Actions>) {
   return {
     onSelectCity(city: string) {
+      // console.log(city);
       dispatch(selectCity(city));
       dispatch(getOffersByCity());
     },
@@ -41,10 +43,10 @@ function LocationsList(props: PropsFromRedux): JSX.Element {
   // }
   return (
     <ul className="locations__list tabs__list">
-      {CitiesList.map((city: string) => (
+      {CitiesList.map((city: City) => (
         <li className="locations__item" key={nanoid()}>
-          <Link onClick={() => onCityChoose(city)} to="#" className="locations__item-link tabs__item">
-            <span>{city}</span>
+          <Link onClick={() => onCityChoose(city.city)} to="#" className="locations__item-link tabs__item">
+            <span>{city.city}</span>
           </Link>
           {/*<Link onClick={onCityChoose} to="#" className="locations__item-link tabs__item">*/}
           {/*  <span>{city}</span>*/}
