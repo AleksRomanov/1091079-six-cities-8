@@ -16,7 +16,7 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case ActionType.SelectCity:
       return {...state, currentCity: action.payload};
     case ActionType.GetOffersByCity: {
-      return {...state, offersByCity: action.payload.filter((offer) => offer.cityName === state.currentCity)};
+      return {...state, offersByCity: state.offers.filter((offer) => offer.cityName === state.currentCity)};
     }
     default:
       return state;

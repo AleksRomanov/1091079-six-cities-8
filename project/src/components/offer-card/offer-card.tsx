@@ -5,11 +5,11 @@ import {AppRoute, offerCardClasses} from '../../constants';
 type OfferCardProps = {
   offer: OfferType,
   isFavourite: boolean,
-  onCardSelect: (offer: OfferType) => void,
-  onCardNotSelect: () => void,
+  // onCardSelect: (offer: OfferType) => void,
+  // onCardNotSelect: () => void,
 }
 
-function OfferCard({offer, isFavourite, onCardSelect, onCardNotSelect}: OfferCardProps): JSX.Element {
+function OfferCard({offer, isFavourite}: OfferCardProps): JSX.Element {
   const {
     isPremium,
     previewImage,
@@ -25,7 +25,8 @@ function OfferCard({offer, isFavourite, onCardSelect, onCardNotSelect}: OfferCar
   const imageData = isFavourite ? offerCardClasses.favoritesImageData : offerCardClasses.mainImageData;
 
   return (
-    <article className={articleClass} onMouseEnter={() => onCardSelect(offer)} onMouseLeave={() => onCardNotSelect()}>
+    // <article className={articleClass} onMouseEnter={() => onCardSelect(offer)} onMouseLeave={() => onCardNotSelect()}>
+    <article className={articleClass}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>

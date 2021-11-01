@@ -1,12 +1,12 @@
 import {ActionType, GetOffersByCityAction, SelectCityAction} from '../types/action';
-import {OfferType} from '../types/offerType';
+// import {OfferType} from '../types/offerType';
 
 export const selectCity = (city: string): SelectCityAction => ({
   type: ActionType.SelectCity,
   payload: city,
-} as const);
+});
 
-export const getOffersByCity = (offers: OfferType[]): GetOffersByCityAction => ({
+export const getOffersByCity = (): GetOffersByCityAction => ({
   type: ActionType.GetOffersByCity,
-  payload: offers,
-} as const);
+  // payload: offers,
+});

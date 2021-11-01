@@ -1,61 +1,54 @@
 import {Link} from 'react-router-dom';
 import {CitiesList} from '../../constants';
 import {nanoid} from 'nanoid';
-import {connect, ConnectedProps} from 'react-redux';
+import React from 'react';
+import {State} from '../../types/state';
 import {Dispatch} from 'redux';
-import {Actions, GetOffersByCityAction} from '../../types/action';
+import {Actions} from '../../types/action';
+import {connect, ConnectedProps} from 'react-redux';
 import {getOffersByCity, selectCity} from '../../store/action';
-import {EventType} from '@testing-library/react';
-// import {selectCity} from '../../store/action';
-// import {connect} from 'react-redux';
 
-// type locProps = {
-//   onSelectCity: (city: string) => void;
-// }
-
-type CityListProps = {
-  // cityList: City[],
-  selectCity: string,
-  setSelectedCity: (city: string) => void,
+function mapStateToProps({offersByCity}: State) {
+  return ({
+    offersByCity,
+  });
 }
-
 function mapDispatchToProps(dispatch: Dispatch<Actions>) {
   return {
-    onSelectCity(evt: MouseEvent, city: string) {
-      evt.preventDefault();
-      const newCity = evt.currentTarget.textContent;
-      if (newCity && newCity !== city) {
-        dispatch(selectCity(newCity));
-        dispatch(getOffersByCity());
-      }
-      // dispatch(selectCity(city));
-      // dispatch(getOffersByCity());
+    onSelectCity(city: string) {
+      dispatch(selectCity(city));
+      dispatch(getOffersByCity());
     },
   };
 }
 
-const connector = connect(null, mapDispatchToProps);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-// type ConnectedComponentProps = PropsFromRedux & CityItemProps;
+function LocationsList(props: PropsFromRedux): JSX.Element {
+  const {onSelectCity} = props;
+  const onCityChoose = (city: string) => {
+    // e.preventDefault();
+    onSelectCity(city);
+    // console.log(offersByCity);
+    // console.log(offers);
+  };
 
-function LocationsList({selectCity}: CityListProps): JSX.Element {
-  // type evtType = {
-  //   target: JSX.Element
+  // function onCityChoose(event: MouseEvent<HTMLLinkElement>) {
+  //   event.preventDefault();
+  //   console.log(event);
   // }
-  function chooseCity({click}: EventType): void {
-    console.log(target);
-  }
-
   return (
     <ul className="locations__list tabs__list">
       {CitiesList.map((city: string) => (
         <li className="locations__item" key={nanoid()}>
-          <Link onClick={() => {
-            selectCity(city.name)
-          }} to="#" className="locations__item-link tabs__item">
+          <Link onClick={() => onCityChoose(city)} to="#" className="locations__item-link tabs__item">
             <span>{city}</span>
           </Link>
+          {/*<Link onClick={onCityChoose} to="#" className="locations__item-link tabs__item">*/}
+          {/*  <span>{city}</span>*/}
+          {/*</Link>*/}
         </li>
       ))}
     </ul>

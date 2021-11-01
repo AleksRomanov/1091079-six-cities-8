@@ -1,7 +1,7 @@
 import React, {useMemo, useState} from 'react';
 import {OfferType} from '../../types/offerType';
 import {ReviewType} from '../../types/reviewType';
-import OffersList from '../offers-list/offers-list';
+// import OffersList from '../offers-list/offers-list';
 import ReviewsList from '../reviews-list/reviews-list';
 import SubmitFormComment from '../submit-form-comment/submit-form-comment';
 import {City} from '../../types/city';
@@ -141,7 +141,7 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            <OffersList offers={placesInNearby} isFavourite={false} setActiveCard={setActiveCard}/>
+            {/*<OffersList offers={placesInNearby} isFavourite={false} setActiveCard={setActiveCard}/>*/}
           </div>
         </section>
       </div>
