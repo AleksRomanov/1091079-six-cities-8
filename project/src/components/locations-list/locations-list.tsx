@@ -17,7 +17,6 @@ function mapStateToProps({offersByCity}: State) {
 function mapDispatchToProps(dispatch: Dispatch<Actions>) {
   return {
     onSelectCity(city: string) {
-      // console.log(city);
       dispatch(selectCity(city));
       dispatch(getOffersByCity());
     },
@@ -31,7 +30,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 function LocationsList(props: PropsFromRedux): JSX.Element {
   const {onSelectCity} = props;
   const onCityChoose = (city: string) => {
-    // e.preventDefault();
     onSelectCity(city);
     // console.log(offersByCity);
     // console.log(offers);
