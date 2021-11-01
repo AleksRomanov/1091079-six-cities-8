@@ -10,27 +10,22 @@ import {AppRoute} from '../constants';
 // import {City} from '../types/city';
 // import MainPage404 from './pages/main-page-404';
 import React from 'react';
-// import {offers} from '../mocks/offers';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-
-// type AppProps = {
-//   offers: OfferType[],
-//   reviews: ReviewType[],
-//   city: City,
-// }
+import PrivateRoute from './private-route';
+import Favorites from './pages/favorites';
+import Login from './pages/login';
+// import Offer from './pages/offer';
 
 function App(): JSX.Element {
-  // console.log('');
-  // console.log(props);
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Main}>
           <Main/>
         </Route>
-        {/*<Route path={AppRoute.Offer} exact render={() => <Offer offer={offers[3]} offers={offers} reviews={reviews} city={city}/>}/>*/}
-        {/*<Route path={AppRoute.Login} exact><Login/></Route>*/}
-        {/*<PrivateRoute path={AppRoute.Favorites} render={() => <Favorites offers={offers}/>} authorizationStat={AuthorizationStat.Auth}/>*/}
+        {/*<Route path={AppRoute.Offer} exact render={() => <Offer />}/>*/}
+        <Route path={AppRoute.Login} exact><Login/></Route>
+        <PrivateRoute path={AppRoute.Favorites} render={() => <Favorites />} />
         {/*<Route render={(props) => (<MainPage404/>)}/>*/}
       </Switch>
     </BrowserRouter>

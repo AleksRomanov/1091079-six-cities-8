@@ -3,7 +3,7 @@ import {Actions, ActionType} from '../types/action';
 import {State} from '../types/state';
 import {offers} from '../mocks/offers';
 // import {CitiesList, OfferKinds} from '../constants';
-import {CitiesList} from '../constants';
+import {authorizationStatuses, CitiesList} from '../constants';
 // import {city} from '../mocks/city';
 
 const initialState = {
@@ -12,6 +12,7 @@ const initialState = {
   citiesList: CitiesList,
   currentOffer: null,
   offersByCity: offers.filter((offer) => offer.cityName === CitiesList[0].city),
+  authorizationStatus: authorizationStatuses.Auth,
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -20,6 +21,11 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {...state, currentCity: state.citiesList.find((city) => city.city === action.payload)};
     case ActionType.GetOffersByCity: {
       return {...state, offersByCity: state.offers.filter((offer) => state.currentCity && offer.cityName === state.currentCity.city)};
+    }
+    case ActionType.SetActiveCity: {
+      console.log(action.payload);
+      return {...state};
+      // return {...state, currentOffer: action.payload};
     }
     default:
       return state;

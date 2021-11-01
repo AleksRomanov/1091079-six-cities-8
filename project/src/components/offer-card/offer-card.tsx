@@ -1,6 +1,29 @@
 import {OfferType} from '../../types/offerType';
 import {Link} from 'react-router-dom';
 import {AppRoute, offerCardClasses} from '../../constants';
+import {State} from '../../types/state';
+import {Dispatch} from 'redux';
+import {Actions} from '../../types/action';
+import {connect, ConnectedProps} from 'react-redux';
+import {rewriteActiveCity} from '../../store/action';
+
+function mapStateToProps({offersByCity, offers}: State) {
+  return ({
+    offersByCity,
+    offers,
+  });
+}
+function mapDispatchToProps(dispatch: Dispatch<Actions>) {
+  return {
+    setActiveCity(city: OfferType) {
+      dispatch(rewriteActiveCity(city));
+    },
+  };
+}
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type OfferCardProps = {
   offer: OfferType,
@@ -9,7 +32,7 @@ type OfferCardProps = {
   // onCardNotSelect: () => void,
 }
 
-function OfferCard({offer, isFavourite}: OfferCardProps): JSX.Element {
+function OfferCard({offer, isFavourite, setActiveCity}: OfferCardProps & PropsFromRedux): JSX.Element {
   const {
     isPremium,
     previewImage,
@@ -21,12 +44,25 @@ function OfferCard({offer, isFavourite}: OfferCardProps): JSX.Element {
     id,
   } = offer;
 
+  const onCardSelect = (): void => {
+    console.log(offer);
+    setActiveCity(offer);
+    // if (setActiveCard) {
+    //   setActiveCard(offer);
+    // }
+  };
+  // const handleNotActiveSelectOffer = (): void => {
+  //   if (setActiveCard) {
+  //     setActiveCard(null);
+  //   }
+  // };
+
   const articleClass = isFavourite ? offerCardClasses.favoritesArticleClass : offerCardClasses.mainArticleClass;
   const imageData = isFavourite ? offerCardClasses.favoritesImageData : offerCardClasses.mainImageData;
 
   return (
     // <article className={articleClass} onMouseEnter={() => onCardSelect(offer)} onMouseLeave={() => onCardNotSelect()}>
-    <article className={articleClass}>
+    <article className={articleClass} onMouseEnter={() => onCardSelect()}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
@@ -64,4 +100,4 @@ function OfferCard({offer, isFavourite}: OfferCardProps): JSX.Element {
   );
 }
 
-export default OfferCard;
+export default connector(OfferCard);

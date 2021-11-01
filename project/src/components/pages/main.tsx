@@ -1,6 +1,6 @@
 // import OffersList from '../offers-list/offers-list';
 // import {OfferType} from '../../types/offerType';
-// import Map from '../map/map';
+import Map from '../map/map';
 // import {City} from '../../types/city';
 // import LocationsList from '../locations-list/locations-list';
 // import {withHeader} from '../../hocks/withHeader';
@@ -41,6 +41,7 @@ function mapStateToProps({offersByCity, currentCity}: State) {
     currentCity,
   });
 }
+
 function mapDispatchToProps(dispatch: Dispatch<Actions>) {
   return {
     // onSelectCity(city: string) {
@@ -88,7 +89,7 @@ function Main(props: PropsFromRedux): JSX.Element {
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              {/*<Map />*/}
+              <Map/>
             </section>
           </div>
         </div>
@@ -97,6 +98,5 @@ function Main(props: PropsFromRedux): JSX.Element {
   );
 }
 
-// export default withHeader(Main);
-// export withHeader(Main);
+export {Main};
 export default connector(withHeader(Main));

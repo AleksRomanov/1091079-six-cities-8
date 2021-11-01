@@ -1,8 +1,9 @@
-// import {OfferType} from './offerType';
+import {OfferType} from './offerType';
 
 export enum ActionType {
   SelectCity = 'selectCity',
   GetOffersByCity = 'getOffersByCity',
+  SetActiveCity = 'setActiveCity',
 }
 
 export type SelectCityAction = {
@@ -15,4 +16,9 @@ export type GetOffersByCityAction = {
   // payload: OfferType[],
 };
 
-export type Actions = SelectCityAction | GetOffersByCityAction;
+export type RewriteActiveCityAction = {
+  type: ActionType.SetActiveCity;
+  payload: OfferType,
+};
+
+export type Actions = SelectCityAction | GetOffersByCityAction | RewriteActiveCityAction;

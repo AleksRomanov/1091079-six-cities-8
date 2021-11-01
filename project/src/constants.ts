@@ -6,7 +6,7 @@ export const enum AppRoute {
   OfferLink = '/offer/',
 }
 
-export const enum AuthorizationStat {
+export const enum authorizationStatuses {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',

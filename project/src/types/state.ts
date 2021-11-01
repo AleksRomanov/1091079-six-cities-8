@@ -1,5 +1,6 @@
 import {OfferType} from './offerType';
 import {City} from './city';
+import {authorizationStatuses} from '../constants';
 // import {OfferKinds} from '../constants';
 
 type State = {
@@ -8,6 +9,7 @@ type State = {
   offers: OfferType[],
   offersByCity: OfferType[],
   currentOffer: OfferType | null,
+  authorizationStatus: authorizationStatuses,
 };
 
 export type {State};

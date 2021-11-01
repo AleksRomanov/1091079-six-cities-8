@@ -1,5 +1,5 @@
-import {ActionType, GetOffersByCityAction, SelectCityAction} from '../types/action';
-// import {OfferType} from '../types/offerType';
+import {ActionType, GetOffersByCityAction, RewriteActiveCityAction, SelectCityAction} from '../types/action';
+import {OfferType} from '../types/offerType';
 
 export const selectCity = (city: string): SelectCityAction => ({
   type: ActionType.SelectCity,
@@ -9,4 +9,10 @@ export const selectCity = (city: string): SelectCityAction => ({
 export const getOffersByCity = (): GetOffersByCityAction => ({
   type: ActionType.GetOffersByCity,
   // payload: offers,
+});
+
+
+export const rewriteActiveCity = (activeCity: OfferType): RewriteActiveCityAction => ({
+  type: ActionType.SetActiveCity,
+  payload: activeCity,
 });

@@ -12,9 +12,10 @@ import {connect, ConnectedProps} from 'react-redux';
 //   // setActiveCard?: (offer: OfferType | null) => void,
 // }
 
-function mapStateToProps({offersByCity}: State) {
+function mapStateToProps({offersByCity, offers}: State) {
   return ({
     offersByCity,
+    offers,
   });
 }
 function mapDispatchToProps(dispatch: Dispatch<Actions>) {
@@ -35,20 +36,14 @@ type OfferListProps = {
 }
 
 function OffersList(props: PropsFromRedux & OfferListProps): JSX.Element {
-  // const handleActiveSelectOffer = (offer: OfferType): void => {
-  //   if (setActiveCard) {
-  //     setActiveCard(offer);
-  //   }
-  // };
-  // const handleNotActiveSelectOffer = (): void => {
-  //   if (setActiveCard) {
-  //     setActiveCard(null);
-  //   }
-  // };
-  const {offersByCity, isFavourite} = props;
+
+  const {offersByCity, isFavourite, offers} = props;
+
+  const fetchedOffers = isFavourite ? offers.filter((offer) => offer.isFavorite) : offersByCity;
+
   return (
     <>
-      {offersByCity.map((offer) => (
+      {fetchedOffers.map((offer) => (
         <OfferCard
           offer={offer}
           key={offer.id}
