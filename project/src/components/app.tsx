@@ -1,7 +1,7 @@
 import Main from './pages/main';
 // import Login from './pages/login';
 // import Favorites from './pages/favorites';
-// import Offer from './pages/offer';
+import Offer from './pages/offer';
 import {AppRoute} from '../constants';
 // import {AppRoute, AuthorizationStat} from '../constants';
 // import PrivateRoute from './private-route';
@@ -14,6 +14,8 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import PrivateRoute from './private-route';
 import Favorites from './pages/favorites';
 import Login from './pages/login';
+// import Offer from './offer-card/offer-card';
+
 // import Offer from './pages/offer';
 
 function App(): JSX.Element {
@@ -23,9 +25,9 @@ function App(): JSX.Element {
         <Route exact path={AppRoute.Main}>
           <Main/>
         </Route>
-        {/*<Route path={AppRoute.Offer} exact render={() => <Offer />}/>*/}
+        <Route path={AppRoute.Offer} exact render={() => <Offer/>}/>
         <Route path={AppRoute.Login} exact><Login/></Route>
-        <PrivateRoute path={AppRoute.Favorites} render={() => <Favorites />} />
+        <PrivateRoute path={AppRoute.Favorites} render={() => <Favorites/>}/>
         {/*<Route render={(props) => (<MainPage404/>)}/>*/}
       </Switch>
     </BrowserRouter>

@@ -39,14 +39,14 @@ function OffersList(props: PropsFromRedux & OfferListProps): JSX.Element {
 
   const {offersByCity, isFavourite, offers} = props;
 
-  const fetchedOffers = isFavourite ? offers.filter((offer) => offer.isFavorite) : offersByCity;
+  const fetchedOffers = isFavourite ? offers.filter((offer) => offer.isFavourite) : offersByCity;
 
   return (
     <>
       {fetchedOffers.map((offer) => (
         <OfferCard
           offer={offer}
-          key={offer.id}
+          key={offer.key}
           isFavourite={isFavourite}
           // onCardSelect={handleActiveSelectOffer}
           // onCardNotSelect={handleNotActiveSelectOffer}

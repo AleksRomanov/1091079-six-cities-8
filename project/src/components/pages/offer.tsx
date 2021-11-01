@@ -1,50 +1,79 @@
-import React, {useMemo, useState} from 'react';
-import {OfferType} from '../../types/offerType';
-import {ReviewType} from '../../types/reviewType';
+import React, {useMemo} from 'react';
+// import {OfferType} from '../../types/offerType';
+// import {ReviewType} from '../../types/reviewType';
 // import OffersList from '../offers-list/offers-list';
-import ReviewsList from '../reviews-list/reviews-list';
-import SubmitFormComment from '../submit-form-comment/submit-form-comment';
-import {City} from '../../types/city';
-// import Map from '../map/map';
+// import ReviewsList from '../reviews-list/reviews-list';
+// import SubmitFormComment from '../submit-form-comment/submit-form-comment';
+// import {City} from '../../types/city';
+import Map from '../map/map';
 import {withHeader} from '../../hocks/withHeader';
-import {useParams} from 'react-router-dom';
-import {nanoid} from 'nanoid';
+// import {useParams} from 'react-router-dom';
+// import {nanoid} from 'nanoid';
 import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
+import {State} from '../../types/state';
+import {Dispatch} from 'redux';
+import {Actions} from '../../types/action';
+// import {getOffersByCity, selectCity} from '../../store/action';
+import {connect, ConnectedProps} from 'react-redux';
+import {offers} from '../../mocks/offers';
+// import {getOffersByCity} from '../../store/action';
+import {useParams} from 'react-router-dom';
+// import OfferCard from '../offer-card/offer-card';
 
-type CardPropertyProps = {
-  offer: OfferType,
-  offers: OfferType[],
-  reviews: ReviewType[],
-  city: City,
+function mapStateToProps({offersByCity, currentOffer}: State) {
+  return ({
+    offersByCity,
+    currentOffer,
+  });
+}
+
+function mapDispatchToProps(dispatch: Dispatch<Actions>) {
+  return {
+    // onSelectCity(city: string) {
+    //   dispatch(selectCity(city));
+    //   dispatch(getOffersByCity());
+    // },
+  };
+}
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type OfferCardProps = {
+  // offer: OfferType,
+  // offers: OfferType[],
+  // reviews: ReviewType[],
+  // city: City,
 }
 type offerId = {
   id: string,
 }
-
-function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
+// function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
+function Offer(props: PropsFromRedux & OfferCardProps): JSX.Element {
   const {id}: offerId = useParams();
   const currenOffer = useMemo(() => offers.find((offerItem) => offerItem.id.toString() === id), [offers, id]);
-  const [activeCard, setActiveCard] = useState<OfferType | null>(null);
-  const [, setCommentValueStar] = useState<string | null>(null);
-  const [, setCommentValueText] = useState<string | null>(null);
-  const handleSelectStarRating = (value: string): void => {
-    setCommentValueStar(value);
-  };
-  const handleInputCommentText = (value: string): void => {
-    setCommentValueText(value);
-  };
 
-  const {
-    rating,
-  } = offer;
+  // const currenOffer = useMemo(() => offer.find((offerItem) => offerItem.id.toString() === id), [offers, id]);
+  // const [activeCard, setActiveCard] = useState<OfferType | null>(null);
+  // const [, setCommentValueStar] = useState<string | null>(null);
+  // const [, setCommentValueText] = useState<string | null>(null);
+  // const handleSelectStarRating = (value: string): void => {
+  //   setCommentValueStar(value);
+  // };
+  // const handleInputCommentText = (value: string): void => {
+  //   setCommentValueText(value);
+  // };
 
-  const placesInNearby = offers.slice(0, 3);
+  // const {
+  //   rating,
+  // } = offer;
+
+  // const placesInNearby = offers.slice(0, 3);
 
   function RenderImages() {
     return (
       <div className="property__gallery">
         {currenOffer && currenOffer.images.map((image) => (
-          <div className="property__image-wrapper" key={nanoid()}>
+          <div className="property__image-wrapper" key={id}>
             <img className="property__image" src={image} alt=""/>
           </div>))}
       </div>
@@ -67,14 +96,14 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
               <h1 className="property__name">
                 {currenOffer && currenOffer.title}`
               </h1>
-              <button className={`property__bookmark-button button ${currenOffer && currenOffer.isFavorite ? 'property__bookmark-button--active' : null}`} type="button">
+              <button className={`property__bookmark-button button ${currenOffer && currenOffer.isFavourite ? 'property__bookmark-button--active' : null}`} type="button">
                 <IconBookmark/>
                 <span className="visually-hidden">To bookmarks</span>
               </button>
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{width: `${Math.round(20 * rating)}%`}}/>
+                {/*<span style={{width: `${Math.round(20 * rating)}%`}}/>*/}
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="property__rating-value rating__value">{currenOffer && currenOffer.rating}</span>
@@ -124,17 +153,17 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
             <section className="property__reviews reviews">
               <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
               <ul className="reviews__list">
-                <ReviewsList reviews={reviews} offer={offer}/>
+                {/*<ReviewsList reviews={reviews} offer={offer}/>*/}
               </ul>
-              <SubmitFormComment
-                handleSelectStarRating={handleSelectStarRating}
-                handleInputCommentText={handleInputCommentText}
-              />
+              {/*<SubmitFormComment*/}
+              {/*  handleSelectStarRating={handleSelectStarRating}*/}
+              {/*  handleInputCommentText={handleInputCommentText}*/}
+              {/*/>*/}
             </section>
           </div>
         </div>
         <section className="property__map map">
-          {/*<Map offers={placesInNearby} city={city} activeCard={activeCard}/>*/}
+          <Map/>
         </section>
       </section>
       <div className="container">
@@ -149,4 +178,5 @@ function Offer({offer, offers, reviews, city}: CardPropertyProps): JSX.Element {
   );
 }
 
-export default withHeader(Offer);
+// export default connector(withHeader(Offer));
+export default connector(withHeader(Offer));

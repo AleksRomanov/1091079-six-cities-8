@@ -26,7 +26,7 @@ const offers: OfferType[] = [
     hostId: 1,
     hostName: 'Max',
     id: 11111,
-    isFavorite: true,
+    isFavourite: true,
     key: 11,
   },
   {
@@ -53,7 +53,7 @@ const offers: OfferType[] = [
     hostId: 2,
     hostName: 'Angelina',
     id: 22222,
-    isFavorite: true,
+    isFavourite: true,
     key: 22,
   },
   {
@@ -80,7 +80,7 @@ const offers: OfferType[] = [
     hostId: 3,
     hostName: 'Max',
     id: 33333,
-    isFavorite: false,
+    isFavourite: false,
     key: 33,
   },
   {
@@ -107,7 +107,7 @@ const offers: OfferType[] = [
     hostId: 4,
     hostName: 'Angelina',
     id: 44444,
-    isFavorite: true,
+    isFavourite: true,
     key: 44,
   },
 ];

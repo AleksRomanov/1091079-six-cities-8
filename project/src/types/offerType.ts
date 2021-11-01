@@ -22,7 +22,7 @@ type OfferType = {
   hostId: number,
   hostName: string,
   id: number,
-  isFavorite: boolean,
+  isFavourite: boolean,
   key: number
 };
 
