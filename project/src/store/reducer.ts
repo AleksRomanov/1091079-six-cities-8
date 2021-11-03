@@ -4,6 +4,7 @@ import {State} from '../types/state';
 import {offers} from '../mocks/offers';
 // import {CitiesList, OfferKinds} from '../constants';
 import {authorizationStatuses, CitiesList} from '../constants';
+import {reviews} from '../mocks/reviews';
 // import {city} from '../mocks/city';
 
 const initialState = {
@@ -13,6 +14,9 @@ const initialState = {
   currentOffer: null,
   offersByCity: offers.filter((offer) => offer.cityName === CitiesList[0].city),
   authorizationStatus: authorizationStatuses.Auth,
+  reviews: reviews,
+  offerStarRating: 0,
+  commentValueText: '',
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -23,9 +27,13 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {...state, offersByCity: state.offers.filter((offer) => state.currentCity && offer.cityName === state.currentCity.city)};
     }
     case ActionType.SetActiveCity: {
-      console.log(action.payload);
-      return {...state};
-      // return {...state, currentOffer: action.payload};
+      return {...state, currentOffer: action.payload};
+    }
+    case ActionType.SelectStarRating: {
+      return {...state, offerStarRating: action.payload};
+    }
+    case ActionType.SetCommentValueText: {
+      return {...state, commentValueText: action.payload};
     }
     default:
       return state;

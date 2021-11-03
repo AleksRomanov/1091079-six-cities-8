@@ -10,10 +10,11 @@ import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
 // import {getOffersByCity, selectCity} from '../../store/action';
 import {connect, ConnectedProps} from 'react-redux';
+// import {OfferType} from '../../types/offerType';
 
 // type MapProps = {
-//   offers: OfferType[],
-//   city: City,
+//   // offers: OfferType[],
+//   // city: City,
 //   activeCard: OfferType | null,
 // };
 

@@ -1,50 +1,57 @@
-type SubmitFormCommentProps = {
-  handleSelectStarRating: (value: string) => void,
-  handleInputCommentText: (value: string) => void,
+import {State} from '../../types/state';
+import {connect, ConnectedProps} from 'react-redux';
+import {Dispatch} from 'redux';
+import {Actions} from '../../types/action';
+import {selectStarRating, setCommentValueText} from '../../store/action';
+import {ReactComponent as IconStar} from '../../static/icon-star.svg';
+
+// type SubmitFormCommentProps = {
+//   handleSelectStarRating: (value: string) => void,
+//   handleInputCommentText: (value: string) => void,
+// }
+
+function mapStateToProps({commentValueText}: State) {
+  return ({
+    commentValueText,
+  });
 }
 
-function SubmitFormComment({handleSelectStarRating, handleInputCommentText}: SubmitFormCommentProps): JSX.Element {
+function mapDispatchToProps(dispatch: Dispatch<Actions>) {
+  return {
+    handleSelectStarRating(ratingValue: string) {
+      dispatch(selectStarRating(parseFloat(ratingValue)));
+    },
+    handleInputCommentText(commentTextValue: string) {
+      dispatch(setCommentValueText(commentTextValue));
+    },
+  };
+}
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function SubmitFormComment({handleSelectStarRating, handleInputCommentText, commentValueText}: PropsFromRedux): JSX.Element {
+  function RatingPanel() {
+    const panelMarkup = [];
+    for (let i = 5; i >= 1; i--) {
+      panelMarkup.push(
+        <>
+          <input className="form__rating-input visually-hidden" name="rating" value={i} id={`${i}-stars`} type="radio" onChange={(evt) => handleSelectStarRating(evt.target.value)}/>
+          <label htmlFor={`${i}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
+            <IconStar/>
+          </label>
+        </>);
+    }
+    return panelMarkup;
+  }
+
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" onChange={(evt) => handleSelectStarRating(evt.target.value)}/>
-        <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"/>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio" onChange={(evt) => handleSelectStarRating(evt.target.value)}/>
-        <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"/>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio" onChange={(evt) => handleSelectStarRating(evt.target.value)}/>
-        <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"/>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio" onChange={(evt) => handleSelectStarRating(evt.target.value)}/>
-        <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"/>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio" onChange={(evt) => handleSelectStarRating(evt.target.value)}/>
-        <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"/>
-          </svg>
-        </label>
+        {RatingPanel()}
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={(evt) => handleInputCommentText(evt.target.value)}>
-      </textarea>
+      <textarea className="reviews__textarea form__textarea" value={commentValueText} id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={(evt) => handleInputCommentText(evt.target.value)} />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
@@ -55,4 +62,4 @@ function SubmitFormComment({handleSelectStarRating, handleInputCommentText}: Sub
   );
 }
 
-export default SubmitFormComment;
+export default connector(SubmitFormComment);

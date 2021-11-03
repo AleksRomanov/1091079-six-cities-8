@@ -1,16 +1,8 @@
 import OfferCard from '../offer-card/offer-card';
-// import {OfferType} from '../../types/offerType';
 import {State} from '../../types/state';
-import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
-// import {getOffersByCity, selectCity} from '../../store/action';
 import {connect, ConnectedProps} from 'react-redux';
-
-// type OffersListProps = {
-//   // offers: OfferType[];
-//   isFavourite: boolean,
-//   // setActiveCard?: (offer: OfferType | null) => void,
-// }
+import {useRouteMatch} from 'react-router-dom';
+import {OfferType} from '../../types/offerType';
 
 function mapStateToProps({offersByCity, offers}: State) {
   return ({
@@ -18,38 +10,29 @@ function mapStateToProps({offersByCity, offers}: State) {
     offers,
   });
 }
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
-  return {
-    // onSelectCity(city: string) {
-    //   dispatch(selectCity(city));
-    //   dispatch(getOffersByCity());
-    //   // dispatch(getOffersByCity())
-    // },
-  };
-}
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps, {});
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type OfferListProps = {
   isFavourite: boolean,
+  currentOffer?: OfferType,
 }
 
-function OffersList(props: PropsFromRedux & OfferListProps): JSX.Element {
-
-  const {offersByCity, isFavourite, offers} = props;
-
-  const fetchedOffers = isFavourite ? offers.filter((offer) => offer.isFavourite) : offersByCity;
-
+function OffersList({offersByCity, isFavourite, offers, currentOffer}: PropsFromRedux & OfferListProps): JSX.Element {
+  let fetchedOffers = isFavourite ? offers.filter((offer) => offer.isFavourite) : offersByCity;
+  const isOfferPage = useRouteMatch('/offer/:id');
+  if (isOfferPage && currentOffer) {
+    fetchedOffers = offers.filter((offer) => offer.cityName === currentOffer.cityName);
+    fetchedOffers = fetchedOffers.slice(0, 3);
+  }
   return (
     <>
       {fetchedOffers.map((offer) => (
         <OfferCard
           offer={offer}
-          key={offer.key}
+          key={offer.id}
           isFavourite={isFavourite}
-          // onCardSelect={handleActiveSelectOffer}
-          // onCardNotSelect={handleNotActiveSelectOffer}
         />
       ))}
     </>

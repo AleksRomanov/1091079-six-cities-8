@@ -13,56 +13,43 @@ function mapStateToProps({offersByCity, offers}: State) {
     offers,
   });
 }
+
 function mapDispatchToProps(dispatch: Dispatch<Actions>) {
   return {
-    setActiveCity(city: OfferType) {
+    setActiveCity(city: OfferType | null) {
       dispatch(rewriteActiveCity(city));
     },
   };
 }
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-
 type PropsFromRedux = ConnectedProps<typeof connector>;
-
 type OfferCardProps = {
   offer: OfferType,
   isFavourite: boolean,
-  // onCardSelect: (offer: OfferType) => void,
-  // onCardNotSelect: () => void,
 }
 
-function OfferCard({offer, isFavourite, setActiveCity}: OfferCardProps & PropsFromRedux): JSX.Element {
+function OfferCard({offer, isFavourite, setActiveCity}: PropsFromRedux & OfferCardProps): JSX.Element {
   const {
     isPremium,
     previewImage,
     price,
-    // isFavourite,
     rating,
     title,
     type,
     id,
   } = offer;
 
-  const onCardSelect = (): void => {
-    console.log(offer);
-    setActiveCity(offer);
-    // if (setActiveCard) {
-    //   setActiveCard(offer);
-    // }
+  const onCardSelect = (offerItem: OfferType | null): void => {
+    setActiveCity(offerItem);
   };
-  // const handleNotActiveSelectOffer = (): void => {
-  //   if (setActiveCard) {
-  //     setActiveCard(null);
-  //   }
-  // };
 
   const articleClass = isFavourite ? offerCardClasses.favoritesArticleClass : offerCardClasses.mainArticleClass;
   const imageData = isFavourite ? offerCardClasses.favoritesImageData : offerCardClasses.mainImageData;
 
   return (
     // <article className={articleClass} onMouseEnter={() => onCardSelect(offer)} onMouseLeave={() => onCardNotSelect()}>
-    <article className={articleClass} onMouseEnter={() => onCardSelect()}>
+    <article className={articleClass} onMouseEnter={() => onCardSelect(offer)} onMouseLeave={() => onCardSelect(null)}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>

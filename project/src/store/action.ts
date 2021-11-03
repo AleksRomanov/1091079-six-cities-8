@@ -1,4 +1,4 @@
-import {ActionType, GetOffersByCityAction, RewriteActiveCityAction, SelectCityAction} from '../types/action';
+import {ActionType, GetOffersByCityAction, RewriteActiveCityAction, SelectCityAction, SelectStarRating, SetCommentValueText} from '../types/action';
 import {OfferType} from '../types/offerType';
 
 export const selectCity = (city: string): SelectCityAction => ({
@@ -8,11 +8,20 @@ export const selectCity = (city: string): SelectCityAction => ({
 
 export const getOffersByCity = (): GetOffersByCityAction => ({
   type: ActionType.GetOffersByCity,
-  // payload: offers,
 });
 
 
-export const rewriteActiveCity = (activeCity: OfferType): RewriteActiveCityAction => ({
+export const rewriteActiveCity = (activeCity: OfferType | null): RewriteActiveCityAction => ({
   type: ActionType.SetActiveCity,
   payload: activeCity,
+});
+
+export const selectStarRating = (ratingValue: number): SelectStarRating => ({
+  type: ActionType.SelectStarRating,
+  payload: ratingValue,
+});
+
+export const setCommentValueText = (commentTextValue: string): SetCommentValueText => ({
+  type: ActionType.SetCommentValueText,
+  payload: commentTextValue,
 });

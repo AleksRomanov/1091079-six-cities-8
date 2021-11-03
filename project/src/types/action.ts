@@ -4,6 +4,8 @@ export enum ActionType {
   SelectCity = 'selectCity',
   GetOffersByCity = 'getOffersByCity',
   SetActiveCity = 'setActiveCity',
+  SelectStarRating = 'selectStarRating',
+  SetCommentValueText = 'setCommentValueText',
 }
 
 export type SelectCityAction = {
@@ -18,7 +20,17 @@ export type GetOffersByCityAction = {
 
 export type RewriteActiveCityAction = {
   type: ActionType.SetActiveCity;
-  payload: OfferType,
+  payload: OfferType | null,
 };
 
-export type Actions = SelectCityAction | GetOffersByCityAction | RewriteActiveCityAction;
+export type SelectStarRating = {
+  type: ActionType.SelectStarRating;
+  payload: number,
+};
+
+export type SetCommentValueText = {
+  type: ActionType.SetCommentValueText;
+  payload: string,
+};
+
+export type Actions = SelectCityAction | GetOffersByCityAction | RewriteActiveCityAction | SelectStarRating | SetCommentValueText;
