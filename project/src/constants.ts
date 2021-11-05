@@ -6,20 +6,18 @@ export const enum AppRoute {
   OfferLink = '/offer/',
 }
 
-export const enum authorizationStatuses {
+export const enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
 
-export const enum OfferKinds {
+export const enum OfferKind {
   apartment = 'Apartment',
   hotel = 'Hotel',
   house = 'House',
   room = 'Private Room',
 }
-
-// export const CitiesList = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const CitiesList = [
   {

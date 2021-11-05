@@ -1,5 +1,5 @@
 import {OfferType} from '../types/offerType';
-import {OfferKinds} from '../constants';
+import {OfferKind} from '../constants';
 
 const offers: OfferType[] = [
   {
@@ -8,7 +8,7 @@ const offers: OfferType[] = [
     title: 'Beautiful & luxurious studio at great location',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     isPremium: false,
-    type: OfferKinds.apartment,
+    type: OfferKind.apartment,
     rating: 4.8,
     amountOfBedrooms: 3,
     cityName: 'Amsterdam',
@@ -35,7 +35,7 @@ const offers: OfferType[] = [
     title: 'Wood and stone place',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     isPremium: true,
-    type: OfferKinds.hotel,
+    type: OfferKind.hotel,
     rating: 5,
     amountOfBedrooms: 4,
     cityName: 'Amsterdam',
@@ -62,7 +62,7 @@ const offers: OfferType[] = [
     title: 'Canal View Prinsengracht',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     isPremium: true,
-    type: OfferKinds.house,
+    type: OfferKind.house,
     rating: 4.1,
     amountOfBedrooms: 2,
     cityName: 'Amsterdam',
@@ -89,7 +89,7 @@ const offers: OfferType[] = [
     title: 'Nice, cozy, warm big bed apartment',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     isPremium: true,
-    type: OfferKinds.room,
+    type: OfferKind.room,
     rating: 3.2,
     amountOfBedrooms: 1,
     cityName: 'Amsterdam',
@@ -116,7 +116,7 @@ const offers: OfferType[] = [
     title: 'Canal View Prinsengracht',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     isPremium: true,
-    type: OfferKinds.house,
+    type: OfferKind.house,
     rating: 4.1,
     amountOfBedrooms: 2,
     cityName: 'Amsterdam',
@@ -143,7 +143,7 @@ const offers: OfferType[] = [
     title: 'Nice, cozy, warm big bed apartment',
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     isPremium: true,
-    type: OfferKinds.room,
+    type: OfferKind.room,
     rating: 3.2,
     amountOfBedrooms: 1,
     cityName: 'Amsterdam',

@@ -4,11 +4,8 @@ import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
 import {selectStarRating, setCommentValueText} from '../../store/action';
 import {ReactComponent as IconStar} from '../../static/icon-star.svg';
-
-// type SubmitFormCommentProps = {
-//   handleSelectStarRating: (value: string) => void,
-//   handleInputCommentText: (value: string) => void,
-// }
+import {nanoid} from 'nanoid';
+import React from 'react';
 
 function mapStateToProps({commentValueText}: State) {
   return ({
@@ -35,12 +32,12 @@ function SubmitFormComment({handleSelectStarRating, handleInputCommentText, comm
     const panelMarkup = [];
     for (let i = 5; i >= 1; i--) {
       panelMarkup.push(
-        <>
+        <React.Fragment key={nanoid()}>
           <input className="form__rating-input visually-hidden" name="rating" value={i} id={`${i}-stars`} type="radio" onChange={(evt) => handleSelectStarRating(evt.target.value)}/>
           <label htmlFor={`${i}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
             <IconStar/>
           </label>
-        </>);
+        </React.Fragment>);
     }
     return panelMarkup;
   }

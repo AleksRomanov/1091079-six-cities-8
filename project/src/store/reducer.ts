@@ -1,11 +1,8 @@
-// import {ActionType, Actions} from '../types/action';
 import {Actions, ActionType} from '../types/action';
 import {State} from '../types/state';
 import {offers} from '../mocks/offers';
-// import {CitiesList, OfferKinds} from '../constants';
-import {authorizationStatuses, CitiesList} from '../constants';
+import {AuthorizationStatus, CitiesList} from '../constants';
 import {reviews} from '../mocks/reviews';
-// import {city} from '../mocks/city';
 
 const initialState = {
   offers,
@@ -13,7 +10,7 @@ const initialState = {
   citiesList: CitiesList,
   currentOffer: null,
   offersByCity: offers.filter((offer) => offer.cityName === CitiesList[0].city),
-  authorizationStatus: authorizationStatuses.Auth,
+  authorizationStatus: AuthorizationStatus.Auth,
   reviews: reviews,
   offerStarRating: 0,
   commentValueText: '',

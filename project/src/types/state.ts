@@ -1,8 +1,7 @@
 import {OfferType} from './offerType';
 import {City} from './city';
-import {authorizationStatuses} from '../constants';
+import {AuthorizationStatus} from '../constants';
 import {ReviewType} from './reviewType';
-// import {OfferKinds} from '../constants';
 
 type State = {
   currentCity: City | undefined,
@@ -10,7 +9,7 @@ type State = {
   offers: OfferType[],
   offersByCity: OfferType[],
   currentOffer: OfferType | null,
-  authorizationStatus: authorizationStatuses,
+  authorizationStatus: AuthorizationStatus,
   reviews: ReviewType[],
   offerStarRating: number,
   commentValueText: string,

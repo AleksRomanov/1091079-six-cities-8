@@ -14,6 +14,7 @@ function mapStateToProps({offersByCity}: State) {
     offersByCity,
   });
 }
+
 function mapDispatchToProps(dispatch: Dispatch<Actions>) {
   return {
     onSelectCity(city: string) {
@@ -31,14 +32,7 @@ function LocationsList(props: PropsFromRedux): JSX.Element {
   const {onSelectCity} = props;
   const onCityChoose = (city: string) => {
     onSelectCity(city);
-    // console.log(offersByCity);
-    // console.log(offers);
   };
-
-  // function onCityChoose(event: MouseEvent<HTMLLinkElement>) {
-  //   event.preventDefault();
-  //   console.log(event);
-  // }
   return (
     <ul className="locations__list tabs__list">
       {CitiesList.map((city: City) => (
@@ -46,9 +40,6 @@ function LocationsList(props: PropsFromRedux): JSX.Element {
           <Link onClick={() => onCityChoose(city.city)} to="#" className="locations__item-link tabs__item">
             <span>{city.city}</span>
           </Link>
-          {/*<Link onClick={onCityChoose} to="#" className="locations__item-link tabs__item">*/}
-          {/*  <span>{city}</span>*/}
-          {/*</Link>*/}
         </li>
       ))}
     </ul>

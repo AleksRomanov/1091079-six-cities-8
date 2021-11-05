@@ -1,22 +1,10 @@
-// import {OfferType} from '../../types/offerType';
-// import {City} from '../../types/city';
 import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../constants';
 import {useEffect, useMemo, useRef} from 'react';
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import {State} from '../../types/state';
-import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
-// import {getOffersByCity, selectCity} from '../../store/action';
 import {connect, ConnectedProps} from 'react-redux';
-// import {OfferType} from '../../types/offerType';
-
-// type MapProps = {
-//   // offers: OfferType[],
-//   // city: City,
-//   activeCard: OfferType | null,
-// };
 
 function mapStateToProps({offersByCity, currentCity, currentOffer}: State) {
   return ({
@@ -25,16 +13,8 @@ function mapStateToProps({offersByCity, currentCity, currentOffer}: State) {
     currentOffer,
   });
 }
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
-  return {
-    // onSelectCity(city: string) {
-    //   dispatch(selectCity(city));
-    //   dispatch(getOffersByCity());
-    // },
-  };
-}
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps, {});
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 

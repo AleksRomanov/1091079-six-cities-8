@@ -1,8 +1,6 @@
 import {Redirect, Route, RouteProps} from 'react-router-dom';
-import {AppRoute, authorizationStatuses} from '../constants';
+import {AppRoute, AuthorizationStatus} from '../constants';
 import {State} from '../types/state';
-import {Dispatch} from 'redux';
-import {Actions} from '../types/action';
 import {connect, ConnectedProps} from 'react-redux';
 
 function mapStateToProps({authorizationStatus}: State) {
@@ -10,17 +8,8 @@ function mapStateToProps({authorizationStatus}: State) {
     authorizationStatus,
   });
 }
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
-  return {
-    // onSelectCity(city: string) {
-    //   dispatch(selectCity(city));
-    //   dispatch(getOffersByCity());
-    //   // dispatch(getOffersByCity())
-    // },
-  };
-}
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps, {});
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
@@ -35,7 +24,7 @@ function PrivateRoute(props: PrivateRouteProps): JSX.Element {
       exact={exact}
       path={path}
       render={() => (
-        authorizationStatus === authorizationStatuses.Auth ? render() : <Redirect to={AppRoute.Login}/>
+        authorizationStatus === AuthorizationStatus.Auth ? render() : <Redirect to={AppRoute.Login}/>
       )}
     />
   );

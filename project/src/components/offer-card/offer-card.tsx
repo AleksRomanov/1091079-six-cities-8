@@ -48,7 +48,6 @@ function OfferCard({offer, isFavourite, setActiveCity}: PropsFromRedux & OfferCa
   const imageData = isFavourite ? offerCardClasses.favoritesImageData : offerCardClasses.mainImageData;
 
   return (
-    // <article className={articleClass} onMouseEnter={() => onCardSelect(offer)} onMouseLeave={() => onCardNotSelect()}>
     <article className={articleClass} onMouseEnter={() => onCardSelect(offer)} onMouseLeave={() => onCardSelect(null)}>
       {isPremium &&
       <div className="place-card__mark">

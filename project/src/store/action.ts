@@ -10,7 +10,6 @@ export const getOffersByCity = (): GetOffersByCityAction => ({
   type: ActionType.GetOffersByCity,
 });
 
-
 export const rewriteActiveCity = (activeCity: OfferType | null): RewriteActiveCityAction => ({
   type: ActionType.SetActiveCity,
   payload: activeCity,
