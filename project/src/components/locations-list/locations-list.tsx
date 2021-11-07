@@ -25,7 +25,6 @@ function mapDispatchToProps(dispatch: Dispatch<Actions>) {
 }
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function LocationsList(props: PropsFromRedux): JSX.Element {

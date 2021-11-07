@@ -13,6 +13,7 @@ type State = {
   reviews: ReviewType[],
   offerStarRating: number,
   commentValueText: string,
+  currentSortType: string,
 };
 
 export type {State};
