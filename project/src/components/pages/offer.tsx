@@ -142,5 +142,4 @@ function Offer({offers}: PropsFromRedux): JSX.Element {
   );
 }
 
-// export default connector(withHeader(Offer));
 export default connector(withHeader(Offer));

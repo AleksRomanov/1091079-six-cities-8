@@ -15,7 +15,6 @@ export type SelectCityAction = {
 
 export type GetOffersByCityAction = {
   type: ActionType.GetOffersByCity;
-  // payload: OfferType[],
 };
 
 export type RewriteActiveCityAction = {

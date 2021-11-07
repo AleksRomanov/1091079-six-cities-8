@@ -1,39 +1,11 @@
-// import OffersList from '../offers-list/offers-list';
-// import {OfferType} from '../../types/offerType';
 import Map from '../map/map';
-// import {City} from '../../types/city';
-// import LocationsList from '../locations-list/locations-list';
-// import {withHeader} from '../../hocks/withHeader';
-// import {useState} from 'react';
 import React from 'react';
 import {ReactComponent as IconArrowSelect} from '../../static/icon-arrow-select.svg';
 import {connect, ConnectedProps} from 'react-redux';
 import {State} from '../../types/state';
-import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
 import {withHeader} from '../../hocks/withHeader';
 import LocationsList from '../locations-list/locations-list';
 import OffersList from '../offers-list/offers-list';
-// import OffersList from '../offers-list/offers-list';
-// import {selectCity} from '../../store/action';
-
-// type MainPageProps = {
-//   offers: OfferType[];
-//   city: City;
-// }
-
-
-// const mapStateToProps = ({offers, currentCity}: State) => ({
-//   offers,
-//   currentCity,
-// });
-
-// const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-// //   // onUserAnswer(question: Question, userAnswer: UserAnswer) {
-// //   //   dispatch(incrementStep());
-// //   //   dispatch(checkUserAnswer(question, userAnswer));
-// //   // },
-// });
 
 function mapStateToProps({offersByCity, currentCity}: State) {
   return ({
@@ -42,16 +14,7 @@ function mapStateToProps({offersByCity, currentCity}: State) {
   });
 }
 
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
-  return {
-    // onSelectCity(city: string) {
-    //   dispatch(selectCity(city));
-    //   // dispatch(getOffersByCity())
-    // },
-  };
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps, {});
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
