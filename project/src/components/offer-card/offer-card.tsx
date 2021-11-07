@@ -1,31 +1,54 @@
 import {OfferType} from '../../types/offerType';
 import {Link} from 'react-router-dom';
 import {AppRoute, offerCardClasses} from '../../constants';
+import {State} from '../../types/state';
+import {Dispatch} from 'redux';
+import {Actions} from '../../types/action';
+import {connect, ConnectedProps} from 'react-redux';
+import {rewriteActiveCity} from '../../store/action';
 
+function mapStateToProps({offersByCity, offers}: State) {
+  return ({
+    offersByCity,
+    offers,
+  });
+}
+
+function mapDispatchToProps(dispatch: Dispatch<Actions>) {
+  return {
+    setActiveCity(city: OfferType | null) {
+      dispatch(rewriteActiveCity(city));
+    },
+  };
+}
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
 type OfferCardProps = {
   offer: OfferType,
   isFavourite: boolean,
-  onCardSelect: (offer: OfferType) => void,
-  onCardNotSelect: () => void,
 }
 
-function OfferCard({offer, isFavourite, onCardSelect, onCardNotSelect}: OfferCardProps): JSX.Element {
+function OfferCard({offer, isFavourite, setActiveCity}: PropsFromRedux & OfferCardProps): JSX.Element {
   const {
     isPremium,
     previewImage,
     price,
-    isFavorite,
     rating,
     title,
     type,
     id,
   } = offer;
 
+  const onCardSelect = (offerItem: OfferType | null): void => {
+    setActiveCity(offerItem);
+  };
+
   const articleClass = isFavourite ? offerCardClasses.favoritesArticleClass : offerCardClasses.mainArticleClass;
   const imageData = isFavourite ? offerCardClasses.favoritesImageData : offerCardClasses.mainImageData;
 
   return (
-    <article className={articleClass} onMouseEnter={() => onCardSelect(offer)} onMouseLeave={() => onCardNotSelect()}>
+    <article className={articleClass} onMouseEnter={() => onCardSelect(offer)} onMouseLeave={() => onCardSelect(null)}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
@@ -41,7 +64,7 @@ function OfferCard({offer, isFavourite, onCardSelect, onCardNotSelect}: OfferCar
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={isFavorite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'} type="button">
+          <button className={isFavourite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
@@ -63,4 +86,4 @@ function OfferCard({offer, isFavourite, onCardSelect, onCardNotSelect}: OfferCar
   );
 }
 
-export default OfferCard;
+export default connector(OfferCard);

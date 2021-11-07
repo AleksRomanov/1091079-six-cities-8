@@ -2,7 +2,7 @@ import {ReviewType} from '../types/reviewType';
 
 const reviews: ReviewType[] = [
   {
-    offersID: 11,
+    offersID: 22222,
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     date: '2019-05-08T14:13:56.569Z',
     id: 1,
@@ -13,7 +13,7 @@ const reviews: ReviewType[] = [
     userName: 'Angelina',
   },
   {
-    offersID: 11,
+    offersID: 22222,
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     date: '2019-05-08T14:13:56.569Z',
     id: 2,
@@ -24,7 +24,7 @@ const reviews: ReviewType[] = [
     userName: 'Max',
   },
   {
-    offersID: 22,
+    offersID: 22222,
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     date: '2019-05-08T14:13:56.569Z',
     id: 3,
@@ -35,7 +35,7 @@ const reviews: ReviewType[] = [
     userName: 'Angelina',
   },
   {
-    offersID: 33,
+    offersID: 22222,
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     date: '2019-05-08T14:13:56.569Z',
     id: 4,
@@ -46,7 +46,7 @@ const reviews: ReviewType[] = [
     userName: 'Max',
   },
   {
-    offersID: 33,
+    offersID: 22222,
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     date: '2019-05-08T14:13:56.569Z',
     id: 5,

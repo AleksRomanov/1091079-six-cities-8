@@ -1,15 +1,9 @@
-import {OfferType} from '../../types/offerType';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants';
 import {withHeader} from '../../hocks/withHeader';
 import OffersList from '../offers-list/offers-list';
 
-type FavoritesProps = {
-  offers: OfferType[],
-}
-
-function Favorites({offers}: FavoritesProps): JSX.Element {
-
+function Favorites(): JSX.Element {
   return (
     <>
       <main className="page__main page__main--favorites">
@@ -26,7 +20,7 @@ function Favorites({offers}: FavoritesProps): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <OffersList offers={offers} isFavourite/>
+                  <OffersList isFavourite/>
                 </div>
               </li>
             </ul>

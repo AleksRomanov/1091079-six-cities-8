@@ -1,36 +1,42 @@
 import OfferCard from '../offer-card/offer-card';
+import {State} from '../../types/state';
+import {connect, ConnectedProps} from 'react-redux';
+import {useRouteMatch} from 'react-router-dom';
 import {OfferType} from '../../types/offerType';
 
-type OffersListProps = {
-  offers: OfferType[];
-  isFavourite: boolean,
-  setActiveCard?: (offer: OfferType | null) => void,
+function mapStateToProps({offersByCity, offers}: State) {
+  return ({
+    offersByCity,
+    offers,
+  });
 }
 
-function OffersList({offers, isFavourite, setActiveCard}: OffersListProps): JSX.Element {
-  const handleActiveSelectOffer = (offer: OfferType): void => {
-    if (setActiveCard) {
-      setActiveCard(offer);
-    }
-  };
-  const handleNotActiveSelectOffer = (): void => {
-    if (setActiveCard) {
-      setActiveCard(null);
-    }
-  };
+const connector = connect(mapStateToProps, {});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type OfferListProps = {
+  isFavourite: boolean,
+  currentOffer?: OfferType,
+}
+
+function OffersList({offersByCity, isFavourite, offers, currentOffer}: PropsFromRedux & OfferListProps): JSX.Element {
+  let fetchedOffers = isFavourite ? offers.filter((offer) => offer.isFavourite) : offersByCity;
+  const isOfferPage = useRouteMatch('/offer/:id');
+  if (isOfferPage && currentOffer) {
+    fetchedOffers = offers.filter((offer) => offer.cityName === currentOffer.cityName);
+    fetchedOffers = fetchedOffers.slice(0, 3);
+  }
   return (
     <>
-      {offers.map((offer) => (
+      {fetchedOffers.map((offer) => (
         <OfferCard
           offer={offer}
           key={offer.id}
           isFavourite={isFavourite}
-          onCardSelect={handleActiveSelectOffer}
-          onCardNotSelect={handleNotActiveSelectOffer}
         />
       ))}
     </>
   );
 }
 
-export default OffersList;
+export default connector(OffersList);

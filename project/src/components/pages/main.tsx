@@ -1,20 +1,25 @@
-import OffersList from '../offers-list/offers-list';
-import {OfferType} from '../../types/offerType';
 import Map from '../map/map';
-import {City} from '../../types/city';
-import LocationsList from '../locations-list/locations-list';
-import {withHeader} from '../../hocks/withHeader';
-import {useState} from 'react';
 import React from 'react';
 import {ReactComponent as IconArrowSelect} from '../../static/icon-arrow-select.svg';
+import {connect, ConnectedProps} from 'react-redux';
+import {State} from '../../types/state';
+import {withHeader} from '../../hocks/withHeader';
+import LocationsList from '../locations-list/locations-list';
+import OffersList from '../offers-list/offers-list';
 
-type MainPageProps = {
-  offers: OfferType[];
-  city: City;
+function mapStateToProps({offersByCity, currentCity}: State) {
+  return ({
+    offersByCity,
+    currentCity,
+  });
 }
 
-function Main({offers, city}: MainPageProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState<OfferType | null>(null);
+const connector = connect(mapStateToProps, {});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function Main(props: PropsFromRedux): JSX.Element {
+  const {offersByCity, currentCity} = props;
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -27,7 +32,7 @@ function Main({offers, city}: MainPageProps): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+            <b className="places__found">{offersByCity && offersByCity.length} places to stay in {currentCity && currentCity.city}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
@@ -42,12 +47,12 @@ function Main({offers, city}: MainPageProps): JSX.Element {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              <OffersList offers={offers} isFavourite={false} setActiveCard={setActiveCard}/>
+              <OffersList isFavourite={false}/>
             </div>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map offers={offers} city={city} activeCard={activeCard}/>
+              <Map/>
             </section>
           </div>
         </div>
@@ -56,4 +61,5 @@ function Main({offers, city}: MainPageProps): JSX.Element {
   );
 }
 
-export default withHeader(Main);
+export {Main};
+export default connector(withHeader(Main));
