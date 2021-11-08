@@ -7,6 +7,9 @@ export enum ActionType {
   SelectStarRating = 'selectStarRating',
   SetCommentValueText = 'setCommentValueText',
   ChangeSortType = 'changeSortType',
+  ChangeSortPanelOpenStatus = 'changeSortPanelOpenStatus',
+  SortCurrentOffers = 'sortCurrentOffers',
+  FetchCurrentOffers = 'fetchCurrentOffers',
 }
 
 export type SelectCityAction = {
@@ -38,4 +41,30 @@ export type ChangeSortType = {
   payload: string,
 };
 
-export type Actions = SelectCityAction | GetOffersByCityAction | RewriteActiveCityAction | SelectStarRating | SetCommentValueText | ChangeSortType;
+export type ChangeSortPanelOpenStatus = {
+  type: ActionType.ChangeSortPanelOpenStatus;
+};
+
+export type SortCurrentOffers = {
+  type: ActionType.SortCurrentOffers,
+  payload: string,
+};
+
+export type FetchCurrentOffers = {
+  type: ActionType.FetchCurrentOffers,
+  payload: {
+    currentUrl: string,
+    currentOfferId?: string,
+  },
+};
+
+export type Actions =
+  SelectCityAction |
+  GetOffersByCityAction |
+  RewriteActiveCityAction |
+  SelectStarRating |
+  SetCommentValueText |
+  ChangeSortType |
+  SortCurrentOffers |
+  FetchCurrentOffers |
+  ChangeSortPanelOpenStatus;

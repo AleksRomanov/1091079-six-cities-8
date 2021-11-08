@@ -6,7 +6,7 @@ import {State} from '../../types/state';
 import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
-import {getOffersByCity, selectCity} from '../../store/action';
+import {selectCity} from '../../store/action';
 import {City} from '../../types/city';
 
 function mapStateToProps({offersByCity}: State) {
@@ -19,7 +19,6 @@ function mapDispatchToProps(dispatch: Dispatch<Actions>) {
   return {
     onSelectCity(city: string) {
       dispatch(selectCity(city));
-      dispatch(getOffersByCity());
     },
   };
 }
@@ -27,8 +26,7 @@ function mapDispatchToProps(dispatch: Dispatch<Actions>) {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function LocationsList(props: PropsFromRedux): JSX.Element {
-  const {onSelectCity} = props;
+function LocationsList({onSelectCity}: PropsFromRedux): JSX.Element {
   const onCityChoose = (city: string) => {
     onSelectCity(city);
   };

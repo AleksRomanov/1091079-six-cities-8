@@ -4,23 +4,27 @@
 import 'leaflet/dist/leaflet.css';
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
-import {SortType} from '../../constants';
+// import {SortType} from '../../constants';
+// import {Dispatch} from 'redux';
+// import {Actions} from '../../types/action';
+// import {changeSortType} from '../../store/action';
+// import {OfferType} from '../../types/offerType';
+import React from 'react';
 import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
-import {changeSortType} from '../../store/action';
-import {OfferType} from '../../types/offerType';
+import {changeSortType, sortCurrentOffers} from '../../store/action';
 
-// function sortingListProps({offersByCity, currentCity, currentOffer}: State) {}
 function mapStateToProps({currentSortType}: State) {
   return ({
     currentSortType,
   });
 }
 
-function mapDispatchToProps(dispatch: Dispatch<Actions>): JSX.Element {
+function mapDispatchToProps(dispatch: Dispatch<Actions>) {
   return {
     onChangeSortType(type: string) {
       dispatch(changeSortType(type));
+      dispatch(sortCurrentOffers(type));
     },
   };
 }
@@ -31,44 +35,19 @@ type SortingListItemProps = {
   sortType: string,
 }
 
-function SortingListItem(props: PropsFromRedux & SortingListItemProps): JSX.Element {
-  const onChangeSortType = (sortType: SortType | null): void => {
+function SortingListItem({sortType, currentSortType, onChangeSortType}: PropsFromRedux & SortingListItemProps): JSX.Element {
+  const handleOptionClick = (): void => {
     onChangeSortType(sortType);
   };
-  // const {onChangeSortType(sortType)} = props;
-  // const {currentSortType} = props;
-  // const handleOptionClick = () => {
-  //   // onChangeSortType(sortType);
-  // };
 
   return (
-    <li className={currentSortType === SortType ?
+    <li onClick={handleOptionClick} className={currentSortType === sortType ?
       'places__option places__option--active' :
       'places__option'}
-        tabIndex={0}
-        onClick={onChangeSortType}
     >
-      {SortType}
+      {sortType}
     </li>
   );
-// //   const mapRef = useRef(null);
-// //   const map = useMap(mapRef, currentCity);
-// //   const defaultIcon = useMemo(() => new Icon({iconUrl: URL_MARKER_DEFAULT, iconSize: [27, 39], iconAnchor: [13.5, 39]}), []);
-// //   const currentIcon = useMemo(() => new Icon({iconUrl: URL_MARKER_CURRENT, iconSize: [27, 39], iconAnchor: [13.5, 39]}), []);
-// //
-// //   useEffect(() => {
-// //     if (map) {
-// //       offersByCity.forEach((offer) => {
-// //         const marker = new Marker({
-// //           lat: offer.latitude,
-// //           lng: offer.longitude,
-// //         });
-// //         marker.setIcon(currentOffer !== null && offer.id === currentOffer.id ? currentIcon : defaultIcon).addTo(map);
-// //       });
-// //     }
-// //   }, [map, offersByCity, currentOffer, defaultIcon, currentIcon]);
-// //
-// //   return <div style={{height: '100%'}} ref={mapRef}/>;
 }
 
 export default connector(SortingListItem);

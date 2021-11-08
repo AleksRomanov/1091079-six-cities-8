@@ -1,4 +1,4 @@
-import {ActionType, ChangeSortType, GetOffersByCityAction, RewriteActiveCityAction, SelectCityAction, SelectStarRating, SetCommentValueText} from '../types/action';
+import {ActionType, ChangeSortPanelOpenStatus, ChangeSortType, FetchCurrentOffers, GetOffersByCityAction, RewriteActiveCityAction, SelectCityAction, SelectStarRating, SetCommentValueText, SortCurrentOffers} from '../types/action';
 import {OfferType} from '../types/offerType';
 
 export const selectCity = (city: string): SelectCityAction => ({
@@ -29,3 +29,22 @@ export const changeSortType = (changeSortType: string): ChangeSortType => ({
   type: ActionType.ChangeSortType,
   payload: changeSortType,
 });
+
+export const changeSortPanelOpenStatus = (): ChangeSortPanelOpenStatus => ({
+  type: ActionType.ChangeSortPanelOpenStatus,
+});
+
+export const sortCurrentOffers = (sortType: string): SortCurrentOffers => ({
+  type: ActionType.SortCurrentOffers,
+  payload: sortType,
+});
+
+export const fetchCurrentOffers = (currentUrl: string, currentOfferId?: string): FetchCurrentOffers => ({
+  type: ActionType.FetchCurrentOffers,
+  payload: {
+    currentUrl,
+    currentOfferId
+  },
+});
+
+

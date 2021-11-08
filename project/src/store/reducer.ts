@@ -1,8 +1,9 @@
 import {Actions, ActionType} from '../types/action';
 import {State} from '../types/state';
 import {offers} from '../mocks/offers';
-import {AuthorizationStatus, CitiesList} from '../constants';
+import {AppRoute, AuthorizationStatus, CitiesList, SortType} from '../constants';
 import {reviews} from '../mocks/reviews';
+import {OfferType} from '../types/offerType';
 
 const initialState = {
   offers,
@@ -14,12 +15,24 @@ const initialState = {
   reviews: reviews,
   offerStarRating: 0,
   commentValueText: '',
+  currentSortType: SortType.Popular,
+  isSortingListOpen: false,
+  fetchedOffers: [],
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
   switch (action.type) {
     case ActionType.SelectCity:
-      return {...state, currentCity: state.citiesList.find((city) => city.city === action.payload)};
+      const currentCity = CitiesList.find((city) => city.city === action.payload);
+      if (currentCity) {
+        return {
+          ...state,
+          currentCity: currentCity,
+          fetchedOffers: state.offers.filter((offer) => currentCity && offer.cityName === currentCity.city),
+        };
+      } else {
+        return {...state};
+      }
     case ActionType.GetOffersByCity: {
       return {...state, offersByCity: state.offers.filter((offer) => state.currentCity && offer.cityName === state.currentCity.city)};
     }
@@ -31,6 +44,45 @@ const reducer = (state: State = initialState, action: Actions): State => {
     }
     case ActionType.SetCommentValueText: {
       return {...state, commentValueText: action.payload};
+    }
+    case ActionType.ChangeSortPanelOpenStatus: {
+      return {...state, isSortingListOpen: !state.isSortingListOpen};
+    }
+    case ActionType.ChangeSortType: {
+      return {...state, currentSortType: action.payload};
+    }
+
+    case ActionType.FetchCurrentOffers: {
+      switch (action.payload.currentUrl) {
+        case AppRoute.Main:
+          return {...state, fetchedOffers: state.offers.filter((offer) => state.currentCity && offer.cityName === state.currentCity.city)};
+        case AppRoute.Favorites:
+          return {...state, fetchedOffers: state.offers.filter((offer) => offer.isFavourite)};
+        case AppRoute.OfferLink:
+          const currentOffer = state.offers.find((offer) => offer.id.toString() === action.payload.currentOfferId);
+          let offersByCity = state.offers.filter((offer) => state.currentCity && offer.cityName === state.currentCity.city);
+          offersByCity = offersByCity.filter((offer) => offer.id.toString() !== action.payload.currentOfferId);
+          if (currentOffer) {
+            return {...state, fetchedOffers: [currentOffer, ...offersByCity.slice(0, 3)]}
+          } else {
+            return {...state}
+          }
+        default:
+          return {...state};
+      }
+    }
+
+    case ActionType.SortCurrentOffers: {
+      let sortedOffers: OfferType[] = [];
+      switch (action.payload) {
+        case SortType.Popular: {
+          sortedOffers = state.offersByCity.sort((offerA, offerB) => offerB.rating - offerA.rating);
+          console.log(sortedOffers);
+          return {...state, offersByCity: sortedOffers};
+        }
+        default:
+          return state;
+      }
     }
     default:
       return state;
