@@ -2,7 +2,6 @@ import {OfferType} from './offerType';
 
 export enum ActionType {
   SelectCity = 'selectCity',
-  GetOffersByCity = 'getOffersByCity',
   SetActiveCity = 'setActiveCity',
   SelectStarRating = 'selectStarRating',
   SetCommentValueText = 'setCommentValueText',
@@ -15,10 +14,6 @@ export enum ActionType {
 export type SelectCityAction = {
   type: ActionType.SelectCity;
   payload: string;
-};
-
-export type GetOffersByCityAction = {
-  type: ActionType.GetOffersByCity;
 };
 
 export type RewriteActiveCityAction = {
@@ -60,7 +55,6 @@ export type FetchCurrentOffers = {
 
 export type Actions =
   SelectCityAction |
-  GetOffersByCityAction |
   RewriteActiveCityAction |
   SelectStarRating |
   SetCommentValueText |

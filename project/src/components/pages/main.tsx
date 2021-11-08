@@ -7,10 +7,11 @@ import LocationsList from '../locations-list/locations-list';
 import OffersList from '../offers-list/offers-list';
 import SortingList from '../sorting-list/sorting-list';
 
-function mapStateToProps({offersByCity, currentCity}: State) {
+function mapStateToProps({currentCity, fetchedOffers}: State) {
   return ({
     offersByCity,
     currentCity,
+    fetchedOffers,
   });
 }
 
@@ -18,8 +19,7 @@ const connector = connect(mapStateToProps, {});
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function Main(props: PropsFromRedux): JSX.Element {
-  const {offersByCity, currentCity} = props;
+function Main({currentCity, fetchedOffers}: PropsFromRedux): JSX.Element {
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -32,7 +32,7 @@ function Main(props: PropsFromRedux): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offersByCity && offersByCity.length} places to stay in {currentCity && currentCity.city}</b>
+            <b className="places__found">{fetchedOffers && fetchedOffers.length} places to stay in {currentCity && currentCity.city}</b>
             <form className="places__sorting" action="#" method="get">
               <SortingList/>
             </form>

@@ -3,7 +3,7 @@ import {State} from '../types/state';
 import {offers} from '../mocks/offers';
 import {AppRoute, AuthorizationStatus, CitiesList, SortType} from '../constants';
 import {reviews} from '../mocks/reviews';
-import {OfferType} from '../types/offerType';
+import getOffersByCity from '../utils';
 
 const initialState = {
   offers,
@@ -76,9 +76,8 @@ const reducer = (state: State = initialState, action: Actions): State => {
       let sortedOffers: OfferType[] = [];
       switch (action.payload) {
         case SortType.Popular: {
-          sortedOffers = state.offersByCity.sort((offerA, offerB) => offerB.rating - offerA.rating);
-          console.log(sortedOffers);
-          return {...state, offersByCity: sortedOffers};
+          let offersByPopular = getOffersByCity(state.offers, state.currentCity);
+          return {...state, fetchedOffers: offersByPopular}
         }
         default:
           return state;

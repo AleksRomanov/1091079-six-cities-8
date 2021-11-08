@@ -1,7 +1,6 @@
 import {OfferType} from '../../types/offerType';
 import {Link, useRouteMatch} from 'react-router-dom';
 import {AppRoute, offerCardClasses} from '../../constants';
-import {State} from '../../types/state';
 import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
 import {connect, ConnectedProps} from 'react-redux';

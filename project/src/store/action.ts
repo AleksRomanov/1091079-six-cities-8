@@ -1,4 +1,4 @@
-import {ActionType, ChangeSortPanelOpenStatus, ChangeSortType, FetchCurrentOffers, GetOffersByCityAction, RewriteActiveCityAction, SelectCityAction, SelectStarRating, SetCommentValueText, SortCurrentOffers} from '../types/action';
+import {ActionType, ChangeSortPanelOpenStatus, ChangeSortType, FetchCurrentOffers, RewriteActiveCityAction, SelectCityAction, SelectStarRating, SetCommentValueText, SortCurrentOffers} from '../types/action';
 import {OfferType} from '../types/offerType';
 
 export const selectCity = (city: string): SelectCityAction => ({
