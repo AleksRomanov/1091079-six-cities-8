@@ -1,14 +1,6 @@
-// import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../constants';
-// import {useEffect, useMemo, useRef} from 'react';
-// import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
-// import {SortType} from '../../constants';
-// import {Dispatch} from 'redux';
-// import {Actions} from '../../types/action';
-// import {changeSortType} from '../../store/action';
-// import {OfferType} from '../../types/offerType';
 import React from 'react';
 import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';

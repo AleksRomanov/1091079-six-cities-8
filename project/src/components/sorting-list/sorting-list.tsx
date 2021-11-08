@@ -2,9 +2,6 @@ import 'leaflet/dist/leaflet.css';
 import {SortType} from '../../constants';
 import SortingListItem from '../sorting-list-item/sorting-list-item';
 import {State} from '../../types/state';
-// import {Dispatch} from 'redux';
-// import {Actions} from '../../types/action';
-// import {changeSortType} from '../../store/action';
 import {connect, ConnectedProps} from 'react-redux';
 import {nanoid} from 'nanoid';
 import {ReactComponent as IconArrowSelect} from '../../static/icon-arrow-select.svg';
@@ -12,9 +9,7 @@ import React from 'react';
 import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
 import {changeSortPanelOpenStatus} from '../../store/action';
-// import {OfferType} from '../../types/offerType';
 
-//
 function mapStateToProps({isSortingListOpen, currentSortType}: State) {
   return ({
     isSortingListOpen,

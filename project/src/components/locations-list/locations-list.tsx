@@ -2,7 +2,6 @@ import {Link} from 'react-router-dom';
 import {CitiesList} from '../../constants';
 import {nanoid} from 'nanoid';
 import React from 'react';
-// import {State} from '../../types/state';
 import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
