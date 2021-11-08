@@ -9,7 +9,6 @@ import SortingList from '../sorting-list/sorting-list';
 
 function mapStateToProps({currentCity, fetchedOffers}: State) {
   return ({
-    offersByCity,
     currentCity,
     fetchedOffers,
   });

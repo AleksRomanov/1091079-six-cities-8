@@ -6,11 +6,8 @@ import {Actions} from '../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
 import {rewriteActiveCity} from '../../store/action';
 
-function mapStateToProps({offersByCity, offers}: State) {
-  return ({
-    offersByCity,
-    offers,
-  });
+function mapStateToProps() {
+  return ({});
 }
 
 function mapDispatchToProps(dispatch: Dispatch<Actions>) {

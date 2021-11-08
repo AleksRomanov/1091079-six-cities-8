@@ -7,12 +7,10 @@ import getOffersByCity from '../utils';
 
 const initialState = {
   offers,
+  reviews,
   currentCity: CitiesList[0],
-  citiesList: CitiesList,
   currentOffer: null,
-  offersByCity: offers.filter((offer) => offer.cityName === CitiesList[0].city),
   authorizationStatus: AuthorizationStatus.Auth,
-  reviews: reviews,
   offerStarRating: 0,
   commentValueText: '',
   currentSortType: SortType.Popular,
@@ -33,9 +31,6 @@ const reducer = (state: State = initialState, action: Actions): State => {
       } else {
         return {...state};
       }
-    case ActionType.GetOffersByCity: {
-      return {...state, offersByCity: state.offers.filter((offer) => state.currentCity && offer.cityName === state.currentCity.city)};
-    }
     case ActionType.SetActiveCity: {
       return {...state, currentOffer: action.payload};
     }
@@ -60,7 +55,7 @@ const reducer = (state: State = initialState, action: Actions): State => {
           return {...state, fetchedOffers: state.offers.filter((offer) => offer.isFavourite)};
         case AppRoute.OfferLink:
           const currentOffer = state.offers.find((offer) => offer.id.toString() === action.payload.currentOfferId);
-          let offersByCity = state.offers.filter((offer) => state.currentCity && offer.cityName === state.currentCity.city);
+          let offersByCity = getOffersByCity(state.offers, state.currentCity);
           offersByCity = offersByCity.filter((offer) => offer.id.toString() !== action.payload.currentOfferId);
           if (currentOffer) {
             return {...state, fetchedOffers: [currentOffer, ...offersByCity.slice(0, 3)]}
@@ -73,11 +68,22 @@ const reducer = (state: State = initialState, action: Actions): State => {
     }
 
     case ActionType.SortCurrentOffers: {
-      let sortedOffers: OfferType[] = [];
       switch (action.payload) {
         case SortType.Popular: {
           let offersByPopular = getOffersByCity(state.offers, state.currentCity);
           return {...state, fetchedOffers: offersByPopular}
+        }
+        case SortType.LowToHighPrice: {
+          let offersLowToHigh = getOffersByCity(state.offers, state.currentCity).sort((offerA, offerB) => offerA.price - offerB.price);
+          return {...state, fetchedOffers: offersLowToHigh}
+        }
+        case SortType.HighToLowPrice: {
+          let offersHighToLow = getOffersByCity(state.offers, state.currentCity).sort((offerA, offerB) => offerB.price - offerA.price);
+          return {...state, fetchedOffers: offersHighToLow}
+        }
+        case SortType.TopRated: {
+          let offersTopRated = getOffersByCity(state.offers, state.currentCity).sort((offerA, offerB) => offerB.rating - offerA.rating);
+          return {...state, fetchedOffers: offersTopRated}
         }
         default:
           return state;
