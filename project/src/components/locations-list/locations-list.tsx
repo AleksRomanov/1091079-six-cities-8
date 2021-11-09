@@ -3,10 +3,10 @@ import {CitiesList} from '../../constants';
 import {nanoid} from 'nanoid';
 import React from 'react';
 import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
 import {selectCity} from '../../store/action';
 import {City} from '../../types/city';
+import {ActionsType} from '../../types/action';
 
 function mapStateToProps({offersByCity}: State) {
   return ({
@@ -14,7 +14,7 @@ function mapStateToProps({offersByCity}: State) {
   });
 }
 
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
+function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
   return {
     onSelectCity(city: string) {
       dispatch(selectCity(city));

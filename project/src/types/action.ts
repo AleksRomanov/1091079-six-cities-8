@@ -1,5 +1,4 @@
-import {OfferType} from './offerType';
-
+import * as actions from '../store/action';
 export enum ActionType {
   SelectCity = 'selectCity',
   SetActiveCity = 'setActiveCity',
@@ -11,54 +10,6 @@ export enum ActionType {
   FetchCurrentOffers = 'fetchCurrentOffers',
 }
 
-export type SelectCityAction = {
-  type: ActionType.SelectCity;
-  payload: string;
-};
+type InferValueTypes<T> = T extends {[key: string]: infer U} ? U : never;
 
-export type RewriteActiveCityAction = {
-  type: ActionType.SetActiveCity;
-  payload: OfferType | null,
-};
-
-export type SelectStarRating = {
-  type: ActionType.SelectStarRating;
-  payload: number,
-};
-
-export type SetCommentValueText = {
-  type: ActionType.SetCommentValueText;
-  payload: string,
-};
-
-export type ChangeSortType = {
-  type: ActionType.ChangeSortType;
-  payload: string,
-};
-
-export type ChangeSortPanelOpenStatus = {
-  type: ActionType.ChangeSortPanelOpenStatus;
-};
-
-export type SortCurrentOffers = {
-  type: ActionType.SortCurrentOffers,
-  payload: string,
-};
-
-export type FetchCurrentOffers = {
-  type: ActionType.FetchCurrentOffers,
-  payload: {
-    currentUrl: string,
-    currentOfferId?: string,
-  },
-};
-
-export type Actions =
-  SelectCityAction |
-  RewriteActiveCityAction |
-  SelectStarRating |
-  SetCommentValueText |
-  ChangeSortType |
-  SortCurrentOffers |
-  FetchCurrentOffers |
-  ChangeSortPanelOpenStatus;
+export type ActionsType = ReturnType<InferValueTypes<typeof actions>>;

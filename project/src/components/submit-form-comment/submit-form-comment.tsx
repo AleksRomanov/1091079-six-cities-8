@@ -1,7 +1,7 @@
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
+import {ActionsType} from '../../types/action';
 import {selectStarRating, setCommentValueText} from '../../store/action';
 import {ReactComponent as IconStar} from '../../static/icon-star.svg';
 import {nanoid} from 'nanoid';
@@ -13,7 +13,7 @@ function mapStateToProps({commentValueText}: State) {
   });
 }
 
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
+function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
   return {
     handleSelectStarRating(ratingValue: string) {
       dispatch(selectStarRating(parseFloat(ratingValue)));

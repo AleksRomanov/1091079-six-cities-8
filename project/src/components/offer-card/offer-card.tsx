@@ -2,7 +2,7 @@ import {OfferType} from '../../types/offerType';
 import {Link, useRouteMatch} from 'react-router-dom';
 import {AppRoute, offerCardClasses} from '../../constants';
 import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
+import {ActionsType} from '../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
 import {rewriteActiveCity} from '../../store/action';
 
@@ -10,7 +10,7 @@ function mapStateToProps() {
   return ({});
 }
 
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
+function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
   return {
     setActiveCity(city: OfferType | null) {
       dispatch(rewriteActiveCity(city));

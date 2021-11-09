@@ -7,7 +7,7 @@ import {nanoid} from 'nanoid';
 import {ReactComponent as IconArrowSelect} from '../../static/icon-arrow-select.svg';
 import React from 'react';
 import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
+import {ActionsType} from '../../types/action';
 import {changeSortPanelOpenStatus} from '../../store/action';
 
 function mapStateToProps({isSortingListOpen, currentSortType}: State) {
@@ -17,7 +17,7 @@ function mapStateToProps({isSortingListOpen, currentSortType}: State) {
   });
 }
 
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
+function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
   return {
     onSortPanelClick() {
       dispatch(changeSortPanelOpenStatus());

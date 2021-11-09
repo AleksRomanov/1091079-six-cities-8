@@ -6,7 +6,7 @@ import {useLocation, useParams, useRouteMatch} from 'react-router-dom';
 import {useEffect} from 'react';
 // import {AppRoute} from '../../constants';
 import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
+import {ActionsType} from '../../types/action';
 import {fetchCurrentOffers} from '../../store/action';
 import OfferCard from '../offer-card/offer-card';
 import {AppRoute} from '../../constants';
@@ -20,7 +20,7 @@ function mapStateToProps({fetchedOffers}: State) {
   });
 }
 
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
+function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
   return {
     onFetchCurrentOffers(currentUrl: string, currentOfferId: string) {
       dispatch(fetchCurrentOffers(currentUrl, currentOfferId));
@@ -42,23 +42,19 @@ function OffersList({fetchedOffers, onFetchCurrentOffers}: PropsFromRedux): JSX.
   // const currentIcon = useMemo(() => new Icon({iconUrl: URL_MARKER_CURRENT, iconSize: [27, 39], iconAnchor: [13.5, 39]}), []);
   let currentUrl = useLocation();
   let isOfferPage = useRouteMatch(AppRoute.Offer);
-
+  const [isFirstRender, setIsFirstRender] = useState(true);
   const {id}: offerId = useParams();
 
   useEffect(() => {
-    if (isOfferPage) {
-      onFetchCurrentOffers(AppRoute.OfferLink, id);
-    } else {
-      onFetchCurrentOffers(currentUrl.pathname, id);
-    }
-  }, []);
-
-  // let fetchedOffers = isFavourite ? offers.filter((offer) => offer.isFavourite) : offersByCity;
-  // const isOfferPage = useRouteMatch('/offer/:id');
-  // if (isOfferPage && currentOffer) {
-  //   fetchedOffers = offers.filter((offer) => offer.cityName === currentOffer.cityName);
-  //   fetchedOffers = fetchedOffers.slice(0, 3);
-  // }
+    if (isFirstRender) {
+      if (isOfferPage) {
+        onFetchCurrentOffers(AppRoute.OfferLink, id);
+      } else {
+        onFetchCurrentOffers(currentUrl.pathname, id);
+      }
+      setIsFirstRender(false);
+    } else return;
+  }, [isFirstRender, setIsFirstRender, id, currentUrl, isOfferPage, onFetchCurrentOffers]);
   return (
     <>
       {fetchedOffers.map((offer) => (

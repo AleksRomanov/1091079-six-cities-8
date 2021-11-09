@@ -3,7 +3,7 @@ import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import React from 'react';
 import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
+import {ActionsType} from '../../types/action';
 import {changeSortType, sortCurrentOffers} from '../../store/action';
 
 function mapStateToProps({currentSortType}: State) {
@@ -12,7 +12,7 @@ function mapStateToProps({currentSortType}: State) {
   });
 }
 
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
+function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
   return {
     onChangeSortType(type: string) {
       dispatch(changeSortType(type));

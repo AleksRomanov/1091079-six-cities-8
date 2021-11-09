@@ -1,4 +1,4 @@
-import {Actions, ActionType} from '../types/action';
+import {ActionsType, ActionType} from '../types/action';
 import {State} from '../types/state';
 import {offers} from '../mocks/offers';
 import {AppRoute, AuthorizationStatus, CitiesList, SortType} from '../constants';
@@ -18,10 +18,10 @@ const initialState = {
   fetchedOffers: [],
 };
 
-const reducer = (state: State = initialState, action: Actions): State => {
+const reducer = (state: State = initialState, action: ActionsType): State => {
   switch (action.type) {
     case ActionType.SelectCity:
-      const currentCity = CitiesList.find((city) => city.city === action.payload);
+      const currentCity = CitiesList.find((city) => city.city === action.city);
       if (currentCity) {
         return {
           ...state,
@@ -32,31 +32,30 @@ const reducer = (state: State = initialState, action: Actions): State => {
         return {...state};
       }
     case ActionType.SetActiveCity: {
-      return {...state, currentOffer: action.payload};
+      return {...state, currentOffer: action.activeCity};
     }
     case ActionType.SelectStarRating: {
-      return {...state, offerStarRating: action.payload};
+      return {...state, offerStarRating: action.ratingValue};
     }
     case ActionType.SetCommentValueText: {
-      return {...state, commentValueText: action.payload};
+      return {...state, commentValueText: action.commentTextValue};
     }
     case ActionType.ChangeSortPanelOpenStatus: {
       return {...state, isSortingListOpen: !state.isSortingListOpen};
     }
     case ActionType.ChangeSortType: {
-      return {...state, currentSortType: action.payload};
+      return {...state, currentSortType: action.changeSortType};
     }
-
     case ActionType.FetchCurrentOffers: {
-      switch (action.payload.currentUrl) {
+      switch (action.currentUrl) {
         case AppRoute.Main:
           return {...state, fetchedOffers: state.offers.filter((offer) => state.currentCity && offer.cityName === state.currentCity.city)};
         case AppRoute.Favorites:
           return {...state, fetchedOffers: state.offers.filter((offer) => offer.isFavourite)};
         case AppRoute.OfferLink:
-          const currentOffer = state.offers.find((offer) => offer.id.toString() === action.payload.currentOfferId);
+          const currentOffer = state.offers.find((offer) => offer.id.toString() === action.currentOfferId);
           let offersByCity = getOffersByCity(state.offers, state.currentCity);
-          offersByCity = offersByCity.filter((offer) => offer.id.toString() !== action.payload.currentOfferId);
+          offersByCity = offersByCity.filter((offer) => offer.id.toString() !== action.currentOfferId);
           if (currentOffer) {
             return {...state, fetchedOffers: [currentOffer, ...offersByCity.slice(0, 3)]}
           } else {
@@ -66,9 +65,8 @@ const reducer = (state: State = initialState, action: Actions): State => {
           return {...state};
       }
     }
-
     case ActionType.SortCurrentOffers: {
-      switch (action.payload) {
+      switch (action.sortType) {
         case SortType.Popular: {
           let offersByPopular = getOffersByCity(state.offers, state.currentCity);
           return {...state, fetchedOffers: offersByPopular}
