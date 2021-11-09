@@ -7,8 +7,8 @@ import {nanoid} from 'nanoid';
 import {ReactComponent as IconArrowSelect} from '../../static/icon-arrow-select.svg';
 import React from 'react';
 import {Dispatch} from 'redux';
-import {ActionsType} from '../../types/action';
 import {changeSortPanelOpenStatus} from '../../store/action';
+import {ActionsType} from '../../types/action';
 
 function mapStateToProps({isSortingListOpen, currentSortType}: State) {
   return ({
@@ -29,6 +29,24 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function SortingList({isSortingListOpen, onSortPanelClick, currentSortType}: PropsFromRedux): JSX.Element {
+
+  function SortingListWindow() {
+    return (
+      <>
+        <ul className={isSortingListOpen ?
+          'places__options places__options--custom places__options--opened' :
+          'places__options places__options--custom'}
+        >
+          {Object.values(SortType).map((sortType) => (
+            <SortingListItem
+              sortType={sortType}
+              key={nanoid()}
+            />))}
+        </ul>
+      </>
+    );
+  }
+
   return (
     <>
       <span className="places__sorting-caption">Sort by</span>
@@ -36,16 +54,7 @@ function SortingList({isSortingListOpen, onSortPanelClick, currentSortType}: Pro
                   {currentSortType}
         <IconArrowSelect/>
               </span>
-      <ul className={isSortingListOpen ?
-        'places__options places__options--custom places__options--opened' :
-        'places__options places__options--custom'}
-      >
-        {Object.values(SortType).map((sortType) => (
-          <SortingListItem
-            sortType={sortType}
-            key={nanoid()}
-          />))}
-      </ul>
+      <SortingListWindow/>
     </>
   );
 }
