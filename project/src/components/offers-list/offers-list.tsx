@@ -29,7 +29,6 @@ function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
 }
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-
 type PropsFromRedux = ConnectedProps<typeof connector>;
 // type OfferListProps = {
 //   currentOffer?: OfferType,
