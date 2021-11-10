@@ -8,9 +8,9 @@ import {selectCity} from '../../store/action';
 import {City} from '../../types/city';
 import {ActionsType} from '../../types/action';
 
-function mapStateToProps({offersByCity}: State) {
+
+function mapStateToProps({}) {
   return ({
-    offersByCity,
   });
 }
 

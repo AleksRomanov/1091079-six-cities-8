@@ -5,10 +5,10 @@ import {ReviewType} from './reviewType';
 
 type State = {
   currentCity: City,
-  citiesList: City[],
+  // citiesList: City[],
   offers: OfferType[],
   fetchedOffers: OfferType[],
-  offersByCity: OfferType[],
+  // offersByCity: OfferType[],
   currentOffer: OfferType | null,
   authorizationStatus: AuthorizationStatus,
   reviews: ReviewType[],
