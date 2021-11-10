@@ -20,7 +20,7 @@ function Favorites(): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <OffersList isFavourite/>
+                  <OffersList />
                 </div>
               </li>
             </ul>

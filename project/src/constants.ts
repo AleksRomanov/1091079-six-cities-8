@@ -65,3 +65,10 @@ export const offerCardClasses = {
   favoritesArticleClass: 'favorites__card place-card',
   favoritesImageData: {imageClass: 'favorites__image-wrapper place-card__image-wrapper', imageSizes: {width: '150', height: '110'}},
 };
+
+export enum SortType {
+  Popular = 'Popular',
+  LowToHighPrice = 'Price: low to high',
+  HighToLowPrice = 'Price: high to low',
+  TopRated = 'Top rated first',
+}

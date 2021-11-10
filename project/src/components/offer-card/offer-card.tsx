@@ -1,20 +1,16 @@
 import {OfferType} from '../../types/offerType';
-import {Link} from 'react-router-dom';
+import {Link, useRouteMatch} from 'react-router-dom';
 import {AppRoute, offerCardClasses} from '../../constants';
-import {State} from '../../types/state';
 import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
+import {ActionsType} from '../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
 import {rewriteActiveCity} from '../../store/action';
 
-function mapStateToProps({offersByCity, offers}: State) {
-  return ({
-    offersByCity,
-    offers,
-  });
+function mapStateToProps() {
+  return ({});
 }
 
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
+function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
   return {
     setActiveCity(city: OfferType | null) {
       dispatch(rewriteActiveCity(city));
@@ -26,10 +22,9 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type OfferCardProps = {
   offer: OfferType,
-  isFavourite: boolean,
 }
 
-function OfferCard({offer, isFavourite, setActiveCity}: PropsFromRedux & OfferCardProps): JSX.Element {
+function OfferCard({offer, setActiveCity}: PropsFromRedux & OfferCardProps): JSX.Element {
   const {
     isPremium,
     previewImage,
@@ -39,6 +34,8 @@ function OfferCard({offer, isFavourite, setActiveCity}: PropsFromRedux & OfferCa
     type,
     id,
   } = offer;
+
+  let isFavourite = useRouteMatch(AppRoute.Favorites);
 
   const onCardSelect = (offerItem: OfferType | null): void => {
     setActiveCity(offerItem);

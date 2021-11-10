@@ -2,12 +2,11 @@ import {Link} from 'react-router-dom';
 import {CitiesList} from '../../constants';
 import {nanoid} from 'nanoid';
 import React from 'react';
-import {State} from '../../types/state';
 import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
-import {getOffersByCity, selectCity} from '../../store/action';
+import {selectCity} from '../../store/action';
 import {City} from '../../types/city';
+import {ActionsType} from '../../types/action';
 
 function mapStateToProps({offersByCity}: State) {
   return ({
@@ -15,21 +14,18 @@ function mapStateToProps({offersByCity}: State) {
   });
 }
 
-function mapDispatchToProps(dispatch: Dispatch<Actions>) {
+function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
   return {
     onSelectCity(city: string) {
       dispatch(selectCity(city));
-      dispatch(getOffersByCity());
     },
   };
 }
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function LocationsList(props: PropsFromRedux): JSX.Element {
-  const {onSelectCity} = props;
+function LocationsList({onSelectCity}: PropsFromRedux): JSX.Element {
   const onCityChoose = (city: string) => {
     onSelectCity(city);
   };

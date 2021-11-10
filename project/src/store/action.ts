@@ -1,26 +1,44 @@
-import {ActionType, GetOffersByCityAction, RewriteActiveCityAction, SelectCityAction, SelectStarRating, SetCommentValueText} from '../types/action';
+import {ActionType} from '../types/action';
 import {OfferType} from '../types/offerType';
 
-export const selectCity = (city: string): SelectCityAction => ({
-  type: ActionType.SelectCity,
-  payload: city,
+export const selectCity = (city: string) => ({
+  type: ActionType.SelectCity as const,
+  city,
 });
 
-export const getOffersByCity = (): GetOffersByCityAction => ({
-  type: ActionType.GetOffersByCity,
+export const rewriteActiveCity = (activeCity: OfferType | null) => ({
+  type: ActionType.SetActiveCity as const,
+  activeCity,
 });
 
-export const rewriteActiveCity = (activeCity: OfferType | null): RewriteActiveCityAction => ({
-  type: ActionType.SetActiveCity,
-  payload: activeCity,
+export const selectStarRating = (ratingValue: number) => ({
+  type: ActionType.SelectStarRating as const,
+  ratingValue,
 });
 
-export const selectStarRating = (ratingValue: number): SelectStarRating => ({
-  type: ActionType.SelectStarRating,
-  payload: ratingValue,
+export const setCommentValueText = (commentTextValue: string) => ({
+  type: ActionType.SetCommentValueText as const,
+  commentTextValue,
 });
 
-export const setCommentValueText = (commentTextValue: string): SetCommentValueText => ({
-  type: ActionType.SetCommentValueText,
-  payload: commentTextValue,
+export const changeSortType = (changeSortType: string) => ({
+  type: ActionType.ChangeSortType as const,
+  changeSortType,
 });
+
+export const changeSortPanelOpenStatus = () => ({
+  type: ActionType.ChangeSortPanelOpenStatus as const,
+});
+
+export const sortCurrentOffers = (sortType: string) => ({
+  type: ActionType.SortCurrentOffers as const,
+  sortType,
+});
+
+export const fetchCurrentOffers = (currentUrl: string, currentOfferId?: string) => ({
+  type: ActionType.FetchCurrentOffers as const,
+  currentUrl,
+  currentOfferId
+});
+
+

@@ -5,10 +5,10 @@ import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import {useParams} from 'react-router-dom';
-import OffersList from '../offers-list/offers-list';
 import {nanoid} from 'nanoid';
 import ReviewsList from '../reviews-list/reviews-list';
 import SubmitFormComment from '../submit-form-comment/submit-form-comment';
+import OffersList from '../offers-list/offers-list';
 
 function mapStateToProps({offers, currentOffer}: State) {
   return ({
@@ -134,7 +134,7 @@ function Offer({offers}: PropsFromRedux): JSX.Element {
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            <OffersList currentOffer={currenOffer} isFavourite={false}/>
+            <OffersList />
           </div>
         </section>
       </div>
