@@ -9,7 +9,7 @@ import {City} from '../../types/city';
 import {ActionsType} from '../../types/action';
 
 
-function mapStateToProps({}) {
+function mapStateToProps() {
   return ({
   });
 }

@@ -35,7 +35,7 @@ function Main({currentCity, fetchedOffers}: PropsFromRedux): JSX.Element {
               <SortingList/>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              <OffersList />
+              <OffersList/>
             </div>
           </section>
           <div className="cities__right-section">

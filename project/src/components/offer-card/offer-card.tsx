@@ -7,7 +7,8 @@ import {connect, ConnectedProps} from 'react-redux';
 import {rewriteActiveCity} from '../../store/action';
 
 function mapStateToProps() {
-  return ({});
+  return ({
+  });
 }
 
 function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
@@ -29,7 +30,6 @@ function OfferCard({offer, setActiveCity}: PropsFromRedux & OfferCardProps): JSX
     isPremium,
     previewImage,
     price,
-    rating,
     title,
     type,
     id,
@@ -70,7 +70,7 @@ function OfferCard({offer, setActiveCity}: PropsFromRedux & OfferCardProps): JSX
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${20 * Math.round(rating)}%`}}/>
+            <span style={{width: `${20 * Math.round(offer.rating)}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

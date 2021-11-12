@@ -34,20 +34,19 @@ type offerId = {
 function OffersList({fetchedOffers, onFetchCurrentOffers, offers}: PropsFromRedux): JSX.Element {
   let currentUrl = useLocation();
   let isOfferPage = useRouteMatch(AppRoute.Offer);
-  // const [isFirstRender, setIsFirstRender] = useState(true);
+  const [isFirstRender, setIsFirstRender] = useState(true);
   const {id}: offerId = useParams();
 
   useEffect(() => {
-    // if (isFirstRender) {
+    if (isFirstRender && offers.length > 0) {
       if (isOfferPage) {
-
         onFetchCurrentOffers(AppRoute.OfferLink, id);
       } else {
         onFetchCurrentOffers(currentUrl.pathname, id);
       }
-      // setIsFirstRender(false);
-    // } else return;
-  }, [id, currentUrl, isOfferPage, onFetchCurrentOffers, offers]);
+      setIsFirstRender(false);
+    } else return;
+  }, [id, currentUrl, isOfferPage, isFirstRender, onFetchCurrentOffers, offers]);
   return (
     <>
       {fetchedOffers.map((offer) => (

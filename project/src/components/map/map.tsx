@@ -20,9 +20,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function Map({fetchedOffers, currentOffer, currentCity, offers}: PropsFromRedux): JSX.Element {
   const mapRef = useRef(null);
-  // console.log(currentCity);
   const map = useMap(mapRef, currentCity);
-  // console.log(map);
   const defaultIcon = useMemo(() => new Icon({iconUrl: URL_MARKER_DEFAULT, iconSize: [27, 39], iconAnchor: [13.5, 39]}), []);
   const currentIcon = useMemo(() => new Icon({iconUrl: URL_MARKER_CURRENT, iconSize: [27, 39], iconAnchor: [13.5, 39]}), []);
 

@@ -1,13 +1,11 @@
 import {ActionsType, ActionType} from '../types/action';
 import {State} from '../types/state';
-import {offers} from '../mocks/offers';
 import {AppRoute, AuthorizationStatus, CitiesList, SortType} from '../constants';
-import {reviews} from '../mocks/reviews';
 import getOffersByCity from '../utils';
 
 const initialState = {
   offers: [],
-  reviews,
+  reviews: [],
   currentCity: CitiesList[0],
   currentOffer: null,
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -50,7 +48,6 @@ const reducer = (state: State = initialState, action: ActionsType): State => {
     case ActionType.FetchCurrentOffers: {
       switch (action.currentUrl) {
         case AppRoute.Main:
-          // console.log(state.offers);
           return {...state, fetchedOffers: state.offers.filter((offer) => state.currentCity && offer.cityName === state.currentCity.city)};
         case AppRoute.Favorites:
           return {...state, fetchedOffers: state.offers.filter((offer) => offer.isFavourite)};
