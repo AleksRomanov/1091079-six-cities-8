@@ -6,11 +6,13 @@ function useMap(
   mapRef: React.MutableRefObject<HTMLElement | null>,
   city: City | undefined,
 ): Map | null {
+
   const [map, setMap] = useState<Map | null>(null);
 
   useEffect(() => {
     if (city) {
       if (mapRef.current !== null && map === null) {
+
         const instance = new Map(mapRef.current, {
           center: {
             lat: city.latitude,
@@ -31,6 +33,14 @@ function useMap(
 
         setMap(instance);
       }
+
+      if (map) {
+        if(map.options.center){
+        console.log(map.options.center)
+        }
+      }
+
+
     }
   }, [mapRef, map, city]);
 

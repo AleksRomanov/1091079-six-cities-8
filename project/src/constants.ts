@@ -12,6 +12,12 @@ export const enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export const enum OfferKind {
   apartment = 'Apartment',
   hotel = 'Hotel',
@@ -22,33 +28,33 @@ export const enum OfferKind {
 export const CitiesList = [
   {
     city: 'Paris',
-    latitude: 52.370216,
-    longitude: 4.895168,
+    latitude: 48.85661,
+    longitude: 2.351499,
   },
   {
     city: 'Cologne',
-    latitude: 52.370216,
-    longitude: 4.895168,
+    latitude: 50.938361,
+    longitude: 6.959974,
   },
   {
     city: 'Brussels',
-    latitude: 52.370216,
-    longitude: 4.895168,
+    latitude: 50.846557,
+    longitude: 4.351697,
   },
   {
     city: 'Amsterdam',
-    latitude: 52.370216,
-    longitude: 4.895168,
+    latitude: 52.37454,
+    longitude: 4.897976,
   },
   {
     city: 'Hamburg',
-    latitude: 52.370216,
-    longitude: 4.895168,
+    latitude: 53.550341,
+    longitude: 10.000654,
   },
   {
     city: 'Dusseldorf',
-    latitude: 52.370216,
-    longitude: 4.895168,
+    latitude: 51.225402,
+    longitude: 6.776314,
   },
 ];
 

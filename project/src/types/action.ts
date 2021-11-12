@@ -1,4 +1,7 @@
 import * as actions from '../store/action';
+import {ThunkAction, ThunkDispatch} from 'redux-thunk';
+import {State} from './state';
+import {AxiosInstance} from 'axios';
 export enum ActionType {
   SelectCity = 'selectCity',
   SetActiveCity = 'setActiveCity',
@@ -8,8 +11,15 @@ export enum ActionType {
   ChangeSortPanelOpenStatus = 'changeSortPanelOpenStatus',
   SortCurrentOffers = 'sortCurrentOffers',
   FetchCurrentOffers = 'fetchCurrentOffers',
+  RequireAuthorization = 'requireAuthorization',
+  RedirectToRoute = 'redirectToRoute',
+  LoadOffers = 'loadOffers',
 }
 
-type InferValueTypes<T> = T extends {[key: string]: infer U} ? U : never;
-
 export type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
+
+
+type InferValueTypes<T> = T extends {[key: string]: infer U} ? U : never;
+export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, ActionsType>;
+export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, ActionsType>;
+

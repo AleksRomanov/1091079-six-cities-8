@@ -9,9 +9,10 @@ import OfferCard from '../offer-card/offer-card';
 import {AppRoute} from '../../constants';
 import {nanoid} from 'nanoid';
 
-function mapStateToProps({fetchedOffers}: State) {
+function mapStateToProps({fetchedOffers, offers}: State) {
   return ({
     fetchedOffers,
+    offers,
   });
 }
 
@@ -30,22 +31,23 @@ type offerId = {
   id: string,
 }
 
-function OffersList({fetchedOffers, onFetchCurrentOffers}: PropsFromRedux): JSX.Element {
+function OffersList({fetchedOffers, onFetchCurrentOffers, offers}: PropsFromRedux): JSX.Element {
   let currentUrl = useLocation();
   let isOfferPage = useRouteMatch(AppRoute.Offer);
-  const [isFirstRender, setIsFirstRender] = useState(true);
+  // const [isFirstRender, setIsFirstRender] = useState(true);
   const {id}: offerId = useParams();
 
   useEffect(() => {
-    if (isFirstRender) {
+    // if (isFirstRender) {
       if (isOfferPage) {
+
         onFetchCurrentOffers(AppRoute.OfferLink, id);
       } else {
         onFetchCurrentOffers(currentUrl.pathname, id);
       }
-      setIsFirstRender(false);
-    } else return;
-  }, [isFirstRender, setIsFirstRender, id, currentUrl, isOfferPage, onFetchCurrentOffers]);
+      // setIsFirstRender(false);
+    // } else return;
+  }, [id, currentUrl, isOfferPage, onFetchCurrentOffers, offers]);
   return (
     <>
       {fetchedOffers.map((offer) => (

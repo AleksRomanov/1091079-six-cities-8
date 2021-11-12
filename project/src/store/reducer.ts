@@ -6,16 +6,17 @@ import {reviews} from '../mocks/reviews';
 import getOffersByCity from '../utils';
 
 const initialState = {
-  offers,
+  offers: [],
   reviews,
   currentCity: CitiesList[0],
   currentOffer: null,
-  authorizationStatus: AuthorizationStatus.Auth,
+  authorizationStatus: AuthorizationStatus.Unknown,
   offerStarRating: 0,
   commentValueText: '',
   currentSortType: SortType.Popular,
   isSortingListOpen: false,
   fetchedOffers: [],
+  isDataLoaded: false,
 };
 
 const reducer = (state: State = initialState, action: ActionsType): State => {
@@ -49,6 +50,7 @@ const reducer = (state: State = initialState, action: ActionsType): State => {
     case ActionType.FetchCurrentOffers: {
       switch (action.currentUrl) {
         case AppRoute.Main:
+          // console.log(state.offers);
           return {...state, fetchedOffers: state.offers.filter((offer) => state.currentCity && offer.cityName === state.currentCity.city)};
         case AppRoute.Favorites:
           return {...state, fetchedOffers: state.offers.filter((offer) => offer.isFavourite)};
@@ -87,6 +89,15 @@ const reducer = (state: State = initialState, action: ActionsType): State => {
           return state;
       }
     }
+    case ActionType.LoadOffers: {
+      return {...state, offers: action.offers};
+    }
+    case ActionType.RequireAuthorization:
+      return {
+        ...state,
+        authorizationStatus: action.authStatus,
+        isDataLoaded: true,
+      };
     default:
       return state;
   }

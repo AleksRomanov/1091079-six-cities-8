@@ -15,7 +15,6 @@ function mapStateToProps({currentCity, fetchedOffers}: State) {
 }
 
 const connector = connect(mapStateToProps, {});
-
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function Main({currentCity, fetchedOffers}: PropsFromRedux): JSX.Element {

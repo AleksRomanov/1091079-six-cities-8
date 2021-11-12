@@ -29,6 +29,7 @@ function LocationsList({onSelectCity}: PropsFromRedux): JSX.Element {
   const onCityChoose = (city: string) => {
     onSelectCity(city);
   };
+
   return (
     <ul className="locations__list tabs__list">
       {CitiesList.map((city: City) => (

@@ -1,7 +1,7 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import {getToken} from './token';
 
-const BACKEND_URL = 'https://8.react.pages.academy/six-cities';
+const BASE_URL = 'https://8.react.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
 enum HttpCode {
@@ -12,7 +12,7 @@ type UnauthorizedCallback = () => void;
 
 const createAPI = (onUnauthorized: UnauthorizedCallback): AxiosInstance => {
   const api = axios.create({
-    baseURL: BACKEND_URL,
+    baseURL: BASE_URL,
     timeout: REQUEST_TIMEOUT,
   });
 
