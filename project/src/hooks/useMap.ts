@@ -35,9 +35,9 @@ function useMap(
       }
 
       if (map) {
-        if(map.options.center){
-        console.log(map.options.center)
-        }
+        console.log(map.options.center);
+        // map.options.center = {lat: city.latitude, lng: city.longitude}
+        // map.remove();
       }
 
 
