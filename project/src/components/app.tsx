@@ -1,14 +1,31 @@
 import Main from './pages/main';
 import Offer from './pages/offer';
-import {AppRoute} from '../constants';
+import {AppRoute, AuthorizationStatus} from '../constants';
 import MainPage404 from './pages/main-page-404';
 import React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import PrivateRoute from './private-route';
 import Favorites from './pages/favorites';
 import Login from './pages/login';
+import {State} from '../types/state';
+import {connect, ConnectedProps} from 'react-redux';
 
-function App(): JSX.Element {
+const mapStateToProps = ({authorizationStatus, isDataLoaded}: State) => ({
+  authorizationStatus,
+  isDataLoaded,
+});
+
+const connector = connect(mapStateToProps, {});
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function App({authorizationStatus, isDataLoaded}: PropsFromRedux): JSX.Element {
+  const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean => authorizationStatus === AuthorizationStatus.Unknown;
+
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+    return (
+      <p>Loading ...</p>
+    );
+  }
   return (
     <BrowserRouter>
       <Switch>
@@ -24,4 +41,4 @@ function App(): JSX.Element {
   );
 }
 
-export default App;
+export default connector(App);
