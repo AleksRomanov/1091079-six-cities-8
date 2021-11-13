@@ -1,6 +1,6 @@
 import {withHeader} from '../../hocks/withHeader';
 
-function MainPage404(): JSX.Element {
+function Page404(): JSX.Element {
   return (
     <main className="page__main page__main--index page__main--index-empty">
       <h1 className="visually-hidden">Cities</h1>
@@ -21,4 +21,4 @@ function MainPage404(): JSX.Element {
   );
 }
 
-export default withHeader(MainPage404);
+export default withHeader(Page404);

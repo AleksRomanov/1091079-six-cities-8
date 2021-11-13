@@ -25,13 +25,13 @@ function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
 }
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-type IOffersListProps = ConnectedProps<typeof connector>;
+type OffersListProps = ConnectedProps<typeof connector>;
 
 type offerId = {
   id: string,
 }
 
-function OffersList({fetchedOffers, onFetchCurrentOffers, offers}: IOffersListProps): JSX.Element {
+function OffersList({fetchedOffers, onFetchCurrentOffers, offers}: OffersListProps): JSX.Element {
   let currentUrl = useLocation();
   let isOfferPage = useRouteMatch(AppRoute.Offer);
   const [isFirstRender, setIsFirstRender] = useState(true);

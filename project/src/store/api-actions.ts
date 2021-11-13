@@ -28,7 +28,6 @@ export const fetchOffersAction = (): ThunkActionResult =>
           delete offer[feature];
         }
       }
-      console.log(offer);
       return offer;
     }
     const adaptedOffers = data.map(adaptToServer);

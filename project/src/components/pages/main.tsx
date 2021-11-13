@@ -15,9 +15,9 @@ function mapStateToProps({currentCity, fetchedOffers}: State) {
 }
 
 const connector = connect(mapStateToProps, {});
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type MainPageProps = ConnectedProps<typeof connector>;
 
-function Main({currentCity, fetchedOffers}: PropsFromRedux): JSX.Element {
+function Main({currentCity, fetchedOffers}: MainPageProps): JSX.Element {
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>

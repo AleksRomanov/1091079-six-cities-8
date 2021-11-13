@@ -16,9 +16,9 @@ function mapStateToProps({fetchedOffers, currentCity, currentOffer, offers}: Sta
 }
 
 const connector = connect(mapStateToProps, {});
-type IMapProps = ConnectedProps<typeof connector>;
+type MapProps = ConnectedProps<typeof connector>;
 
-function Map({fetchedOffers, currentOffer, currentCity, offers}: IMapProps): JSX.Element {
+function Map({fetchedOffers, currentOffer, currentCity, offers}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);
   const defaultIcon = useMemo(() => new Icon({iconUrl: URL_MARKER_DEFAULT, iconSize: [27, 39], iconAnchor: [13.5, 39]}), []);

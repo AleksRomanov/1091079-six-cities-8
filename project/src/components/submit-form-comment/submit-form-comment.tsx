@@ -25,9 +25,9 @@ function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
 }
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type SubmitFormProps = ConnectedProps<typeof connector>;
 
-function SubmitFormComment({handleSelectStarRating, handleInputCommentText, commentValueText}: PropsFromRedux): JSX.Element {
+function SubmitFormComment({handleSelectStarRating, handleInputCommentText, commentValueText}: SubmitFormProps): JSX.Element {
   function RatingPanel() {
     const panelMarkup = [];
     for (let i = 5; i >= 1; i--) {
@@ -48,7 +48,7 @@ function SubmitFormComment({handleSelectStarRating, handleInputCommentText, comm
       <div className="reviews__rating-form form__rating">
         {RatingPanel()}
       </div>
-      <textarea className="reviews__textarea form__textarea" value={commentValueText} id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={(evt) => handleInputCommentText(evt.target.value)} />
+      <textarea className="reviews__textarea form__textarea" value={commentValueText} id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={(evt) => handleInputCommentText(evt.target.value)}/>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.

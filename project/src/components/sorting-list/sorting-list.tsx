@@ -29,9 +29,9 @@ function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
 }
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type SortingListProps = ConnectedProps<typeof connector>;
 
-function SortingList({isSortingListOpen, onSortPanelClick, currentSortType, onChangeSortType}: PropsFromRedux): JSX.Element {
+function SortingList({isSortingListOpen, onSortPanelClick, currentSortType, onChangeSortType}: SortingListProps): JSX.Element {
   const handleOptionClick = (sortType: string): void => {
     onChangeSortType(sortType);
   };

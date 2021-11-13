@@ -18,13 +18,13 @@ function mapStateToProps({offers, currentOffer}: State) {
 }
 
 const connector = connect(mapStateToProps, {});
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type OfferPageProps = ConnectedProps<typeof connector>;
 
 type offerId = {
   id: string,
 }
 
-function Offer({offers}: PropsFromRedux): JSX.Element {
+function Offer({offers}: OfferPageProps): JSX.Element {
   const {id}: offerId = useParams();
   const currenOffer = useMemo(() => offers.find((offerItem) => offerItem.id.toString() === id), [id, offers]);
 

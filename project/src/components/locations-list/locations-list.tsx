@@ -23,9 +23,9 @@ function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
 }
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type LocationListProps = ConnectedProps<typeof connector>;
 
-function LocationsList({onSelectCity}: PropsFromRedux): JSX.Element {
+function LocationsList({onSelectCity}: LocationListProps): JSX.Element {
   const onCityChoose = (city: string) => {
     onSelectCity(city);
   };
