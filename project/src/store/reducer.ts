@@ -25,7 +25,7 @@ const reducer = (state: State = initialState, action: ActionsType): State => {
         return {
           ...state,
           currentCity: currentCity,
-          fetchedOffers: state.offers.filter((offer) => currentCity && offer.cityName === currentCity.city),
+          fetchedOffers: state.offers.filter((offer) => currentCity && offer.city.name === currentCity.city),
         };
       } else {
         return {...state};
@@ -48,9 +48,9 @@ const reducer = (state: State = initialState, action: ActionsType): State => {
     case ActionType.FetchCurrentOffers: {
       switch (action.currentUrl) {
         case AppRoute.Main:
-          return {...state, fetchedOffers: state.offers.filter((offer) => state.currentCity && offer.cityName === state.currentCity.city)};
+          return {...state, fetchedOffers: state.offers.filter((offer) => state.currentCity && offer.city.name === state.currentCity.city)};
         case AppRoute.Favorites:
-          return {...state, fetchedOffers: state.offers.filter((offer) => offer.isFavourite)};
+          return {...state, fetchedOffers: state.offers.filter((offer) => offer.isFavorite)};
         case AppRoute.OfferLink:
           const currentOffer = state.offers.find((offer) => offer.id.toString() === action.currentOfferId);
           let offersByCity = getOffersByCity(state.offers, state.currentCity);

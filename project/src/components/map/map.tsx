@@ -16,9 +16,9 @@ function mapStateToProps({fetchedOffers, currentCity, currentOffer, offers}: Sta
 }
 
 const connector = connect(mapStateToProps, {});
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type IMapProps = ConnectedProps<typeof connector>;
 
-function Map({fetchedOffers, currentOffer, currentCity, offers}: PropsFromRedux): JSX.Element {
+function Map({fetchedOffers, currentOffer, currentCity, offers}: IMapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);
   const defaultIcon = useMemo(() => new Icon({iconUrl: URL_MARKER_DEFAULT, iconSize: [27, 39], iconAnchor: [13.5, 39]}), []);
@@ -28,8 +28,8 @@ function Map({fetchedOffers, currentOffer, currentCity, offers}: PropsFromRedux)
     if (map) {
       fetchedOffers.forEach((offer) => {
         const marker = new Marker({
-          lat: offer.latitude,
-          lng: offer.longitude,
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
         });
         marker.setIcon(currentOffer !== null && offer.id === currentOffer.id ? currentIcon : defaultIcon).addTo(map);
       });

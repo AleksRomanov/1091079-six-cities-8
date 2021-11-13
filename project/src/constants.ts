@@ -19,10 +19,10 @@ export enum APIRoute {
 }
 
 export const enum OfferKind {
-  apartment = 'Apartment',
-  hotel = 'Hotel',
-  house = 'House',
-  room = 'Private Room',
+  Apartment = 'apartment',
+  Room = 'room',
+  House = 'house',
+  Hotel = 'hotel',
 }
 
 export const CitiesList = [

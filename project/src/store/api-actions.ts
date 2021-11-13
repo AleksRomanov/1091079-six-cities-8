@@ -23,7 +23,7 @@ export const fetchOffersAction = (): ThunkActionResult =>
     const adaptToServer = (offer: any) => {
       const adaptingOffer = {
         ...offer,
-        'amountOfBedrooms': offer.bedrooms,
+        bedrooms: offer.bedrooms,
         'cityName': offer.city.name,
         'cityLatitude': offer.city.location.latitude,
         'cityLongitude': offer.city.location.longitude,

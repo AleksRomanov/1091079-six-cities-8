@@ -5,8 +5,8 @@ import React from 'react';
 import {Dispatch} from 'redux';
 import {connect, ConnectedProps} from 'react-redux';
 import {selectCity} from '../../store/action';
-import {City} from '../../types/city';
 import {ActionsType} from '../../types/action';
+import { City } from '../../types/city';
 
 
 function mapStateToProps() {
