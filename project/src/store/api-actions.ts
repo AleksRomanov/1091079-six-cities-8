@@ -18,11 +18,11 @@ export const checkAuthAction = (): ThunkActionResult =>
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get<OfferType[]>(APIRoute.Offers);
-    const adaptToServer = (offer: any) => {
-      const getProp = (offer: any) => {
+    const adaptFromServer = (offer: any) => {
+      const adaptOfferFeatures = (offer: any) => {
         for (let feature in offer) {
           if (typeof (offer[feature]) === 'object') {
-            getProp(offer[feature]);
+            adaptOfferFeatures(offer[feature]);
           } else {
             let snakeSymbolIndex = feature.indexOf('_');
             if (snakeSymbolIndex >= 0) {
@@ -32,11 +32,11 @@ export const fetchOffersAction = (): ThunkActionResult =>
           }
         }
       }
-      getProp(offer);
+      adaptOfferFeatures(offer);
       return offer;
 
     }
-    const adaptedOffers = data.map(adaptToServer);
+    const adaptedOffers = data.map(adaptFromServer);
     console.log(adaptedOffers);
     dispatch(loadOffers(adaptedOffers));
   };
