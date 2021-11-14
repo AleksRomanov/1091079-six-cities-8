@@ -1,29 +1,38 @@
+import {OfferKind} from '../constants';
+
 type OfferType = {
-  images: string[],
-  previewImage: string,
-  title: string,
-  description: string,
-  isPremium: boolean,
-  type: string,
-  rating: number,
-  amountOfBedrooms: number,
-  cityName: string,
-  cityLatitude: number,
-  cityLongitude: number,
-  cityZoom: number,
-  latitude: number,
-  longitude: number,
-  zoom: number,
-  maxAdults: number,
-  price: number,
-  goods: string[],
-  hostIsPro: boolean,
-  hostAvatarUrl: string,
-  hostId: number,
-  hostName: string,
-  id: number,
-  isFavourite: boolean,
-  key: number
+  bedrooms: number;
+  city: {
+    name: string;
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+  };
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+  description: string;
+  goods: string[];
+  host: {
+    avatarUrl: string;
+    id: number;
+    isPro: boolean;
+    name: string;
+  };
+  id: number;
+  images: string[];
+  isFavorite: boolean;
+  isPremium: boolean;
+  maxAdults: number;
+  previewImage: string;
+  price: number;
+  rating: number;
+  title: string;
+  type: OfferKind;
 };
 
 

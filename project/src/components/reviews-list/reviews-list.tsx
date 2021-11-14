@@ -9,15 +9,14 @@ function mapStateToProps({reviews}: State) {
 }
 
 const connector = connect(mapStateToProps, {});
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type ReviewsListProps = ReviewsListOutsideProps & ConnectedProps<typeof connector>;
 
-type ReviewsListProps = {
+type ReviewsListOutsideProps = {
   currentOfferId: string;
 }
 
-function ReviewsList({currentOfferId, reviews}: PropsFromRedux & ReviewsListProps): JSX.Element {
+function ReviewsList({currentOfferId, reviews}: ReviewsListProps): JSX.Element {
   const currentOffersReviews = reviews.filter((review) => currentOfferId === review.offersID.toString());
-
   return (
     <>
       {currentOffersReviews.map((review) => (<PlaceReview review={review} key={review.id}/>))}

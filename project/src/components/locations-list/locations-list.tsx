@@ -5,12 +5,12 @@ import React from 'react';
 import {Dispatch} from 'redux';
 import {connect, ConnectedProps} from 'react-redux';
 import {selectCity} from '../../store/action';
-import {City} from '../../types/city';
 import {ActionsType} from '../../types/action';
+import { City } from '../../types/city';
 
-function mapStateToProps({offersByCity}: State) {
+
+function mapStateToProps() {
   return ({
-    offersByCity,
   });
 }
 
@@ -23,12 +23,13 @@ function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
 }
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type LocationListProps = ConnectedProps<typeof connector>;
 
-function LocationsList({onSelectCity}: PropsFromRedux): JSX.Element {
+function LocationsList({onSelectCity}: LocationListProps): JSX.Element {
   const onCityChoose = (city: string) => {
     onSelectCity(city);
   };
+
   return (
     <ul className="locations__list tabs__list">
       {CitiesList.map((city: City) => (

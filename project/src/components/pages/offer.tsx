@@ -18,13 +18,13 @@ function mapStateToProps({offers, currentOffer}: State) {
 }
 
 const connector = connect(mapStateToProps, {});
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type OfferPageProps = ConnectedProps<typeof connector>;
 
 type offerId = {
   id: string,
 }
 
-function Offer({offers}: PropsFromRedux): JSX.Element {
+function Offer({offers}: OfferPageProps): JSX.Element {
   const {id}: offerId = useParams();
   const currenOffer = useMemo(() => offers.find((offerItem) => offerItem.id.toString() === id), [id, offers]);
 
@@ -66,7 +66,7 @@ function Offer({offers}: PropsFromRedux): JSX.Element {
               <h1 className="property__name">
                 {currenOffer && currenOffer.title}
               </h1>
-              <button className={`property__bookmark-button button ${currenOffer && currenOffer.isFavourite ? 'property__bookmark-button--active' : ''}`} type="button">
+              <button className={`property__bookmark-button button ${currenOffer && currenOffer.isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
                 <IconBookmark/>
                 <span className="visually-hidden">To bookmarks</span>
               </button>
@@ -83,7 +83,7 @@ function Offer({offers}: PropsFromRedux): JSX.Element {
                 {currenOffer && currenOffer.type}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                {currenOffer && currenOffer.amountOfBedrooms} Bedrooms
+                {currenOffer && currenOffer.bedrooms} Bedrooms
               </li>
               <li className="property__feature property__feature--adults">
                 Max {currenOffer && currenOffer.maxAdults} adults
@@ -103,12 +103,12 @@ function Offer({offers}: PropsFromRedux): JSX.Element {
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src={currenOffer && currenOffer.hostAvatarUrl} alt="Host avatar" width="74" height="74"/>
+                  <img className="property__avatar user__avatar" src={currenOffer && currenOffer.host.avatarUrl} alt="Host avatar" width="74" height="74"/>
                 </div>
                 <span className="property__user-name">
-                  {currenOffer && currenOffer.hostName}
+                  {currenOffer && currenOffer.host.name}
                 </span>
-                {currenOffer && currenOffer.hostIsPro &&
+                {currenOffer && currenOffer.host.isPro &&
                 <span className="property__user-status">Pro</span>}
               </div>
               <div className="property__description">
@@ -134,7 +134,7 @@ function Offer({offers}: PropsFromRedux): JSX.Element {
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            <OffersList />
+            <OffersList/>
           </div>
         </section>
       </div>

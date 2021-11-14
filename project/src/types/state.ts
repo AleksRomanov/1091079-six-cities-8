@@ -5,10 +5,8 @@ import {ReviewType} from './reviewType';
 
 type State = {
   currentCity: City,
-  citiesList: City[],
   offers: OfferType[],
   fetchedOffers: OfferType[],
-  offersByCity: OfferType[],
   currentOffer: OfferType | null,
   authorizationStatus: AuthorizationStatus,
   reviews: ReviewType[],
@@ -16,6 +14,7 @@ type State = {
   commentValueText: string,
   currentSortType: string,
   isSortingListOpen: boolean,
+  isDataLoaded: boolean,
 };
 
 export type {State};

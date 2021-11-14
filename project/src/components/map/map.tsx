@@ -6,19 +6,19 @@ import useMap from '../../hooks/useMap';
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 
-function mapStateToProps({fetchedOffers, currentCity, currentOffer}: State) {
+function mapStateToProps({fetchedOffers, currentCity, currentOffer, offers}: State) {
   return ({
     fetchedOffers,
     currentCity,
     currentOffer,
+    offers,
   });
 }
 
 const connector = connect(mapStateToProps, {});
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type MapProps = ConnectedProps<typeof connector>;
 
-function Map(props: PropsFromRedux): JSX.Element {
-  const {fetchedOffers, currentOffer, currentCity} = props;
+function Map({fetchedOffers, currentOffer, currentCity, offers}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);
   const defaultIcon = useMemo(() => new Icon({iconUrl: URL_MARKER_DEFAULT, iconSize: [27, 39], iconAnchor: [13.5, 39]}), []);
@@ -28,13 +28,13 @@ function Map(props: PropsFromRedux): JSX.Element {
     if (map) {
       fetchedOffers.forEach((offer) => {
         const marker = new Marker({
-          lat: offer.latitude,
-          lng: offer.longitude,
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
         });
         marker.setIcon(currentOffer !== null && offer.id === currentOffer.id ? currentIcon : defaultIcon).addTo(map);
       });
     }
-  }, [map, fetchedOffers, currentOffer, defaultIcon, currentIcon]);
+  }, [map, fetchedOffers, currentOffer, defaultIcon, currentIcon, offers]);
 
   return <div style={{height: '100%'}} ref={mapRef}/>;
 }

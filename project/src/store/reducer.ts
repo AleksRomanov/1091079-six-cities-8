@@ -1,21 +1,20 @@
 import {ActionsType, ActionType} from '../types/action';
 import {State} from '../types/state';
-import {offers} from '../mocks/offers';
 import {AppRoute, AuthorizationStatus, CitiesList, SortType} from '../constants';
-import {reviews} from '../mocks/reviews';
 import getOffersByCity from '../utils';
 
 const initialState = {
-  offers,
-  reviews,
+  offers: [],
+  reviews: [],
   currentCity: CitiesList[0],
   currentOffer: null,
-  authorizationStatus: AuthorizationStatus.Auth,
+  authorizationStatus: AuthorizationStatus.Unknown,
   offerStarRating: 0,
   commentValueText: '',
   currentSortType: SortType.Popular,
   isSortingListOpen: false,
   fetchedOffers: [],
+  isDataLoaded: false,
 };
 
 const reducer = (state: State = initialState, action: ActionsType): State => {
@@ -26,7 +25,7 @@ const reducer = (state: State = initialState, action: ActionsType): State => {
         return {
           ...state,
           currentCity: currentCity,
-          fetchedOffers: state.offers.filter((offer) => currentCity && offer.cityName === currentCity.city),
+          fetchedOffers: state.offers.filter((offer) => currentCity && offer.city.name === currentCity.city),
         };
       } else {
         return {...state};
@@ -49,9 +48,9 @@ const reducer = (state: State = initialState, action: ActionsType): State => {
     case ActionType.FetchCurrentOffers: {
       switch (action.currentUrl) {
         case AppRoute.Main:
-          return {...state, fetchedOffers: state.offers.filter((offer) => state.currentCity && offer.cityName === state.currentCity.city)};
+          return {...state, fetchedOffers: state.offers.filter((offer) => state.currentCity && offer.city.name === state.currentCity.city)};
         case AppRoute.Favorites:
-          return {...state, fetchedOffers: state.offers.filter((offer) => offer.isFavourite)};
+          return {...state, fetchedOffers: state.offers.filter((offer) => offer.isFavorite)};
         case AppRoute.OfferLink:
           const currentOffer = state.offers.find((offer) => offer.id.toString() === action.currentOfferId);
           let offersByCity = getOffersByCity(state.offers, state.currentCity);
@@ -87,6 +86,15 @@ const reducer = (state: State = initialState, action: ActionsType): State => {
           return state;
       }
     }
+    case ActionType.LoadOffers: {
+      return {...state, offers: action.offers};
+    }
+    case ActionType.RequireAuthorization:
+      return {
+        ...state,
+        authorizationStatus: action.authStatus,
+        isDataLoaded: true,
+      };
     default:
       return state;
   }
