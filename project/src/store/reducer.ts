@@ -1,7 +1,7 @@
 import {ActionsType, ActionType} from '../types/action';
 import {State} from '../types/state';
 import {AppRoute, AuthorizationStatus, CitiesList, SortType} from '../constants';
-import getOffersByCity from '../utils';
+import { getOffersByCity } from '../utils';
 
 const initialState = {
   offers: [],

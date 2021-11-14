@@ -52,6 +52,10 @@ export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
   authStatus,
 } as const);
 
+export const requireLogout = () => ({
+  type: ActionType.RequireLogout,
+} as const);
+
 export const redirectToRoute = (url: AppRoute) => ({
   type: ActionType.RedirectToRoute,
   url,

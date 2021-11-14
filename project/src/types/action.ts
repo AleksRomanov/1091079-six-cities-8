@@ -12,6 +12,7 @@ export enum ActionType {
   SortCurrentOffers = 'sortCurrentOffers',
   FetchCurrentOffers = 'fetchCurrentOffers',
   RequireAuthorization = 'requireAuthorization',
+  RequireLogout = 'requireLogout',
   RedirectToRoute = 'redirectToRoute',
   LoadOffers = 'loadOffers',
 }
