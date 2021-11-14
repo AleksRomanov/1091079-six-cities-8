@@ -22,11 +22,11 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 function App({authorizationStatus, isDataLoaded}: PropsFromRedux): JSX.Element {
   const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean => authorizationStatus === AuthorizationStatus.Unknown;
 
-  if (isCheckedAuth(authorizationStatus) || !isDataLoaded  ) {
-    return (
-      <p>Loading ...</p>
-    );
-  }
+  // if (isCheckedAuth(authorizationStatus) || !isDataLoaded  ) {
+  //   return (
+  //     <p>Loading ...</p>
+  //   );
+  // }
   return (
     <BrowserRouter>
       <Switch>
