@@ -17,11 +17,12 @@ const createAPI = (onUnauthorized: UnauthorizedCallback): AxiosInstance => {
   });
 
   api.interceptors.response.use(
-    (response: AxiosResponse) => response,
+    (response: AxiosResponse) => {
+      return response;
+    },
 
     (error: AxiosError) => {
       const {response} = error;
-
       if (response?.status === HttpCode.Unauthorized) {
         return onUnauthorized();
       }
@@ -33,7 +34,7 @@ const createAPI = (onUnauthorized: UnauthorizedCallback): AxiosInstance => {
     (config: AxiosRequestConfig) => {
       const token = getToken();
 
-      if (token) {
+      if (token && config.headers) {
         config.headers['x-token'] = token;
       }
       return config;

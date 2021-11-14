@@ -24,12 +24,10 @@ function Login({onLogin}: LoginPageProps): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    // if (loginInput.current !== null && passwordInput.current !== null) {
     onLogin({
       login: loginInput,
       password: passwordInput,
     });
-    // }
   };
   return (
     <div className="page page--gray page--login">
@@ -49,7 +47,7 @@ function Login({onLogin}: LoginPageProps): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input className="login__input form__input"

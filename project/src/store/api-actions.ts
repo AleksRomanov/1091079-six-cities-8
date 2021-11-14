@@ -1,18 +1,24 @@
 import {ThunkActionResult} from '../types/action';
 import {APIRoute, AppRoute, AuthorizationStatus} from '../constants';
 import {loadOffers, redirectToRoute, requireAuthorization, requireLogout} from './action';
-import {toast} from 'react-toastify';
 import {OfferType} from '../types/offerType';
 import {adaptFromServer} from '../utils';
 import {AuthData} from '../types/authData';
 import {dropToken, saveToken, Token} from '../services/token';
+import {toast} from 'react-toastify';
+
 const AUTH_FAIL_MESSAGE = 'Пожалуйста авторизуйтесь!';
+type AuthPropsTypes = {
+  authStatus: string
+}
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
-      await api.get(APIRoute.Login);
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      const {authStatus}: AuthPropsTypes = await api.get(APIRoute.Login);
+      if (authStatus === AuthorizationStatus.Auth) {
+        dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      }
     } catch {
       toast.info(AUTH_FAIL_MESSAGE);
     }
@@ -22,7 +28,9 @@ export const loginAction = ({login: email, password}: AuthData): ThunkActionResu
   async (dispatch, _getState, api) => {
     const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
     saveToken(token);
-    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    // dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    //
+    // console.log()
     dispatch(redirectToRoute(AppRoute.Main));
   };
 
