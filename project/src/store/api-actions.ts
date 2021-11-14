@@ -29,8 +29,6 @@ export const loginAction = ({login: email, password}: AuthData): ThunkActionResu
     const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
     saveToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    //
-    // console.log()
     dispatch(redirectToRoute(AppRoute.Main));
   };
 
