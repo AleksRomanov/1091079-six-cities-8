@@ -93,8 +93,10 @@ const reducer = (state: State = initialState, action: ActionsType): State => {
       return {
         ...state,
         authorizationStatus: action.authStatus,
-        isDataLoaded: true,
       };
+    case ActionType.ChangeLoadingStatus: {
+      return {...state, isDataLoaded: action.isLoading};
+    }
     default:
       return state;
   }

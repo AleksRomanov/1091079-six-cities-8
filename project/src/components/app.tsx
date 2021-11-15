@@ -20,9 +20,7 @@ const connector = connect(mapStateToProps, {});
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function App({authorizationStatus, isDataLoaded}: PropsFromRedux): JSX.Element {
-  const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean => authorizationStatus === AuthorizationStatus.Unknown;
-
-  if (isCheckedAuth(authorizationStatus) || !isDataLoaded  ) {
+  if ((authorizationStatus === AuthorizationStatus.Unknown) || isDataLoaded  ) {
     return (
       <p>Loading ...</p>
     );

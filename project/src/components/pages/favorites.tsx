@@ -4,6 +4,7 @@ import {withHeader} from '../../hocks/withHeader';
 import OffersList from '../offers-list/offers-list';
 
 function Favorites(): JSX.Element {
+
   return (
     <>
       <main className="page__main page__main--favorites">

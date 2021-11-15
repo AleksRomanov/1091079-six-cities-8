@@ -15,6 +15,7 @@ export enum ActionType {
   RequireLogout = 'requireLogout',
   RedirectToRoute = 'redirectToRoute',
   LoadOffers = 'loadOffers',
+  ChangeLoadingStatus = 'changeLoadingStatus',
 }
 
 export type ActionsType = ReturnType<InferValueTypes<typeof actions>>;

@@ -17,6 +17,7 @@ type PrivateRouteProps = RouteProps & PropsFromRedux & {
 }
 
 function PrivateRoute({exact, path, render, authorizationStatus}: PrivateRouteProps): JSX.Element {
+
   return (
     <Route
       exact={exact}

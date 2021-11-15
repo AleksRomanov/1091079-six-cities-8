@@ -1,6 +1,6 @@
 import {ThunkActionResult} from '../types/action';
 import {APIRoute, AppRoute, AuthorizationStatus} from '../constants';
-import {loadOffers, redirectToRoute, requireAuthorization, requireLogout} from './action';
+import {changeLoadingStatus, loadOffers, redirectToRoute, requireAuthorization, requireLogout} from './action';
 import {OfferType} from '../types/offerType';
 import {adaptFromServer} from '../utils';
 import {AuthData} from '../types/authData';
@@ -9,17 +9,22 @@ import {toast} from 'react-toastify';
 
 const AUTH_FAIL_MESSAGE = 'Пожалуйста авторизуйтесь!';
 type AuthPropsTypes = {
-  authStatus: string
+  authStatus: string,
+  status: number
 }
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
-      const {authStatus}: AuthPropsTypes = await api.get(APIRoute.Login);
-      if (authStatus === AuthorizationStatus.Auth) {
+      dispatch(changeLoadingStatus(true));
+      const auth: AuthPropsTypes = await api.get(APIRoute.Login);
+
+      if (auth.status === 200) {
         dispatch(requireAuthorization(AuthorizationStatus.Auth));
       }
+
     } catch {
+
       toast.info(AUTH_FAIL_MESSAGE);
     }
   };

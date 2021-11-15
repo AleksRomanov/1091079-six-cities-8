@@ -9,8 +9,9 @@ enum HttpCode {
 }
 
 type UnauthorizedCallback = () => void;
+type OnChangeLoadingStatus = () => void;
 
-const createAPI = (onUnauthorized: UnauthorizedCallback): AxiosInstance => {
+const createAPI = (onUnauthorized: UnauthorizedCallback, onChangeLoadingStatus: OnChangeLoadingStatus): AxiosInstance => {
   const api = axios.create({
     baseURL: BASE_URL,
     timeout: REQUEST_TIMEOUT,
@@ -18,11 +19,13 @@ const createAPI = (onUnauthorized: UnauthorizedCallback): AxiosInstance => {
 
   api.interceptors.response.use(
     (response: AxiosResponse) => {
+      onChangeLoadingStatus();
       return response;
     },
 
     (error: AxiosError) => {
       const {response} = error;
+      onChangeLoadingStatus();
       if (response?.status === HttpCode.Unauthorized) {
         return onUnauthorized();
       }

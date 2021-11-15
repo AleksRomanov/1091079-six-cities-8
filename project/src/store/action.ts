@@ -56,6 +56,11 @@ export const requireLogout = () => ({
   type: ActionType.RequireLogout,
 } as const);
 
+export const changeLoadingStatus = (isLoading: boolean) => ({
+  type: ActionType.ChangeLoadingStatus,
+  isLoading
+} as const);
+
 export const redirectToRoute = (url: AppRoute) => ({
   type: ActionType.RedirectToRoute,
   url,
