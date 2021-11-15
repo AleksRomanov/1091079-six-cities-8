@@ -1,11 +1,12 @@
 import {ThunkActionResult} from '../types/action';
 import {APIRoute, AppRoute, AuthorizationStatus} from '../constants';
-import {changeLoadingStatus, loadOffers, redirectToRoute, requireAuthorization, requireLogout} from './action';
+import {changeLoadingStatus, loadCurrentOffer, loadOffers, redirectToRoute, requireAuthorization, requireLogout} from './action';
 import {OfferType} from '../types/offerType';
 import {adaptFromServer} from '../utils';
 import {AuthData} from '../types/authData';
 import {dropToken, saveToken, Token} from '../services/token';
 import {toast} from 'react-toastify';
+import {FetchOfferData} from '../types/fetchOfferData';
 
 const AUTH_FAIL_MESSAGE = 'Пожалуйста авторизуйтесь!';
 type AuthPropsTypes = {
