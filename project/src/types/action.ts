@@ -20,7 +20,6 @@ export enum ActionType {
 
 export type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
-
 type InferValueTypes<T> = T extends {[key: string]: infer U} ? U : never;
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, ActionsType>;
 export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, ActionsType>;
