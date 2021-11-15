@@ -15,6 +15,7 @@ type State = {
   currentSortType: string,
   isSortingListOpen: boolean,
   isDataLoaded: boolean,
+  observingOffer: OfferType | undefined,
 };
 
-export type {State};
+export type {State}

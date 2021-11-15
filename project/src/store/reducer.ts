@@ -1,13 +1,14 @@
 import {ActionsType, ActionType} from '../types/action';
 import {State} from '../types/state';
 import {AppRoute, AuthorizationStatus, CitiesList, SortType} from '../constants';
-import { getOffersByCity } from '../utils';
+import {getOffersByCity} from '../utils';
 
 const initialState = {
   offers: [],
   reviews: [],
   currentCity: CitiesList[0],
   currentOffer: null,
+  observingOffer: undefined,
   authorizationStatus: AuthorizationStatus.Unknown,
   offerStarRating: 0,
   commentValueText: '',
@@ -88,6 +89,9 @@ const reducer = (state: State = initialState, action: ActionsType): State => {
     }
     case ActionType.LoadOffers: {
       return {...state, offers: action.offers};
+    }
+    case ActionType.LoadCurrentOffer: {
+      return {...state, observingOffer: action.data};
     }
     case ActionType.RequireAuthorization:
       return {

@@ -54,5 +54,5 @@ function Main({currentCity, fetchedOffers}: MainPageProps): JSX.Element {
   );
 }
 
-export {Main};
+// export {Main};
 export default connector(withHeader(Main));

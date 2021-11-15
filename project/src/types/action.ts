@@ -16,6 +16,7 @@ export enum ActionType {
   RedirectToRoute = 'redirectToRoute',
   LoadOffers = 'loadOffers',
   ChangeLoadingStatus = 'changeLoadingStatus',
+  LoadCurrentOffer = 'loadCurrentOffer',
 }
 
 export type ActionsType = ReturnType<InferValueTypes<typeof actions>>;

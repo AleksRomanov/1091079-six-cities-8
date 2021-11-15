@@ -66,4 +66,7 @@ export const redirectToRoute = (url: AppRoute) => ({
   url,
 } as const);
 
-
+export const loadCurrentOffer = (data: OfferType) => ({
+  type: ActionType.LoadCurrentOffer,
+  data,
+} as const);

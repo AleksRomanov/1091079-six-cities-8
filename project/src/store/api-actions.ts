@@ -52,3 +52,9 @@ export const fetchOffersAction = (): ThunkActionResult =>
     const adaptedOffers = data.map(adaptFromServer);
     dispatch(loadOffers(adaptedOffers));
   };
+
+export const fetchCurrentOffer = (id: string): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    const {data} = await api.get<OfferType>(`${APIRoute.Offers}/${id}`);
+    dispatch(loadCurrentOffer(data));
+  };
