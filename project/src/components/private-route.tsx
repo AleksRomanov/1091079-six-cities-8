@@ -10,7 +10,6 @@ function mapStateToProps({authorizationStatus}: State) {
 }
 
 const connector = connect(mapStateToProps, {});
-
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type PrivateRouteProps = RouteProps & PropsFromRedux & {

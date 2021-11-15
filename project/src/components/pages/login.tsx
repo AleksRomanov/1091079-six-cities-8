@@ -1,13 +1,8 @@
 import React, {FormEvent, useState} from 'react';
-import {State} from '../../types/state';
 import {ThunkAppDispatch} from '../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
 import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/authData';
-
-function mapStateToProps({}: State) {
-  return ({});
-}
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onLogin(login: AuthData) {
@@ -15,7 +10,7 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   },
 });
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(null, mapDispatchToProps);
 type LoginPageProps = ConnectedProps<typeof connector>;
 
 function Login({onLogin}: LoginPageProps): JSX.Element {
