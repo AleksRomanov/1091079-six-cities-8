@@ -12,8 +12,10 @@ export enum ActionType {
   SortCurrentOffers = 'sortCurrentOffers',
   FetchCurrentOffers = 'fetchCurrentOffers',
   RequireAuthorization = 'requireAuthorization',
+  RequireLogout = 'requireLogout',
   RedirectToRoute = 'redirectToRoute',
   LoadOffers = 'loadOffers',
+  ChangeLoadingStatus = 'changeLoadingStatus',
 }
 
 export type ActionsType = ReturnType<InferValueTypes<typeof actions>>;

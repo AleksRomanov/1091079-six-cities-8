@@ -10,15 +10,14 @@ function mapStateToProps({authorizationStatus}: State) {
 }
 
 const connector = connect(mapStateToProps, {});
-
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type PrivateRouteProps = RouteProps & PropsFromRedux & {
   render: () => JSX.Element;
 }
 
-function PrivateRoute(props: PrivateRouteProps): JSX.Element {
-  const {exact, path, render, authorizationStatus} = props;
+function PrivateRoute({exact, path, render, authorizationStatus}: PrivateRouteProps): JSX.Element {
+
   return (
     <Route
       exact={exact}

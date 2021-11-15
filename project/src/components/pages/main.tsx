@@ -6,6 +6,9 @@ import {withHeader} from '../../hocks/withHeader';
 import LocationsList from '../locations-list/locations-list';
 import OffersList from '../offers-list/offers-list';
 import SortingList from '../sorting-list/sorting-list';
+import 'react-toastify/dist/ReactToastify.css';
+import {ToastContainer} from 'react-toastify';
+
 
 function mapStateToProps({currentCity, fetchedOffers}: State) {
   return ({
@@ -20,6 +23,8 @@ type MainPageProps = ConnectedProps<typeof connector>;
 function Main({currentCity, fetchedOffers}: MainPageProps): JSX.Element {
   return (
     <main className="page__main page__main--index">
+      <ToastContainer autoClose={2000} />
+
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
