@@ -23,8 +23,7 @@ type MainPageProps = ConnectedProps<typeof connector>;
 function Main({currentCity, fetchedOffers}: MainPageProps): JSX.Element {
   return (
     <main className="page__main page__main--index">
-      <ToastContainer autoClose={2000} />
-
+      <ToastContainer autoClose={2000}/>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
@@ -54,5 +53,5 @@ function Main({currentCity, fetchedOffers}: MainPageProps): JSX.Element {
   );
 }
 
-// export {Main};
+export {Main};
 export default connector(withHeader(Main));

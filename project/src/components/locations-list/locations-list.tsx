@@ -6,12 +6,11 @@ import {Dispatch} from 'redux';
 import {connect, ConnectedProps} from 'react-redux';
 import {selectCity} from '../../store/action';
 import {ActionsType} from '../../types/action';
-import { City } from '../../types/city';
+import {City} from '../../types/city';
 
 
 function mapStateToProps() {
-  return ({
-  });
+  return ({});
 }
 
 function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {

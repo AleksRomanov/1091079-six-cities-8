@@ -8,7 +8,7 @@ import {fetchCurrentOffers} from '../../store/action';
 import OfferCard from '../offer-card/offer-card';
 import {AppRoute} from '../../constants';
 import {nanoid} from 'nanoid';
-import {fetchCommentCurrentOffer, fetchNearbyOffers} from '../../store/api-actions';
+import {fetchNearbyOffers} from '../../store/api-actions';
 
 function mapStateToProps({fetchedOffers, offers}: State) {
   return ({
@@ -48,7 +48,7 @@ function OffersList({fetchedOffers, onFetchCurrentOffers, offers, onFetchNearbyO
       }
       setIsFirstRender(false);
     } else return;
-  }, [id, currentUrl, isOfferPage, isFirstRender, onFetchCurrentOffers, offers]);
+  }, [id, currentUrl, isOfferPage, isFirstRender, onFetchCurrentOffers, offers, onFetchNearbyOffers]);
   return (
     <>
       {fetchedOffers.map((offer) => (

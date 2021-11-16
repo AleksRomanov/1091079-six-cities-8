@@ -3,7 +3,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import PlaceReview from '../place-review/place-review';
 import {useEffect, useState} from 'react';
 import {ThunkAppDispatch} from '../../types/action';
-import {fetchCommentCurrentOffer, fetchCurrentOffer} from '../../store/api-actions';
+import {fetchCommentCurrentOffer} from '../../store/api-actions';
 import {nanoid} from 'nanoid';
 
 function mapStateToProps({reviews}: State) {
@@ -33,7 +33,7 @@ function ReviewsList({currentOfferId, reviews, onFetchCommentsCurrentOffer}: Rev
       onFetchCommentsCurrentOffer(currentOfferId);
       setIsFirstRender(false);
     } else return;
-  }, [currentOfferId, isFirstRender]);
+  }, [currentOfferId, isFirstRender, onFetchCommentsCurrentOffer]);
 
   return (
     <>

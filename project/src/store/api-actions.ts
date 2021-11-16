@@ -19,13 +19,10 @@ export const checkAuthAction = (): ThunkActionResult =>
     try {
       dispatch(changeLoadingStatus(true));
       const auth: AuthPropsTypes = await api.get(APIRoute.Login);
-
       if (auth.status === 200) {
         dispatch(requireAuthorization(AuthorizationStatus.Auth));
       }
-
     } catch {
-
       toast.info(AUTH_FAIL_MESSAGE);
     }
   };

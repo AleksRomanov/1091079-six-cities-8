@@ -28,12 +28,11 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionsType> & ThunkAppDispatch) 
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-
-
 type SubmitFormProps = OutsideCommentFormProps & ConnectedProps<typeof connector>;
 type OutsideCommentFormProps = {
   currentOfferId: string
 }
+
 function SubmitFormComment({handleSelectStarRating, handleInputCommentText, commentValueText, currentOfferId, onHandleSubmit, offerStarRating}: SubmitFormProps): JSX.Element {
   function RatingPanel() {
     const panelMarkup = [];
@@ -55,7 +54,6 @@ function SubmitFormComment({handleSelectStarRating, handleInputCommentText, comm
       commentValueText, currentOfferId, offerStarRating
     );
   };
-
 
   return (
     <form className="reviews__form form" method="post" onSubmit={handleSubmit}>

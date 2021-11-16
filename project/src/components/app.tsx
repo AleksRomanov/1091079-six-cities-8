@@ -21,7 +21,7 @@ const connector = connect(mapStateToProps, {});
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function App({authorizationStatus, isDataLoaded}: PropsFromRedux): JSX.Element {
-  if ((authorizationStatus === AuthorizationStatus.Unknown) || isDataLoaded  ) {
+  if ((authorizationStatus === AuthorizationStatus.Unknown) || isDataLoaded) {
     return (
       <p>Loading ...</p>
     );
@@ -35,7 +35,7 @@ function App({authorizationStatus, isDataLoaded}: PropsFromRedux): JSX.Element {
         <Route path={AppRoute.Offer} exact render={() => <Offer/>}/>
         <Route path={AppRoute.Login} exact><Login/></Route>
         <PrivateRoute path={AppRoute.Favorites} render={() => <Favorites/>}/>
-        <Route render={(props) => (<Page404/>)}/>
+        <Route render={() => (<Page404/>)}/>
       </Switch>
     </BrowserRouter>
   );

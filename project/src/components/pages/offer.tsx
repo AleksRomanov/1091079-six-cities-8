@@ -42,10 +42,7 @@ function Offer({onFetchCurrentOffer, observingOffer, authorizationStatus}: Offer
       onFetchCurrentOffer(id);
       setIsFirstRender(false);
     } else return;
-  }, [id, isFirstRender]);
-
-
-  // const observingOffer = useMemo(() => offers.find((offerItem) => offerItem.id.toString() === id), [id, offers]);
+  }, [id, isFirstRender, onFetchCurrentOffer]);
 
   function RenderImages() {
     return (
@@ -77,8 +74,7 @@ function Offer({onFetchCurrentOffer, observingOffer, authorizationStatus}: Offer
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
-            {observingOffer && observingOffer.isPremium &&
-            <div className="property__mark">
+            {observingOffer && observingOffer.isPremium && <div className="property__mark">
               <span>Premium</span>
             </div>}
             <div className="property__name-wrapper">
@@ -92,7 +88,7 @@ function Offer({onFetchCurrentOffer, observingOffer, authorizationStatus}: Offer
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{width: `${Math.round(observingOffer ? 20 * observingOffer.rating : 0)}%`}}/>
+                <span style={{width: `${Math.round(observingOffer ? 10 * observingOffer.rating : 0)}%`}}/>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="property__rating-value rating__value">{observingOffer && observingOffer.rating}</span>
