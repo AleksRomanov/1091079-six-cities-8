@@ -11,10 +11,12 @@ import SubmitFormComment from '../submit-form-comment/submit-form-comment';
 import OffersList from '../offers-list/offers-list';
 import {ThunkAppDispatch} from '../../types/action';
 import {fetchCurrentOffer} from '../../store/api-actions';
+import {AuthorizationStatus} from '../../constants';
 
-function mapStateToProps({observingOffer}: State) {
+function mapStateToProps({observingOffer, authorizationStatus}: State) {
   return ({
     observingOffer,
+    authorizationStatus,
   });
 }
 
@@ -31,7 +33,7 @@ type offerId = {
   id: string,
 }
 
-function Offer({onFetchCurrentOffer, observingOffer}: OfferPageProps): JSX.Element {
+function Offer({onFetchCurrentOffer, observingOffer, authorizationStatus}: OfferPageProps): JSX.Element {
   const {id}: offerId = useParams();
   const [isFirstRender, setIsFirstRender] = useState(true);
 
@@ -41,6 +43,7 @@ function Offer({onFetchCurrentOffer, observingOffer}: OfferPageProps): JSX.Eleme
       setIsFirstRender(false);
     } else return;
   }, [id, isFirstRender]);
+
 
   // const observingOffer = useMemo(() => offers.find((offerItem) => offerItem.id.toString() === id), [id, offers]);
 
@@ -138,7 +141,7 @@ function Offer({onFetchCurrentOffer, observingOffer}: OfferPageProps): JSX.Eleme
               <ul className="reviews__list">
                 <ReviewsList currentOfferId={id}/>
               </ul>
-              <SubmitFormComment/>
+              {authorizationStatus === AuthorizationStatus.Auth && <SubmitFormComment currentOfferId={id}/>}
             </section>
           </div>
         </div>

@@ -2,6 +2,7 @@ import {ActionsType, ActionType} from '../types/action';
 import {State} from '../types/state';
 import {AppRoute, AuthorizationStatus, CitiesList, SortType} from '../constants';
 import {getOffersByCity} from '../utils';
+import {loadCommentsCurrentOffer} from './action';
 
 const initialState = {
   offers: [],
@@ -10,7 +11,7 @@ const initialState = {
   currentOffer: null,
   observingOffer: undefined,
   authorizationStatus: AuthorizationStatus.Unknown,
-  offerStarRating: 0,
+  offerStarRating: 1,
   commentValueText: '',
   currentSortType: SortType.Popular,
   isSortingListOpen: false,
@@ -52,18 +53,24 @@ const reducer = (state: State = initialState, action: ActionsType): State => {
           return {...state, fetchedOffers: state.offers.filter((offer) => state.currentCity && offer.city.name === state.currentCity.city)};
         case AppRoute.Favorites:
           return {...state, fetchedOffers: state.offers.filter((offer) => offer.isFavorite)};
-        case AppRoute.OfferLink:
-          const currentOffer = state.offers.find((offer) => offer.id.toString() === action.currentOfferId);
-          let offersByCity = getOffersByCity(state.offers, state.currentCity);
-          offersByCity = offersByCity.filter((offer) => offer.id.toString() !== action.currentOfferId);
-          if (currentOffer) {
-            return {...state, fetchedOffers: [currentOffer, ...offersByCity.slice(0, 3)]}
-          } else {
-            return {...state}
-          }
+        // case AppRoute.OfferLink:
+        //   return {...state, fetchedOffers: action}
+
+          // const currentOffer = state.offers.find((offer) => offer.id.toString() === action.currentOfferId);
+          // let offersByCity = getOffersByCity(state.offers, state.currentCity);
+          // offersByCity = offersByCity.filter((offer) => offer.id.toString() !== action.currentOfferId);
+          // if (currentOffer) {
+          //   return {...state, fetchedOffers: [currentOffer, ...offersByCity.slice(0, 3)]}
+          // } else {
+          //   return {...state}
+          // }
         default:
           return {...state};
       }
+    }
+
+    case ActionType.SetNearbyOffers: {
+      return {...state, fetchedOffers: action.offers};
     }
     case ActionType.SortCurrentOffers: {
       switch (action.sortType) {
@@ -92,6 +99,9 @@ const reducer = (state: State = initialState, action: ActionsType): State => {
     }
     case ActionType.LoadCurrentOffer: {
       return {...state, observingOffer: action.data};
+    }
+    case ActionType.LoadCommentsCurrentOffer: {
+      return {...state, reviews: action.data};
     }
     case ActionType.RequireAuthorization:
       return {

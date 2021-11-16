@@ -17,6 +17,9 @@ export enum ActionType {
   LoadOffers = 'loadOffers',
   ChangeLoadingStatus = 'changeLoadingStatus',
   LoadCurrentOffer = 'loadCurrentOffer',
+  LoadCommentsCurrentOffer = 'loadCommentsCurrentOffer',
+  FetchNearbyOffers = 'fetchNearbyOffers',
+  SetNearbyOffers = 'setNearbyOffers',
 }
 
 export type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
