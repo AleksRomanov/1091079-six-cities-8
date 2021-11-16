@@ -1,13 +1,14 @@
 type ReviewType = {
-  offersID: number,
   comment: string,
   date: string,
-  id: number,
+  offersID: number,
   rating: number,
-  userAvatarUrl: string,
-  userIsPro: boolean,
-  userName: string
-  userId: number,
+  user: {
+    avatarUrl: string,
+    id: number,
+    isPro: boolean,
+    name: string
+  }
 };
 
 export type {ReviewType};

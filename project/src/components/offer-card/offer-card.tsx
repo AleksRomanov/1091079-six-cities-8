@@ -7,8 +7,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import {rewriteActiveCity} from '../../store/action';
 
 function mapStateToProps() {
-  return ({
-  });
+  return ({});
 }
 
 function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {

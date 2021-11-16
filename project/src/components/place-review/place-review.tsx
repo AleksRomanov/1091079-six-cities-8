@@ -9,19 +9,16 @@ function PlaceReview({review}: PlaceReviewProps): JSX.Element {
     comment,
     date,
     rating,
-    userAvatarUrl,
-    userIsPro,
-    userName,
+    user
   } = review;
-
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={userAvatarUrl} alt="Reviews avatar" width="54" height="54"/>
+          <img className="reviews__avatar user__avatar" src={user.avatarUrl} alt="Reviews avatar" width="54" height="54"/>
         </div>
-        <span className="reviews__user-name">{userName}</span>
-        {userIsPro && <span className="property__user-status">Pro</span>}
+        <span className="reviews__user-name">{user.name}</span>
+        {user.isPro && <span className="property__user-status">Pro</span>}
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">

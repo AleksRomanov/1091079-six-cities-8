@@ -3,11 +3,12 @@ import {connect, ConnectedProps} from 'react-redux';
 import {useLocation, useParams, useRouteMatch} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import {Dispatch} from 'redux';
-import {ActionsType} from '../../types/action';
+import {ActionsType, ThunkAppDispatch} from '../../types/action';
 import {fetchCurrentOffers} from '../../store/action';
 import OfferCard from '../offer-card/offer-card';
 import {AppRoute} from '../../constants';
 import {nanoid} from 'nanoid';
+import {fetchNearbyOffers} from '../../store/api-actions';
 
 function mapStateToProps({fetchedOffers, offers}: State) {
   return ({
@@ -16,13 +17,14 @@ function mapStateToProps({fetchedOffers, offers}: State) {
   });
 }
 
-function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
-  return {
-    onFetchCurrentOffers(currentUrl: string, currentOfferId: string) {
-      dispatch(fetchCurrentOffers(currentUrl, currentOfferId));
-    },
-  };
-}
+const mapDispatchToProps = (dispatch: Dispatch<ActionsType> & ThunkAppDispatch) => ({
+  onFetchCurrentOffers(currentUrl: string, currentOfferId: string) {
+    dispatch(fetchCurrentOffers(currentUrl, currentOfferId));
+  },
+  onFetchNearbyOffers(id: string) {
+    dispatch(fetchNearbyOffers(id));
+  },
+});
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type OffersListProps = ConnectedProps<typeof connector>;
@@ -31,7 +33,7 @@ type offerId = {
   id: string,
 }
 
-function OffersList({fetchedOffers, onFetchCurrentOffers, offers}: OffersListProps): JSX.Element {
+function OffersList({fetchedOffers, onFetchCurrentOffers, offers, onFetchNearbyOffers}: OffersListProps): JSX.Element {
   let currentUrl = useLocation();
   let isOfferPage = useRouteMatch(AppRoute.Offer);
   const [isFirstRender, setIsFirstRender] = useState(true);
@@ -40,13 +42,13 @@ function OffersList({fetchedOffers, onFetchCurrentOffers, offers}: OffersListPro
   useEffect(() => {
     if (isFirstRender && offers.length > 0) {
       if (isOfferPage) {
-        onFetchCurrentOffers(AppRoute.OfferLink, id);
+        onFetchNearbyOffers(id);
       } else {
         onFetchCurrentOffers(currentUrl.pathname, id);
       }
       setIsFirstRender(false);
     } else return;
-  }, [id, currentUrl, isOfferPage, isFirstRender, onFetchCurrentOffers, offers]);
+  }, [id, currentUrl, isOfferPage, isFirstRender, onFetchCurrentOffers, offers, onFetchNearbyOffers]);
   return (
     <>
       {fetchedOffers.map((offer) => (

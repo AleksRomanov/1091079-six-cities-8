@@ -1,6 +1,7 @@
 import {ActionType} from '../types/action';
 import {OfferType} from '../types/offerType';
 import {AppRoute, AuthorizationStatus} from '../constants';
+import {ReviewType} from '../types/reviewType';
 
 export const selectCity = (city: string) => ({
   type: ActionType.SelectCity,
@@ -42,6 +43,11 @@ export const fetchCurrentOffers = (currentUrl: string, currentOfferId?: string) 
   currentOfferId
 } as const);
 
+export const setNearbyOffers = (offers: OfferType[]) => ({
+  type: ActionType.SetNearbyOffers,
+  offers
+} as const);
+
 export const loadOffers = (offers: OfferType[]) => ({
   type: ActionType.LoadOffers,
   offers,
@@ -66,4 +72,12 @@ export const redirectToRoute = (url: AppRoute) => ({
   url,
 } as const);
 
+export const loadCurrentOffer = (data: OfferType) => ({
+  type: ActionType.LoadCurrentOffer,
+  data,
+} as const);
 
+export const loadCommentsCurrentOffer = (data: ReviewType[]) => ({
+  type: ActionType.LoadCommentsCurrentOffer,
+  data,
+} as const);

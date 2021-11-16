@@ -3,6 +3,8 @@ import {ThunkAppDispatch} from '../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
 import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/authData';
+import {AppRoute} from '../../constants';
+import {Link} from 'react-router-dom';
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onLogin(login: AuthData) {
@@ -30,9 +32,9 @@ function Login({onLogin}: LoginPageProps): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="/">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              <Link to={AppRoute.Main} className="header__logo-link" href="/">
+                <img className="header__logo" src={AppRoute.OfferLink} alt="6 cities logo" width="81" height="41"/>
+              </Link>
             </div>
           </div>
         </div>

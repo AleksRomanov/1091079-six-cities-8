@@ -16,10 +16,13 @@ export enum ActionType {
   RedirectToRoute = 'redirectToRoute',
   LoadOffers = 'loadOffers',
   ChangeLoadingStatus = 'changeLoadingStatus',
+  LoadCurrentOffer = 'loadCurrentOffer',
+  LoadCommentsCurrentOffer = 'loadCommentsCurrentOffer',
+  FetchNearbyOffers = 'fetchNearbyOffers',
+  SetNearbyOffers = 'setNearbyOffers',
 }
 
 export type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
-
 
 type InferValueTypes<T> = T extends {[key: string]: infer U} ? U : never;
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, ActionsType>;
