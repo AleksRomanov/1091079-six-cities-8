@@ -9,6 +9,9 @@ import OfferCard from '../offer-card/offer-card';
 import {AppRoute} from '../../constants';
 import {nanoid} from 'nanoid';
 import {fetchNearbyOffers} from '../../store/api-actions';
+import { pickOffers } from '../../store/new-reducer';
+import {useAppDispatch} from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 function mapStateToProps({fetchedOffers, offers}: State) {
   return ({
@@ -33,18 +36,26 @@ type offerId = {
   id: string,
 }
 
-function OffersList({fetchedOffers, onFetchCurrentOffers, offers, onFetchNearbyOffers}: OffersListProps): JSX.Element {
+function OffersList({fetchedOffers, onFetchCurrentOffers, onFetchNearbyOffers}: OffersListProps): JSX.Element {
   let currentUrl = useLocation();
   let isOfferPage = useRouteMatch(AppRoute.Offer);
   const [isFirstRender, setIsFirstRender] = useState(true);
   const {id}: offerId = useParams();
 
+
+  const dispatch = useAppDispatch();
+
+  const offers = useAppSelector((state => state.app.offers));
+  const pickedOffers = useAppSelector((state => state.app.pickedOffers));
+
+
   useEffect(() => {
     if (isFirstRender && offers.length > 0) {
       if (isOfferPage) {
-        onFetchNearbyOffers(id);
+        // onFetchNearbyOffers(id);
       } else {
-        onFetchCurrentOffers(currentUrl.pathname, id);
+        dispatch(pickOffers(currentUrl.pathname));
+        // onFetchCurrentOffers(currentUrl.pathname, id);
       }
       setIsFirstRender(false);
     } else return;
@@ -52,7 +63,7 @@ function OffersList({fetchedOffers, onFetchCurrentOffers, offers, onFetchNearbyO
 
   return (
     <>
-      {fetchedOffers.map((offer) => (
+      {pickedOffers.map((offer) => (
         <OfferCard
           offer={offer}
           key={nanoid()}

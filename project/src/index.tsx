@@ -13,8 +13,8 @@ import thunk from 'redux-thunk';
 import {redirect} from './store/middlewares/redirect';
 import {ThunkAppDispatch} from './types/action';
 import {checkAuthAction, fetchOffersAction} from './store/api-actions';
-import appReducer from './store/newReducer';
-import {pokemonApi, useFetchOffersQuery} from './services/apiPoke';
+import appReducer from './store/new-reducer';
+import {pokemonApi} from './services/apiPoke';
 
 // const api = createAPI(
 //   () => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
@@ -49,7 +49,6 @@ export const store = configureStore({
 
 // (store.dispatch as ThunkAppDispatch)(checkAuthAction());   //// ???????
 // (store.dispatch as ThunkAppDispatch)(fetchOffersAction());
-const res = useFetchOffersQuery();
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,5 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/dist/query/react';
 import {OfferType} from '../types/offerType';
+import {adaptFromServer} from '../utils';
 const BASE_URL = 'https://8.react.pages.academy/six-cities';
 
 type Pokemon = {
@@ -11,7 +12,8 @@ export const pokemonApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL}),
   endpoints: (builder) => ({
     fetchOffers: builder.query<OfferType[], any>({
-      query: () => `/`,
+      query: () => `hotels/`,
+      // transformResponse: (response: { data: OfferType[] }) => response.data.map(adaptFromServer),
     }),
     // fetchOffers: builder.query<Pokemon, string>({
     //   query: (name) => `pokemon/${name}`,

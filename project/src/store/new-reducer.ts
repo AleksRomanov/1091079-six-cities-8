@@ -1,17 +1,20 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {store} from '../index';
 import {ActionType, ThunkActionResult} from '../types/action';
-import {APIRoute, CitiesList} from '../constants';
+import {APIRoute, AppRoute, CitiesList} from '../constants';
 import {City} from '../types/city';
 import {OfferType} from '../types/offerType';
 import {adaptFromServer} from '../utils';
-import {loadOffers} from './action';
 
 export interface CounterState {
   currentCity: City,
+  offers: OfferType[],
+  pickedOffers: OfferType[],
 }
 
 const initialState: CounterState = {
+  offers: [],
+  pickedOffers: [],
   currentCity: CitiesList[0],
 }
 
@@ -35,10 +38,38 @@ export const appReducer = createSlice({
     selectCity: (state, action: PayloadAction<string>) => {
       const currentCity = CitiesList.find((city) => city.city === action.payload);
       if (currentCity) {
+
         state.currentCity = currentCity;
         // fetchedOffers: state.offers.filter((offer) => currentCity && offer.city.name === currentCity.city),
       }
     },
+    loadOffers: (state, action: PayloadAction<OfferType[]>) => {
+      state.offers = action.payload;
+    },
+    pickOffers: (state, action: PayloadAction<string>) => {
+
+      switch (action.payload) {
+        case AppRoute.Main:
+          state.pickedOffers = state.offers.filter((offer) => state.currentCity && offer.city.name === state.currentCity.city);
+          return;
+          // return {...state, fetchedOffers: state.offers.filter((offer) => state.currentCity && offer.city.name === state.currentCity.city)};
+//     case AppRoute.Favorites:
+//       return {...state, fetchedOffers: state.offers.filter((offer) => offer.isFavorite)};
+        default:
+          return;
+      }
+    },
+
+//     case ActionType.FetchCurrentOffers: {
+//   switch (action.currentUrl) {
+//     case AppRoute.Main:
+//       return {...state, fetchedOffers: state.offers.filter((offer) => state.currentCity && offer.city.name === state.currentCity.city)};
+//     case AppRoute.Favorites:
+//       return {...state, fetchedOffers: state.offers.filter((offer) => offer.isFavorite)};
+//     default:
+//       return {...state};
+//   }
+// }
 
     // decrement: (state) => {
     //   state.id -= 1
@@ -49,7 +80,7 @@ export const appReducer = createSlice({
   },
 })
 
-export const {selectCity} = appReducer.actions
+export const {selectCity, loadOffers, pickOffers} = appReducer.actions
 
 //
 // export const incrementAsync = amount => dispatch => {

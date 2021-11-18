@@ -8,7 +8,7 @@ import OffersList from '../offers-list/offers-list';
 import SortingList from '../sorting-list/sorting-list';
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from 'react-toastify';
-import {RootState} from '../../store/newReducer';
+import {RootState} from '../../store/new-reducer';
 
 
 // function mapStateToProps({currentCity, fetchedOffers}: State) {
@@ -41,12 +41,12 @@ function Main(): JSX.Element {
               <SortingList/>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {/*<OffersList/>*/}
+              <OffersList/>
             </div>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map/>
+              {/*<Map/>*/}
             </section>
           </div>
         </div>

@@ -1,8 +1,8 @@
 import Main from './pages/main';
 import Offer from './pages/offer';
 import {AppRoute, AuthorizationStatus} from '../constants';
-import React from 'react';
-import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Router as BrowserRouter, Route, Switch, useParams} from 'react-router-dom';
 import PrivateRoute from './private-route';
 import Favorites from './pages/favorites';
 import Login from './pages/login';
@@ -10,6 +10,10 @@ import {State} from '../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import Page404 from './pages/404';
 import browserHistory from '../browser-history';
+import {useFetchOffersQuery} from '../services/apiPoke';
+import {loadOffers} from '../store/new-reducer';
+import {useAppDispatch} from '../hooks/useAppDispatch';
+import {adaptFromServer} from '../utils';
 
 
 const mapStateToProps = ({authorizationStatus, isDataLoaded}: State) => ({
@@ -21,6 +25,21 @@ const connector = connect(mapStateToProps, {});
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function App({authorizationStatus, isDataLoaded}: PropsFromRedux): JSX.Element {
+
+  const [isFirstRender, setIsFirstRender] = useState(true);
+  const {data} = useFetchOffersQuery(arguments);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isFirstRender && data) {
+      // const res = [...data]
+      // console.log([data])
+      dispatch(loadOffers(data.map(adaptFromServer)));
+      setIsFirstRender(false);
+    } else return;
+  }, [isFirstRender, data]);
+
   // if ((authorizationStatus === AuthorizationStatus.Unknown) || isDataLoaded) {
   //   return (
   //     <p>Loading ...</p>

@@ -13,12 +13,15 @@ export const adaptFromServer = (offer: any) => {
       } else {
         let snakeSymbolIndex = feature.indexOf('_');
         if (snakeSymbolIndex >= 0) {
-          offer[feature.slice(0, snakeSymbolIndex) + feature.slice(++snakeSymbolIndex)[0].toUpperCase() + feature.slice(++snakeSymbolIndex)] = offer[feature];
+          offer[feature.slice(0, snakkeSymbolIndex) + feature.slice(++snakeSymbolIndex)[0].toUpperCase() + feature.slice(++snakeSymbolIndex)] = offer[feature];
           delete offer[feature];
         }
       }
     }
   }
+  // console.log(offer['preview_image'])
+
+
   adaptOfferFeatures(offer);
   return offer;
 }
