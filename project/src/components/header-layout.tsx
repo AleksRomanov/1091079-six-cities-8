@@ -4,26 +4,27 @@ import {State} from '../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import React from 'react';
 
-const mapStateToProps = ({authorizationStatus}: State) => ({
-  authorizationStatus,
-});
-
-const connector = connect(mapStateToProps, {});
-type HeaderLayoutProps = HeaderChildrenProps & ConnectedProps<typeof connector>;
-
+// const mapStateToProps = ({authorizationStatus}: State) => ({
+//   authorizationStatus,
+// });
+//
+// const connector = connect(mapStateToProps, {});
+// type HeaderLayoutProps = HeaderChildrenProps & ConnectedProps<typeof connector>;
+//
 type HeaderChildrenProps = {
   children: JSX.Element,
 }
 
-function HeaderLayout({children, authorizationStatus}: HeaderLayoutProps): JSX.Element {
-  const isAuth = () => {
-    return authorizationStatus === AuthorizationStatus.Auth;
-  }
+// function HeaderLayout({children, authorizationStatus}: HeaderLayoutProps): JSX.Element {
+function HeaderLayout({children}: HeaderChildrenProps): JSX.Element {
+  // const isAuth = () => {
+  //   return authorizationStatus === AuthorizationStatus.Auth;
+  // }
 
-  function getUserName() {
-    return isAuth() ? <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-      : <span className="header__login">Sign in</span>;
-  }
+  // function getUserName() {
+  //   return isAuth() ? <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+  //     : <span className="header__login">Sign in</span>;
+  // }
 
   function LoginPanel() {
     return (
@@ -32,14 +33,14 @@ function HeaderLayout({children, authorizationStatus}: HeaderLayoutProps): JSX.E
           <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile">
             <div className="header__avatar-wrapper user__avatar-wrapper">
             </div>
-            {getUserName()}
+            {/*{getUserName()}*/}
           </Link>
         </li>
-        {isAuth() && <li className="header__nav-item">
-          <Link to={AppRoute.Login} className="header__nav-link">
-            <span className="header__signout">Sign out</span>
-          </Link>
-        </li>}
+        {/*{isAuth() && <li className="header__nav-item">*/}
+        {/*  <Link to={AppRoute.Login} className="header__nav-link">*/}
+        {/*    <span className="header__signout">Sign out</span>*/}
+        {/*  </Link>*/}
+        {/*</li>}*/}
       </ul>
     );
   }
@@ -65,4 +66,5 @@ function HeaderLayout({children, authorizationStatus}: HeaderLayoutProps): JSX.E
   );
 }
 
-export default connector(HeaderLayout);
+// export default connector(HeaderLayout);
+export default HeaderLayout;

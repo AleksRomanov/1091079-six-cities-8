@@ -3,32 +3,21 @@ import {CitiesList} from '../../constants';
 import {nanoid} from 'nanoid';
 import React from 'react';
 import {Dispatch} from 'redux';
-import {connect, ConnectedProps} from 'react-redux';
-import {selectCity} from '../../store/action';
+import {connect, ConnectedProps, useDispatch, useSelector} from 'react-redux';
 import {ActionsType} from '../../types/action';
 import {City} from '../../types/city';
+import {RootState, selectCity} from '../../store/newReducer';
+import {useAppSelector} from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 
 
-function mapStateToProps() {
-  return ({});
-}
+function LocationsList(): JSX.Element {
+  // const currentCity = useAppSelector((state => state.app.currentCity));
 
-function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
-  return {
-    onSelectCity(city: string) {
-      dispatch(selectCity(city));
-    },
-  };
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type LocationListProps = ConnectedProps<typeof connector>;
-
-function LocationsList({onSelectCity}: LocationListProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const onCityChoose = (city: string) => {
-    onSelectCity(city);
+    dispatch(selectCity(city));
   };
-
   return (
     <ul className="locations__list tabs__list">
       {CitiesList.map((city: City) => (
@@ -42,4 +31,4 @@ function LocationsList({onSelectCity}: LocationListProps): JSX.Element {
   );
 }
 
-export default connector(LocationsList);
+export default LocationsList;

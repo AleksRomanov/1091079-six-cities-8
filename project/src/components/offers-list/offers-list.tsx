@@ -49,6 +49,7 @@ function OffersList({fetchedOffers, onFetchCurrentOffers, offers, onFetchNearbyO
       setIsFirstRender(false);
     } else return;
   }, [id, currentUrl, isOfferPage, isFirstRender, onFetchCurrentOffers, offers, onFetchNearbyOffers]);
+
   return (
     <>
       {fetchedOffers.map((offer) => (

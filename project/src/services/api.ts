@@ -27,7 +27,7 @@ const createAPI = (onUnauthorized: UnauthorizedCallback, onChangeLoadingStatus: 
       const {response} = error;
       onChangeLoadingStatus();
       if (response?.status === HttpCode.Unauthorized) {
-        return onUnauthorized();
+        onUnauthorized();
       }
       return Promise.reject(error);
     },
