@@ -3,22 +3,14 @@ import {useEffect, useMemo, useRef} from 'react';
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
-import {State} from '../../types/state';
-import {connect, ConnectedProps} from 'react-redux';
+import {useAppSelector} from '../../hooks/useAppSelector';
 
-function mapStateToProps({fetchedOffers, currentCity, currentOffer, offers}: State) {
-  return ({
-    fetchedOffers,
-    currentCity,
-    currentOffer,
-    offers,
-  });
-}
 
-const connector = connect(mapStateToProps, {});
-type MapProps = ConnectedProps<typeof connector>;
+function Map() {
+  const currentCity = useAppSelector((state => state.app.currentCity));
+  const pickedOffers = useAppSelector((state => state.app.pickedOffers));
+  const mapHoveredOffer = useAppSelector((state => state.app.mapHoveredOffer));
 
-function Map({fetchedOffers, currentOffer, currentCity, offers}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);
   const defaultIcon = useMemo(() => new Icon({iconUrl: URL_MARKER_DEFAULT, iconSize: [27, 39], iconAnchor: [13.5, 39]}), []);
@@ -26,17 +18,17 @@ function Map({fetchedOffers, currentOffer, currentCity, offers}: MapProps): JSX.
 
   useEffect(() => {
     if (map) {
-      fetchedOffers.forEach((offer) => {
+      pickedOffers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude,
         });
-        marker.setIcon(currentOffer !== null && offer.id === currentOffer.id ? currentIcon : defaultIcon).addTo(map);
+        marker.setIcon(mapHoveredOffer !== null && offer.id === mapHoveredOffer.id ? currentIcon : defaultIcon).addTo(map);
       });
     }
-  }, [map, fetchedOffers, currentOffer, defaultIcon, currentIcon, offers]);
+  }, [map, pickedOffers, mapHoveredOffer, defaultIcon, currentIcon]);
 
   return <div style={{height: '100%'}} ref={mapRef}/>;
 }
 
-export default connector(Map);
+export default Map;

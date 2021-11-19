@@ -10,41 +10,25 @@ import {State} from '../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import Page404 from './pages/404';
 import browserHistory from '../browser-history';
-import {useFetchOffersQuery} from '../services/apiPoke';
-import {loadOffers} from '../store/new-reducer';
+import {useCheckAuthQuery, useFetchOffersQuery} from '../services/apiPoke';
+import {loadOffers, setAuthStatus} from '../store/new-reducer';
 import {useAppDispatch} from '../hooks/useAppDispatch';
-import {adaptFromServer} from '../utils';
 
 
-const mapStateToProps = ({authorizationStatus, isDataLoaded}: State) => ({
-  authorizationStatus,
-  isDataLoaded,
-});
-
-const connector = connect(mapStateToProps, {});
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function App({authorizationStatus, isDataLoaded}: PropsFromRedux): JSX.Element {
-
-  const [isFirstRender, setIsFirstRender] = useState(true);
-  const {data} = useFetchOffersQuery(arguments);
-
+function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (isFirstRender && data) {
-      // const res = [...data]
-      // console.log([data])
-      dispatch(loadOffers(data.map(adaptFromServer)));
-      setIsFirstRender(false);
-    } else return;
-  }, [isFirstRender, data]);
+  let {data, isLoading} = useFetchOffersQuery(arguments);
+  data && dispatch(loadOffers(data));
 
-  // if ((authorizationStatus === AuthorizationStatus.Unknown) || isDataLoaded) {
-  //   return (
-  //     <p>Loading ...</p>
-  //   );
-  // }
+  // let {isSuccess} = useCheckAuthQuery(arguments);
+  // isSuccess ? dispatch(setAuthStatus(AuthorizationStatus.Auth)) : dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+
+  if (isLoading) {
+    return (
+      <p>Loading ...</p>
+    );
+  }
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
@@ -60,4 +44,4 @@ function App({authorizationStatus, isDataLoaded}: PropsFromRedux): JSX.Element {
   );
 }
 
-export default connector(App);
+export default App;

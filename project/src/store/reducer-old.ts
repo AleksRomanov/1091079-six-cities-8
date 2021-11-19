@@ -18,7 +18,7 @@ const initialState = {
   isDataLoaded: false,
 };
 
-const reducer = (state: State = initialState, action: ActionsType): State => {
+const reducerOld = (state: State = initialState, action: ActionsType): State => {
   switch (action.type) {
     case ActionType.SelectCity:
       const currentCity = CitiesList.find((city) => city.city === action.city);
@@ -103,4 +103,4 @@ const reducer = (state: State = initialState, action: ActionsType): State => {
   }
 };
 
-export {reducer};
+export {reducerOld};

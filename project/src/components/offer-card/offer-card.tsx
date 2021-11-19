@@ -1,30 +1,15 @@
 import {OfferType} from '../../types/offerType';
 import {Link, useRouteMatch} from 'react-router-dom';
 import {AppRoute, offerCardClasses} from '../../constants';
-import {Dispatch} from 'redux';
-import {ActionsType} from '../../types/action';
-import {connect, ConnectedProps} from 'react-redux';
-import {rewriteActiveCity} from '../../store/action';
+import {useAppDispatch} from '../../hooks/useAppDispatch';
+import {setMapHoveredOffer} from '../../store/new-reducer';
 
-function mapStateToProps() {
-  return ({});
-}
-
-function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
-  return {
-    setActiveCity(city: OfferType | null) {
-      dispatch(rewriteActiveCity(city));
-    },
-  };
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
 type OfferCardProps = {
   offer: OfferType,
 }
 
-function OfferCard({offer, setActiveCity}: PropsFromRedux & OfferCardProps): JSX.Element {
+function OfferCard({offer}: OfferCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const {
     isPremium,
     previewImage,
@@ -37,7 +22,7 @@ function OfferCard({offer, setActiveCity}: PropsFromRedux & OfferCardProps): JSX
   let isFavourite = useRouteMatch(AppRoute.Favorites);
 
   const onCardSelect = (offerItem: OfferType | null): void => {
-    setActiveCity(offerItem);
+    dispatch(setMapHoveredOffer(offerItem));
   };
 
   const articleClass = isFavourite ? offerCardClasses.favoritesArticleClass : offerCardClasses.mainArticleClass;
@@ -82,4 +67,4 @@ function OfferCard({offer, setActiveCity}: PropsFromRedux & OfferCardProps): JSX
   );
 }
 
-export default connector(OfferCard);
+export default OfferCard;

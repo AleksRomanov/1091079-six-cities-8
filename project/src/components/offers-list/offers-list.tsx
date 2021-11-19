@@ -13,41 +13,18 @@ import { pickOffers } from '../../store/new-reducer';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
 
-function mapStateToProps({fetchedOffers, offers}: State) {
-  return ({
-    fetchedOffers,
-    offers,
-  });
-}
-
-const mapDispatchToProps = (dispatch: Dispatch<ActionsType> & ThunkAppDispatch) => ({
-  onFetchCurrentOffers(currentUrl: string, currentOfferId: string) {
-    dispatch(fetchCurrentOffers(currentUrl, currentOfferId));
-  },
-  onFetchNearbyOffers(id: string) {
-    dispatch(fetchNearbyOffers(id));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type OffersListProps = ConnectedProps<typeof connector>;
-
 type offerId = {
   id: string,
 }
 
-function OffersList({fetchedOffers, onFetchCurrentOffers, onFetchNearbyOffers}: OffersListProps): JSX.Element {
+function OffersList(): JSX.Element {
   let currentUrl = useLocation();
   let isOfferPage = useRouteMatch(AppRoute.Offer);
   const [isFirstRender, setIsFirstRender] = useState(true);
   const {id}: offerId = useParams();
-
-
   const dispatch = useAppDispatch();
-
   const offers = useAppSelector((state => state.app.offers));
   const pickedOffers = useAppSelector((state => state.app.pickedOffers));
-
 
   useEffect(() => {
     if (isFirstRender && offers.length > 0) {
@@ -55,11 +32,10 @@ function OffersList({fetchedOffers, onFetchCurrentOffers, onFetchNearbyOffers}: 
         // onFetchNearbyOffers(id);
       } else {
         dispatch(pickOffers(currentUrl.pathname));
-        // onFetchCurrentOffers(currentUrl.pathname, id);
       }
       setIsFirstRender(false);
     } else return;
-  }, [id, currentUrl, isOfferPage, isFirstRender, onFetchCurrentOffers, offers, onFetchNearbyOffers]);
+  }, [id, currentUrl, isOfferPage, isFirstRender, offers]);
 
   return (
     <>
@@ -73,4 +49,4 @@ function OffersList({fetchedOffers, onFetchCurrentOffers, onFetchNearbyOffers}: 
   );
 }
 
-export default connector(OffersList);
+export default OffersList;

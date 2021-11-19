@@ -5,26 +5,30 @@ import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/authData';
 import {AppRoute} from '../../constants';
 import {Link} from 'react-router-dom';
+import {useAppDispatch} from '../../hooks/useAppDispatch';
+import {useAppSelector} from '../../hooks/useAppSelector';
+import {useLoginMutation} from '../../services/apiPoke';
+import {saveToken} from '../../services/token';
+import {redirectToRoute} from '../../store/action';
+// import {useLoginMutation} from '../../services/apiPoke';
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onLogin(login: AuthData) {
-    dispatch(loginAction(login));
-  },
-});
-
-const connector = connect(null, mapDispatchToProps);
-type LoginPageProps = ConnectedProps<typeof connector>;
-
-function Login({onLogin}: LoginPageProps): JSX.Element {
+function Login(): JSX.Element {
   const [loginInput, setLoginInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
+  let loginData = {
+    email: loginInput,
+    password: passwordInput,
+  }
+  const [login, data] = useLoginMutation();
+  // console.log(data);
+
+  const dispatch = useAppDispatch();
+
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    onLogin({
-      login: loginInput,
-      password: passwordInput,
-    });
+    login(loginData);
+    dispatch(redirectToRoute(AppRoute.Main));
   };
   return (
     <div className="page page--gray page--login">
@@ -79,4 +83,4 @@ function Login({onLogin}: LoginPageProps): JSX.Element {
   );
 }
 
-export default connector(Login);
+export default Login;
