@@ -50,7 +50,6 @@ export const appReducer = createSlice({
       state.offers = action.payload;
     },
     setCurrentOfferComments: (state, action: PayloadAction<ReviewType[] | undefined>) => {
-      console.log(action.payload)
       state.currentOfferComments = action.payload;
     },
     pickOffers: (state, action: PayloadAction<string>) => {
