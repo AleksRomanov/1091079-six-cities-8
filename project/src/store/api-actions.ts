@@ -2,7 +2,6 @@ import {ThunkActionResult} from '../types/action';
 import {APIRoute, AppRoute, AuthorizationStatus} from '../constants';
 import {changeLoadingStatus, loadCommentsCurrentOffer, loadCurrentOffer, loadOffers, redirectToRoute, requireAuthorization, requireLogout, setNearbyOffers} from './action';
 import {OfferType} from '../types/offerType';
-// import {adaptFromServer} from '../utils';
 import {AuthData} from '../types/authData';
 import {dropToken, saveToken, Token} from '../services/token';
 import {toast} from 'react-toastify';
