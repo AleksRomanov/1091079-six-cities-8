@@ -4,6 +4,7 @@ import {AppRoute, AuthorizationStatus, CitiesList, SortType} from '../constants'
 import {City} from '../types/city';
 import {OfferType} from '../types/offerType';
 import {getOffersByCity} from '../utils';
+import {ReviewType} from '../types/reviewType';
 
 export interface CounterState {
   currentCity: City,
@@ -11,6 +12,8 @@ export interface CounterState {
   pickedOffers: OfferType[],
   authorizationStatus: string,
   mapHoveredOffer: OfferType | null,
+  offerPageData: OfferType | undefined,
+  currentOfferComments: ReviewType[] | undefined,
 }
 
 const initialState: CounterState = {
@@ -19,6 +22,8 @@ const initialState: CounterState = {
   currentCity: CitiesList[0],
   authorizationStatus: AuthorizationStatus.Unknown,
   mapHoveredOffer: null,
+  offerPageData: undefined,
+  currentOfferComments: undefined,
 }
 
 export const appReducer = createSlice({
@@ -31,6 +36,9 @@ export const appReducer = createSlice({
     setMapHoveredOffer: (state, action: PayloadAction<OfferType | null>) => {
       state.mapHoveredOffer = action.payload;
     },
+    setOfferPageData: (state, action: PayloadAction<OfferType | undefined>) => {
+      state.offerPageData = action.payload;
+    },
     selectCity: (state, action: PayloadAction<string>) => {
       const currentCity = CitiesList.find((city) => city.city === action.payload);
       if (currentCity) {
@@ -40,6 +48,10 @@ export const appReducer = createSlice({
     },
     loadOffers: (state, action: PayloadAction<OfferType[]>) => {
       state.offers = action.payload;
+    },
+    setCurrentOfferComments: (state, action: PayloadAction<ReviewType[] | undefined>) => {
+      console.log(action.payload)
+      state.currentOfferComments = action.payload;
     },
     pickOffers: (state, action: PayloadAction<string>) => {
       switch (action.payload) {
@@ -53,7 +65,6 @@ export const appReducer = createSlice({
       }
     },
     sortCurrentOffers: (state, action: PayloadAction<string>) => {
-
       switch (action.payload) {
         case SortType.Popular: {
           state.pickedOffers = getOffersByCity(state.offers, state.currentCity);
@@ -78,7 +89,7 @@ export const appReducer = createSlice({
   },
 })
 
-export const {selectCity, loadOffers, pickOffers, setAuthStatus, setMapHoveredOffer, sortCurrentOffers} = appReducer.actions;
+export const {selectCity, loadOffers, pickOffers, setAuthStatus, setMapHoveredOffer, sortCurrentOffers, setOfferPageData, setCurrentOfferComments} = appReducer.actions;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

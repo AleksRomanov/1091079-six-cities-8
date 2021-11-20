@@ -1,45 +1,30 @@
-import {State} from '../../types/state';
-import {connect, ConnectedProps} from 'react-redux';
 import PlaceReview from '../place-review/place-review';
-import {useEffect, useState} from 'react';
-import {ThunkAppDispatch} from '../../types/action';
-import {fetchCommentCurrentOffer} from '../../store/api-actions';
 import {nanoid} from 'nanoid';
+import {useFetchCommentsQuery} from '../../services/apiAxios';
+import {useAppSelector} from '../../hooks/useAppSelector';
+import {useAppDispatch} from '../../hooks/useAppDispatch';
+import {setCurrentOfferComments} from '../../store/new-reducer';
+import {useEffect} from 'react';
 
-function mapStateToProps({reviews}: State) {
-  return ({
-    reviews,
-  });
-}
-
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onFetchCommentsCurrentOffer(id: string) {
-    dispatch(fetchCommentCurrentOffer(id));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type ReviewsListProps = ReviewsListOutsideProps & ConnectedProps<typeof connector>;
 
 type ReviewsListOutsideProps = {
   currentOfferId: string;
 }
 
-function ReviewsList({currentOfferId, reviews, onFetchCommentsCurrentOffer}: ReviewsListProps): JSX.Element {
-  const [isFirstRender, setIsFirstRender] = useState(true);
-
+function ReviewsList({currentOfferId}: ReviewsListOutsideProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const {data} = useFetchCommentsQuery(currentOfferId);
+  const currentOfferComments = useAppSelector(state => state.app.currentOfferComments);
   useEffect(() => {
-    if (isFirstRender) {
-      onFetchCommentsCurrentOffer(currentOfferId);
-      setIsFirstRender(false);
-    } else return;
-  }, [currentOfferId, isFirstRender, onFetchCommentsCurrentOffer]);
-
+    if (data) {
+      dispatch(setCurrentOfferComments(data))
+    }
+  }, [data]);
   return (
     <>
-      {reviews.map((review) => (<PlaceReview review={review} key={nanoid()}/>))}
+      {currentOfferComments && currentOfferComments.map((review) => (<PlaceReview review={review} key={nanoid()}/>))}
     </>
   );
 }
 
-export default connector(ReviewsList);
+export default ReviewsList;

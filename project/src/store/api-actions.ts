@@ -2,7 +2,7 @@ import {ThunkActionResult} from '../types/action';
 import {APIRoute, AppRoute, AuthorizationStatus} from '../constants';
 import {changeLoadingStatus, loadCommentsCurrentOffer, loadCurrentOffer, loadOffers, redirectToRoute, requireAuthorization, requireLogout, setNearbyOffers} from './action';
 import {OfferType} from '../types/offerType';
-import {adaptFromServer} from '../utils';
+// import {adaptFromServer} from '../utils';
 import {AuthData} from '../types/authData';
 import {dropToken, saveToken, Token} from '../services/token';
 import {toast} from 'react-toastify';
@@ -45,8 +45,8 @@ export const logoutAction = (): ThunkActionResult =>
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get<OfferType[]>(APIRoute.Offers);
-    const adaptedOffers = data.map(adaptFromServer);
-    dispatch(loadOffers(adaptedOffers));
+    // const adaptedOffers = data.map(adaptFromServer);
+    // dispatch(loadOffers(adaptedOffers));
   };
 
 export const fetchCurrentOffer = (id: string): ThunkActionResult =>
@@ -58,20 +58,20 @@ export const fetchCurrentOffer = (id: string): ThunkActionResult =>
 export const fetchCommentCurrentOffer = (id: string): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get<ReviewType[]>(`${APIRoute.Comments}/${id}`);
-    const adaptedComments = data.map(adaptFromServer);
-    dispatch(loadCommentsCurrentOffer(adaptedComments));
+    // const adaptedComments = data.map(adaptFromServer);
+    // dispatch(loadCommentsCurrentOffer(adaptedComments));
   };
 
 export const fetchNearbyOffers = (id: string): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get<OfferType[]>(`${APIRoute.Offers}/${id}/nearby`);
-    const adaptedNearbyOffers = data.map(adaptFromServer);
-    dispatch(setNearbyOffers(adaptedNearbyOffers));
+    // const adaptedNearbyOffers = data.map(adaptFromServer);
+    // dispatch(setNearbyOffers(adaptedNearbyOffers));
   };
 
 export const submitComment = (commentValueText: string, currentOfferId: string, offerStarRating: number): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const totalComments = await api.post(`${APIRoute.Comments}/${currentOfferId}`, {comment: commentValueText, rating: offerStarRating}).then((response): any => response.data);
-    const adaptedTotalComments = totalComments.map(adaptFromServer);
-    dispatch(loadCommentsCurrentOffer(adaptedTotalComments));
+    // const adaptedTotalComments = totalComments.map(adaptFromServer);
+    // dispatch(loadCommentsCurrentOffer(adaptedTotalComments));
   };

@@ -15,40 +15,20 @@ import {AuthorizationStatus} from '../../constants';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {useFetchOfferQuery} from '../../services/apiAxios';
-
-function mapStateToProps({observingOffer, authorizationStatus}: State) {
-  return ({
-    observingOffer,
-    authorizationStatus,
-  });
-}
-
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onFetchCurrentOffer(id: string) {
-    dispatch(fetchCurrentOffer(id));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type OfferPageProps = ConnectedProps<typeof connector>;
+import {setOfferPageData} from '../../store/new-reducer';
 
 type offerId = {
   id: string,
 }
 
-function Offer({observingOffer, authorizationStatus}: OfferPageProps): JSX.Element {
+function Offer() {
   const dispatch = useAppDispatch();
-  const offers = useAppSelector((state => state.app));
   const {id}: offerId = useParams();
-  const [isFirstRender, setIsFirstRender] = useState(true);
-  const {data, isFetching} = useFetchOfferQuery(arguments);
-  // useEffect(() => {
-  //   if (isFirstRender) {
-  //     onFetchCurrentOffer(id);
-  //     setIsFirstRender(false);
-  //   } else return;
-  // }, [id, isFirstRender, onFetchCurrentOffer]);
-  //
+  const {data, isFetching} = useFetchOfferQuery(id);
+  data && dispatch(setOfferPageData(data));
+  const observingOffer = useAppSelector((state => state.app.offerPageData));
+  const authorizationStatus = useAppSelector((state => state.app.authorizationStatus));
+
   function RenderImages() {
     return (
       <div className="property__gallery">
@@ -123,7 +103,7 @@ function Offer({observingOffer, authorizationStatus}: OfferPageProps): JSX.Eleme
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src={observingOffer && observingOffer.host.avatarUrl} alt="Host avatar" width="74" height="74"/>
+                  <img className="property__avatar user__avatar" src={observingOffer && `../${observingOffer.host.avatarUrl}`} alt="Host avatar" width="74" height="74"/>
                 </div>
                 <span className="property__user-name">
                   {observingOffer && observingOffer.host.name}
@@ -140,7 +120,7 @@ function Offer({observingOffer, authorizationStatus}: OfferPageProps): JSX.Eleme
             <section className="property__reviews reviews">
               <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
               <ul className="reviews__list">
-                {/*<ReviewsList currentOfferId={id}/>*/}
+                <ReviewsList currentOfferId={id}/>
               </ul>
               {authorizationStatus === AuthorizationStatus.Auth && <SubmitFormComment currentOfferId={id}/>}
             </section>
@@ -162,4 +142,4 @@ function Offer({observingOffer, authorizationStatus}: OfferPageProps): JSX.Eleme
   );
 }
 
-export default connector(withHeader(Offer));
+export default withHeader(Offer);

@@ -5,7 +5,27 @@ export const getOffersByCity = (offers: OfferType[], currentCity: City) => {
   return offers.filter((offer) => currentCity && offer.city.name === currentCity.city);
 }
 
-export let adaptFromServer = (offer: any) => {
+// export let adaptFromServer = (offer: any) => {
+//   let adaptOfferFeatures = (offer: any) => {
+//     for (let feature in offer) {
+//       if (typeof (offer[feature]) === 'object') {
+//         adaptOfferFeatures(offer[feature]);
+//       } else {
+//         let snakeSymbolIndex = feature.indexOf('_');
+//         if (snakeSymbolIndex >= 0) {
+//           offer[`${feature.slice(0, snakeSymbolIndex)}${feature.slice(++snakeSymbolIndex)[0].toUpperCase()}${feature.slice(++snakeSymbolIndex)}`] = offer[feature];
+//           delete offer[feature];
+//         }
+//       }
+//     }
+//   }
+//   adaptOfferFeatures(offer);
+//   return offer;
+// }
+
+
+export let adaptFromServerNew = (data: any) => {
+
   let adaptOfferFeatures = (offer: any) => {
     for (let feature in offer) {
       if (typeof (offer[feature]) === 'object') {
@@ -19,6 +39,11 @@ export let adaptFromServer = (offer: any) => {
       }
     }
   }
-  adaptOfferFeatures(offer);
-  return offer;
+
+  if (data.length) {
+    data.map(adaptOfferFeatures);
+  } else {
+    adaptOfferFeatures(data);
+  }
+  return data
 }

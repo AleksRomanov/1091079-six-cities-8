@@ -37,7 +37,7 @@ function App(): JSX.Element {
         <Route path={AppRoute.Offer} exact render={() => <Offer/>}/>
         <Route path={AppRoute.Login} exact><Login/></Route>
         <PrivateRoute path={AppRoute.Favorites} render={() => <Favorites/>}/>
-        {/*<Route render={() => (<Page404/>)}/>*/}
+        <Route render={() => (<Page404/>)}/>
       </Switch>
     </BrowserRouter>
   );

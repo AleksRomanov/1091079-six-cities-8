@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/dist/query/react';
 import {OfferType} from '../types/offerType';
-import {adaptFromServer} from '../utils';
+// import {adaptFromServer} from '../utils';
 import {saveToken, Token} from './token';
 // import {APIRoute, AppRoute, AuthorizationStatus} from '../constants';
 // import {redirectToRoute, requireAuthorization} from '../store/action';
@@ -18,7 +18,7 @@ export const apiAxios = createApi({
     }),
     fetchOffers: builder.query<OfferType[], any>({
       query: () => `hotels/`,
-      transformResponse: (response: OfferType[]) => response.map(adaptFromServer),
+      // transformResponse: (response: OfferType[]) => response.map(adaptFromServer),
     }),
     login: builder.mutation<any, any>({
       query: (credentials) => {

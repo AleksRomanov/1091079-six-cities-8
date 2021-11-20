@@ -12,10 +12,10 @@ export const store = configureStore({
     app: appReducer,
     [apiAxios.reducerPath]: apiAxios.reducer,
   },
-  middleware: (gDM) => gDM({
-    thunk: {
-      extraArgument: apiAxios,
-    },}).concat(redirect, apiAxios.middleware),
+  // middleware: (gDM) => gDM({
+  //   thunk: {
+  //     extraArgument: apiAxios,
+  //   },}).concat(redirect, apiAxios.middleware),
 })
 
 ReactDOM.render(
