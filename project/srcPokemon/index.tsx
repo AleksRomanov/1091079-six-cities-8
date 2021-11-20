@@ -4,18 +4,26 @@ import App from './components/app';
 import {Provider} from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit';
 import appReducer from './store/new-reducer';
-import {apiAxios} from './services/apiAxios';
+// import {pokemonApi} from './services/apiPoke';
 import {redirect} from './store/middlewares/redirect';
+
+// const store = createStore(
+//   reducer,
+//   composeWithDevTools(
+//     applyMiddleware(thunk.withExtraArgument(api)),
+//     applyMiddleware(redirect), /////??????
+//   ),
+// );
 
 export const store = configureStore({
   reducer: {
+    // [pokemonApi.reducerPath]: pokemonApi.reducer,
     app: appReducer,
-    [apiAxios.reducerPath]: apiAxios.reducer,
   },
-  middleware: (gDM) => gDM({
+  middleware: gDM => gDM({
     thunk: {
       extraArgument: apiAxios,
-    },}).concat(redirect, apiAxios.middleware),
+    },}).concat(redirect),
 })
 
 ReactDOM.render(

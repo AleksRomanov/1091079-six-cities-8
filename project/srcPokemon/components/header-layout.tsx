@@ -8,10 +8,9 @@ type HeaderChildrenProps = {
 }
 
 function HeaderLayout({children}: HeaderChildrenProps): JSX.Element {
-  const authStatus = useAppSelector(state => state.app.authorizationStatus);
-
+  const authorizationStatus = useAppSelector((state => state.app.authorizationStatus));
   const isAuth = () => {
-    return authStatus === AuthorizationStatus.Auth;
+    return authorizationStatus === AuthorizationStatus.Auth;
   }
 
   function getUserName() {

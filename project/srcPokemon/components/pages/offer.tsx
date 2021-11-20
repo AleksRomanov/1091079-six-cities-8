@@ -12,9 +12,6 @@ import OffersList from '../offers-list/offers-list';
 import {ThunkAppDispatch} from '../../types/action';
 import {fetchCurrentOffer} from '../../store/api-actions';
 import {AuthorizationStatus} from '../../constants';
-import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {useAppSelector} from '../../hooks/useAppSelector';
-import {useFetchOfferQuery} from '../../services/apiAxios';
 
 function mapStateToProps({observingOffer, authorizationStatus}: State) {
   return ({
@@ -36,19 +33,17 @@ type offerId = {
   id: string,
 }
 
-function Offer({observingOffer, authorizationStatus}: OfferPageProps): JSX.Element {
-  const dispatch = useAppDispatch();
-  const offers = useAppSelector((state => state.app));
+function Offer({onFetchCurrentOffer, observingOffer, authorizationStatus}: OfferPageProps): JSX.Element {
   const {id}: offerId = useParams();
   const [isFirstRender, setIsFirstRender] = useState(true);
-  const {data, isFetching} = useFetchOfferQuery(arguments);
-  // useEffect(() => {
-  //   if (isFirstRender) {
-  //     onFetchCurrentOffer(id);
-  //     setIsFirstRender(false);
-  //   } else return;
-  // }, [id, isFirstRender, onFetchCurrentOffer]);
-  //
+
+  useEffect(() => {
+    if (isFirstRender) {
+      onFetchCurrentOffer(id);
+      setIsFirstRender(false);
+    } else return;
+  }, [id, isFirstRender, onFetchCurrentOffer]);
+
   function RenderImages() {
     return (
       <div className="property__gallery">
@@ -140,7 +135,7 @@ function Offer({observingOffer, authorizationStatus}: OfferPageProps): JSX.Eleme
             <section className="property__reviews reviews">
               <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
               <ul className="reviews__list">
-                {/*<ReviewsList currentOfferId={id}/>*/}
+                <ReviewsList currentOfferId={id}/>
               </ul>
               {authorizationStatus === AuthorizationStatus.Auth && <SubmitFormComment currentOfferId={id}/>}
             </section>
