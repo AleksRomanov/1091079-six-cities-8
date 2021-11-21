@@ -35,7 +35,7 @@ const axiosBaseQuery = ({baseUrl}: { baseUrl: string } = {baseUrl: ''}): BaseQue
   }
 
 export const apiAxios = createApi({
-  reducerPath: 'appi',
+  reducerPath: 'api',
   baseQuery: axiosBaseQuery({baseUrl: BASE_URL}),
   endpoints: (builder) => ({
     checkAuth: builder.query({
@@ -67,20 +67,7 @@ export const apiAxios = createApi({
       }),
       transformResponse: (response: ReviewType[]) => adaptFromServerNew(response),
     }),
-    login: builder.mutation<any, any>({
-      query: (credentials) => {
-        return {
-          url: '/login',
-          method: 'post',
-          data: credentials
-        }
-      },
-      transformResponse: (response: any) => {
-        saveToken(response.token);
-        return response
-      },
-    }),
-    submitComment: builder.mutation<ReviewType[], any>({
+    submitComment: builder.mutation<any, any>({
       query: ({data, currentOfferId}) => {
         return {
           url: `${APIRoute.Comments}/${currentOfferId}`,
@@ -95,6 +82,19 @@ export const apiAxios = createApi({
         adaptFromServerNew(response);
         return response
       }
+    }),
+    login: builder.mutation<any, any>({
+      query: (credentials) => {
+        return {
+          url: '/login',
+          method: 'post',
+          data: credentials
+        }
+      },
+      transformResponse: (response: any) => {
+        saveToken(response.token);
+        return response
+      },
     }),
     //   console.log(response)
     //   return response;

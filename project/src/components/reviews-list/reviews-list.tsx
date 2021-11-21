@@ -4,7 +4,7 @@ import {useFetchCommentsQuery} from '../../services/apiAxios';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {setCurrentOfferComments} from '../../store/new-reducer';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 
 
 type ReviewsListOutsideProps = {
@@ -13,15 +13,16 @@ type ReviewsListOutsideProps = {
 
 function ReviewsList({currentOfferId}: ReviewsListOutsideProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const {data} = useFetchCommentsQuery(currentOfferId);
+  const {data, isFetching} = useFetchCommentsQuery(currentOfferId);
   const currentOfferComments = useAppSelector(state => state.app.currentOfferComments);
-  const [isFirstRender, setIsFirstRender] = useState(true);
   useEffect(() => {
-    if (isFirstRender && data) {
-      data && dispatch(setCurrentOfferComments(data))
-      setIsFirstRender(false);
-    } else return;
-  }, [data, currentOfferComments]);
+    data && dispatch(setCurrentOfferComments(data))
+  }, [currentOfferComments, dispatch]);
+  if (isFetching) {
+    return (
+      <p>LOADING . . .</p>
+    )
+  }
   return (
     <>
       {currentOfferComments && currentOfferComments.map((review) => (<PlaceReview review={review} key={nanoid()}/>))}

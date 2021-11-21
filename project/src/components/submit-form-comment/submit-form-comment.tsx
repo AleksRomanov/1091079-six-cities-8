@@ -4,10 +4,13 @@ import React, {FormEvent, useEffect, useState} from 'react';
 import {useLoginMutation, useSubmitCommentMutation} from '../../services/apiAxios';
 import {pickOffers, setCurrentOfferComments} from '../../store/new-reducer';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
+import {submitComment} from '../../store/api-actions';
+import {loadCommentsCurrentOffer} from '../../store/action';
 
 type OutsideCommentFormProps = {
   currentOfferId: string
 }
+
 
 function SubmitFormComment({currentOfferId}: OutsideCommentFormProps): JSX.Element {
   const dispatch = useAppDispatch();
@@ -25,6 +28,9 @@ function SubmitFormComment({currentOfferId}: OutsideCommentFormProps): JSX.Eleme
     return panelMarkup;
   }
 
+
+
+
   const [submitComment, {data}] = useSubmitCommentMutation();
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -32,8 +38,8 @@ function SubmitFormComment({currentOfferId}: OutsideCommentFormProps): JSX.Eleme
   };
 
   useEffect(() => {
-    dispatch(setCurrentOfferComments(data))
-  }, [data]);
+    data && dispatch(setCurrentOfferComments(data));
+  }, [data, dispatch]);
 
   const [commentValue, setCommentValue] = useState('');
   const [ratingValue, setRatingValue] = useState(1);
