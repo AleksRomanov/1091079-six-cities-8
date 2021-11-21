@@ -11,14 +11,16 @@ type OutsideCommentFormProps = {
 
 function SubmitFormComment({currentOfferId}: OutsideCommentFormProps): JSX.Element {
   const dispatch = useAppDispatch();
+
   function RatingPanel() {
     const panelMarkup = [];
+    console.log('RATING');
     for (let i = 5; i >= 1; i--) {
       panelMarkup.push(
         <React.Fragment key={nanoid()}>
           <input className="form__rating-input visually-hidden" name="rating" value={i} id={`${i}-stars`} type="radio" onChange={(evt) => setRatingValue(parseInt(evt.target.value))}/>
           <label htmlFor={`${i}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
-            <IconStar/>
+            <IconStar className="form__star-image" width="37" height="33"/>
           </label>
         </React.Fragment>);
     }

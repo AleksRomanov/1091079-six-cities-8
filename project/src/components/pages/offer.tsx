@@ -62,8 +62,8 @@ function Offer() {
               <h1 className="property__name">
                 {observingOffer && observingOffer.title}
               </h1>
-              <button className={`property__bookmark-button button ${observingOffer && observingOffer.isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
-                <IconBookmark/>
+              <button className={`property__bookmark-button button ${observingOffer && observingOffer.isFavorite ? 'property__bookmark-button--active ' : ''}`} type="button">
+                <IconBookmark className="property__bookmark-icon" width="31" height="33"/>
                 <span className="visually-hidden">To bookmarks</span>
               </button>
             </div>
