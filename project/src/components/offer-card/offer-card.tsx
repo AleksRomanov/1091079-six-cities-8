@@ -3,6 +3,8 @@ import {Link, useRouteMatch} from 'react-router-dom';
 import {AppRoute, offerCardClasses} from '../../constants';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {setMapHoveredOffer} from '../../store/new-reducer';
+import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
+
 
 type OfferCardProps = {
   offer: OfferType,
@@ -46,9 +48,10 @@ function OfferCard({offer}: OfferCardProps): JSX.Element {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className={isFavourite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"/>
-            </svg>
+            <IconBookmark className="place-card__bookmark-icon" width="18" height="19"/>
+            {/*<svg className="place-card__bookmark-icon" width="18" height="19">*/}
+            {/*  <use xlinkHref="#icon-bookmark"/>*/}
+            {/*</svg>*/}
             <span className="visually-hidden">To bookmarks</span>
           </button>
         </div>
