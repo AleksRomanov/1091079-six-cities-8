@@ -71,22 +71,22 @@ export const appReducer = createSlice({
       switch (action.payload) {
         case SortType.Popular: {
           state.pickedOffers = getOffersByCity(state.offers, state.currentCity);
-          return
+          return;
         }
         case SortType.LowToHighPrice: {
           state.pickedOffers = getOffersByCity(state.offers, state.currentCity).sort((offerA, offerB) => offerA.price - offerB.price);
-          return
+          return;
         }
         case SortType.HighToLowPrice: {
           state.pickedOffers = getOffersByCity(state.offers, state.currentCity).sort((offerA, offerB) => offerB.price - offerA.price);
-          return
+          return;
         }
         case SortType.TopRated: {
           state.pickedOffers = getOffersByCity(state.offers, state.currentCity).sort((offerA, offerB) => offerB.rating - offerA.rating);
-          return
+          return;
         }
         default:
-          return state;
+          return;
       }
     },
   },

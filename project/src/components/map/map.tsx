@@ -27,7 +27,7 @@ function Map() {
       });
     }
   }, [map, pickedOffers, mapHoveredOffer, defaultIcon, currentIcon]);
-
+  console.log('render');
   return <div style={{height: '100%'}} ref={mapRef}/>;
 }
 

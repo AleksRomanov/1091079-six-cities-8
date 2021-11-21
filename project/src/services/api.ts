@@ -32,7 +32,7 @@ const axiosBaseQuery = ({baseUrl}: { baseUrl: string } = {baseUrl: ''}): BaseQue
   }
 
 export const api = createApi({
-  reducerPath: 'appi',
+  reducerPath: 'api',
   baseQuery: axiosBaseQuery({baseUrl: BASE_URL}),
   endpoints: (builder) => ({
     checkAuth: builder.query({
