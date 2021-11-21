@@ -43,5 +43,5 @@ function Main(): JSX.Element {
   );
 }
 
-// export {Main};
+export {Main};
 export default withHeader(Main);

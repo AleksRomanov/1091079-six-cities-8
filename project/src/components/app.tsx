@@ -8,9 +8,9 @@ import Favorites from './pages/favorites';
 import Login from './pages/login';
 import Page404 from './pages/404';
 import browserHistory from '../browser-history';
-import {loadOffers, setAuthStatus} from '../store/new-reducer';
+import {loadOffers, setAuthStatus} from '../store/reducer';
 import {useAppDispatch} from '../hooks/useAppDispatch';
-import {useCheckAuthQuery, useFetchOffersQuery} from '../services/apiAxios';
+import {useCheckAuthQuery, useFetchOffersQuery} from '../services/api';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();

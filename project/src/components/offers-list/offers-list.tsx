@@ -3,15 +3,13 @@ import {connect, ConnectedProps} from 'react-redux';
 import {useLocation, useParams, useRouteMatch} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import {Dispatch} from 'redux';
-import {ActionsType, ThunkAppDispatch} from '../../types/action';
-import {fetchCurrentOffers} from '../../store/action';
 import OfferCard from '../offer-card/offer-card';
 import {AppRoute} from '../../constants';
 import {nanoid} from 'nanoid';
-import {pickOffers, setNearbyOffers} from '../../store/new-reducer';
+import {pickOffers, setNearbyOffers} from '../../store/reducer';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
-import {useFetchNearbyOffersQuery, useSubmitCommentMutation} from '../../services/apiAxios';
+import {useFetchNearbyOffersQuery, useSubmitCommentMutation} from '../../services/api';
 
 type offerId = {
   id: string,

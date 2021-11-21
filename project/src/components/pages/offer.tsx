@@ -10,8 +10,8 @@ import OffersList from '../offers-list/offers-list';
 import {AuthorizationStatus} from '../../constants';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
-import {useFetchOfferQuery} from '../../services/apiAxios';
-import {setOfferPageData} from '../../store/new-reducer';
+import {useFetchOfferQuery} from '../../services/api';
+import {setOfferPageData} from '../../store/reducer';
 
 type offerId = {
   id: string,
@@ -24,7 +24,6 @@ function Offer() {
   data && dispatch(setOfferPageData(data));
   const observingOffer = useAppSelector((state => state.app.offerPageData));
   const authorizationStatus = useAppSelector((state => state.app.authorizationStatus));
-  // const nearbyOffers = useAppSelector((state => state.app.nearbyOffers));
 
   function RenderImages() {
     return (
@@ -70,7 +69,6 @@ function Offer() {
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                {/*<span style={{width: `${Math.round(observingOffer ? 10 * observingOffer.rating : 0)}%`}}/>*/}
                 <span style={{width: `${(observingOffer ? 100 * observingOffer.rating : 0) / 5.0}%`}}/>
                 <span className="visually-hidden">Rating</span>
               </div>

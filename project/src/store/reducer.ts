@@ -5,6 +5,7 @@ import {City} from '../types/city';
 import {OfferType} from '../types/offerType';
 import {getOffersByCity} from '../utils';
 import {ReviewType} from '../types/reviewType';
+import {ActionType} from '../types/action';
 
 export interface CounterState {
   currentCity: City,
@@ -52,6 +53,7 @@ export const appReducer = createSlice({
     loadOffers: (state, action: PayloadAction<OfferType[]>) => {
       state.offers = action.payload;
     },
+
     setCurrentOfferComments: (state, action: PayloadAction<ReviewType[] | undefined>) => {
       state.currentOfferComments = action.payload;
     },

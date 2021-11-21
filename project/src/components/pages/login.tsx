@@ -3,8 +3,8 @@ import {AppRoute, AuthorizationStatus} from '../../constants';
 import {Link} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {redirectToRoute} from '../../store/action';
-import {useLoginMutation} from '../../services/apiAxios';
-import {setAuthStatus} from '../../store/new-reducer';
+import {useLoginMutation} from '../../services/api';
+import {setAuthStatus} from '../../store/reducer';
 import {ReactComponent as Logo} from '../../static/logo.svg';
 
 

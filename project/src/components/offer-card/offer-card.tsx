@@ -2,7 +2,7 @@ import {OfferType} from '../../types/offerType';
 import {Link, useRouteMatch} from 'react-router-dom';
 import {AppRoute, offerCardClasses} from '../../constants';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {setMapHoveredOffer} from '../../store/new-reducer';
+import {setMapHoveredOffer} from '../../store/reducer';
 import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
 
 

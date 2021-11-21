@@ -1,9 +1,9 @@
 import PlaceReview from '../place-review/place-review';
 import {nanoid} from 'nanoid';
-import {useFetchCommentsQuery} from '../../services/apiAxios';
+import {useFetchCommentsQuery} from '../../services/api';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {setCurrentOfferComments} from '../../store/new-reducer';
+import {setCurrentOfferComments} from '../../store/reducer';
 import React, {useEffect} from 'react';
 
 

@@ -4,7 +4,7 @@ import {ReactComponent as IconArrowSelect} from '../../static/icon-arrow-select.
 import React, {useState} from 'react';
 import {nanoid} from 'nanoid';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {sortCurrentOffers} from '../../store/new-reducer';
+import {sortCurrentOffers} from '../../store/reducer';
 
 function SortingList(): JSX.Element {
   const [isSortingListOpen, handleSortingListOpen] = useState(false)
