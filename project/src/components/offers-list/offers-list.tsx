@@ -1,15 +1,12 @@
-import {State} from '../../types/state';
-import {connect, ConnectedProps} from 'react-redux';
 import {useLocation, useParams, useRouteMatch} from 'react-router-dom';
 import {useEffect, useState} from 'react';
-import {Dispatch} from 'redux';
 import OfferCard from '../offer-card/offer-card';
 import {AppRoute} from '../../constants';
 import {nanoid} from 'nanoid';
 import {pickOffers, setNearbyOffers} from '../../store/reducer';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
-import {useFetchNearbyOffersQuery, useSubmitCommentMutation} from '../../services/api';
+import {useFetchNearbyOffersQuery} from '../../services/api';
 
 type offerId = {
   id: string,
@@ -28,14 +25,14 @@ function OffersList(): JSX.Element {
   const {data} = useFetchNearbyOffersQuery(id);
   useEffect(() => {
     data && isOfferPage && dispatch(setNearbyOffers(data));
-  }, [data]);
+  }, [data, isOfferPage, dispatch]);
 
   useEffect(() => {
     if (isFirstRender && !isOfferPage && offers.length > 0) {
       dispatch(pickOffers(currentUrl.pathname));
       setIsFirstRender(false);
     } else return;
-  }, [currentUrl, isFirstRender, offers]);
+  }, [currentUrl, isFirstRender, offers, isOfferPage, dispatch]);
 
   return (
     <>

@@ -2,11 +2,8 @@ import {Link} from 'react-router-dom';
 import {CitiesList} from '../../constants';
 import {nanoid} from 'nanoid';
 import React from 'react';
-import {Dispatch} from 'redux';
-import {connect, ConnectedProps, useDispatch, useSelector} from 'react-redux';
 import {City} from '../../types/city';
-import {RootState, selectCity} from '../../store/reducer';
-import {useAppSelector} from '../../hooks/useAppSelector';
+import {selectCity} from '../../store/reducer';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 
 
