@@ -1,13 +1,10 @@
 import {BaseQueryFn} from '@reduxjs/toolkit/query';
-// import axios, {AxiosError, AxiosRequestConfig} from 'axios';
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/dist/query/react';
+import {createApi} from '@reduxjs/toolkit/dist/query/react';
 import {OfferType} from '../types/offerType';
 import {adaptFromServerNew} from '../utils';
 import {getToken, saveToken} from './token';
-import {redirectToRoute} from '../store/action';
 import {ReviewType} from '../types/reviewType';
 import {APIRoute} from '../constants';
-import {loadOffers} from '../store/new-reducer';
 import axios, {AxiosError, AxiosRequestConfig} from 'axios';
 
 const BASE_URL = 'https://8.react.pages.academy/six-cities';
@@ -21,7 +18,7 @@ const axiosBaseQuery = ({baseUrl}: { baseUrl: string } = {baseUrl: ''}): BaseQue
     try {
       const token = getToken();
       if (token) {
-        axios.defaults.headers['x-token'] = token;
+        axios.defaults.headers.common['x-token'] = token;
       }
       const result = await axios({url: baseUrl + url, method, data})
 
@@ -35,7 +32,7 @@ const axiosBaseQuery = ({baseUrl}: { baseUrl: string } = {baseUrl: ''}): BaseQue
   }
 
 export const apiAxios = createApi({
-  reducerPath: 'api',
+  reducerPath: 'appi',
   baseQuery: axiosBaseQuery({baseUrl: BASE_URL}),
   endpoints: (builder) => ({
     checkAuth: builder.query({
@@ -67,22 +64,6 @@ export const apiAxios = createApi({
       }),
       transformResponse: (response: ReviewType[]) => adaptFromServerNew(response),
     }),
-    submitComment: builder.mutation<any, any>({
-      query: ({data, currentOfferId}) => {
-        return {
-          url: `${APIRoute.Comments}/${currentOfferId}`,
-          method: 'post',
-          data: {
-            rating: data.ratingValue,
-            comment: data.commentValue
-          }
-        }
-      },
-      transformResponse: (response: any) => {
-        adaptFromServerNew(response);
-        return response
-      }
-    }),
     login: builder.mutation<any, any>({
       query: (credentials) => {
         return {
@@ -96,12 +77,18 @@ export const apiAxios = createApi({
         return response
       },
     }),
-    //   console.log(response)
-    //   return response;
-    //   // saveToken(response.token);
-    // },
+    submitComment: builder.mutation<ReviewType[], any>({
+      query: ({data, currentOfferId}) => {
+        return {
+          url: `${APIRoute.Comments}/${currentOfferId}`,
+          method: 'post',
+          data: {rating: data.ratingValue,
+            comment: data.commentValue}
+        }
+      },
+      transformResponse: (response: ReviewType[]) => adaptFromServerNew(response),
+    }),
   }),
-  // }),
 })
 
 export const {useCheckAuthQuery, useFetchOffersQuery, useFetchOfferQuery, useLoginMutation, useFetchCommentsQuery, useSubmitCommentMutation} = apiAxios;

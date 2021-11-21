@@ -1,19 +1,16 @@
 import Main from './pages/main';
 import Offer from './pages/offer';
 import {AppRoute, AuthorizationStatus} from '../constants';
-import React, {useEffect, useState} from 'react';
-import {Router as BrowserRouter, Route, Switch, useParams} from 'react-router-dom';
+import React from 'react';
+import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
 import PrivateRoute from './private-route';
 import Favorites from './pages/favorites';
 import Login from './pages/login';
-import {State} from '../types/state';
-import {connect, ConnectedProps} from 'react-redux';
 import Page404 from './pages/404';
 import browserHistory from '../browser-history';
 import {loadOffers, setAuthStatus} from '../store/new-reducer';
 import {useAppDispatch} from '../hooks/useAppDispatch';
 import {useCheckAuthQuery, useFetchOffersQuery} from '../services/apiAxios';
-
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();

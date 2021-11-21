@@ -1,34 +1,10 @@
 import 'leaflet/dist/leaflet.css';
 import {SortType} from '../../constants';
-import {State} from '../../types/state';
-import {connect, ConnectedProps} from 'react-redux';
 import {ReactComponent as IconArrowSelect} from '../../static/icon-arrow-select.svg';
 import React, {useState} from 'react';
-import {Dispatch} from 'redux';
-import {ActionsType} from '../../types/action';
 import {nanoid} from 'nanoid';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {sortCurrentOffers} from '../../store/new-reducer';
-
-// function mapStateToProps({isSortingListOpen, currentSortType}: State) {
-//   return ({
-//     isSortingListOpen,
-//     currentSortType,
-//   });
-// }
-//
-// function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
-//   return {
-//     onSortPanelClick() {
-//       dispatch(changeSortPanelOpenStatus());
-//     },
-//     onChangeSortType(type: string) {
-//       dispatch(changeSortType(type));
-//       dispatch(sortCurrentOffers(type));
-//     },
-//   };
-// }
-
 
 function SortingList(): JSX.Element {
   const [isSortingListOpen, handleSortingListOpen] = useState(false)

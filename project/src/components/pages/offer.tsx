@@ -1,16 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Map from '../map/map';
 import {withHeader} from '../../hocks/withHeader';
 import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
-import {State} from '../../types/state';
-import {connect, ConnectedProps} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import {nanoid} from 'nanoid';
 import ReviewsList from '../reviews-list/reviews-list';
 import SubmitFormComment from '../submit-form-comment/submit-form-comment';
 import OffersList from '../offers-list/offers-list';
-import {ThunkAppDispatch} from '../../types/action';
-import {fetchCurrentOffer} from '../../store/api-actions';
 import {AuthorizationStatus} from '../../constants';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
@@ -24,7 +20,7 @@ type offerId = {
 function Offer() {
   const dispatch = useAppDispatch();
   const {id}: offerId = useParams();
-  const {data, isFetching} = useFetchOfferQuery(id);
+  const {data} = useFetchOfferQuery(id);
   data && dispatch(setOfferPageData(data));
   const observingOffer = useAppSelector((state => state.app.offerPageData));
   const authorizationStatus = useAppSelector((state => state.app.authorizationStatus));

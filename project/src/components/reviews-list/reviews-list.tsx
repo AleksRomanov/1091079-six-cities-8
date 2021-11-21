@@ -4,7 +4,7 @@ import {useFetchCommentsQuery} from '../../services/apiAxios';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {setCurrentOfferComments} from '../../store/new-reducer';
-import {useEffect} from 'react';
+import React, {useEffect} from 'react';
 
 
 type ReviewsListOutsideProps = {
@@ -13,15 +13,21 @@ type ReviewsListOutsideProps = {
 
 function ReviewsList({currentOfferId}: ReviewsListOutsideProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const {data, isFetching} = useFetchCommentsQuery(currentOfferId);
-  const currentOfferComments = useAppSelector(state => state.app.currentOfferComments);
+  let {data, isFetching} = useFetchCommentsQuery(currentOfferId);
+  let currentOfferComments = useAppSelector(state => state.app.currentOfferComments);
+
   useEffect(() => {
     data && dispatch(setCurrentOfferComments(data))
+  }, [data, dispatch]);
+
+  useEffect(() => {
+    currentOfferComments && dispatch(setCurrentOfferComments(currentOfferComments))
   }, [currentOfferComments, dispatch]);
+
   if (isFetching) {
     return (
-      <p>LOADING . . .</p>
-    )
+      <p>Loading ...</p>
+    );
   }
   return (
     <>

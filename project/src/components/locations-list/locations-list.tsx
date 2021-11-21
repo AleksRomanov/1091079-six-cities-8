@@ -11,9 +11,7 @@ import {useAppSelector} from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 
 
-function LocationsList(): JSX.Element {
-  // const currentCity = useAppSelector((state => state.app.currentCity));
-
+function LocationsList() {
   const dispatch = useAppDispatch();
   const onCityChoose = (city: string) => {
     dispatch(selectCity(city));

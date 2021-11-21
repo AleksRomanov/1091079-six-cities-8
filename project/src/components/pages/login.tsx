@@ -1,18 +1,10 @@
 import React, {FormEvent, useState} from 'react';
-import {ThunkAppDispatch} from '../../types/action';
-import {connect, ConnectedProps} from 'react-redux';
-import {loginAction} from '../../store/api-actions';
-import {AuthData} from '../../types/authData';
 import {AppRoute, AuthorizationStatus} from '../../constants';
 import {Link} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {useAppSelector} from '../../hooks/useAppSelector';
-// import {useLoginMutation} from '../../services/apiPoke';
-import {saveToken} from '../../services/token';
 import {redirectToRoute} from '../../store/action';
-import {useCheckAuthQuery, useFetchOffersQuery, useLoginMutation} from '../../services/apiAxios';
+import {useLoginMutation} from '../../services/apiAxios';
 import {setAuthStatus} from '../../store/new-reducer';
-// import {useLoginMutation} from '../../services/apiPoke';
 
 function Login(): JSX.Element {
   const [loginInput, setLoginInput] = useState('');
@@ -23,9 +15,7 @@ function Login(): JSX.Element {
     password: passwordInput,
   }
 
-  // const [] = useLoginMutation();
-  // const { data, error, isLoading } = useLoginMutation(loginData)
-  const [login, data] = useLoginMutation();
+  const [login] = useLoginMutation();
   const dispatch = useAppDispatch();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {

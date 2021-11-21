@@ -29,7 +29,6 @@ function OffersList(): JSX.Element {
   useEffect(() => {
     if (isFirstRender && offers.length > 0) {
       if (isOfferPage) {
-        // onFetchNearbyOffers(id);
       } else {
         dispatch(pickOffers(currentUrl.pathname));
       }
