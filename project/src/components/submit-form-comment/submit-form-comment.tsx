@@ -14,7 +14,6 @@ function SubmitFormComment({currentOfferId}: OutsideCommentFormProps): JSX.Eleme
 
   function RatingPanel() {
     const panelMarkup = [];
-    console.log('RATING');
     for (let i = 5; i >= 1; i--) {
       panelMarkup.push(
         <React.Fragment key={nanoid()}>

@@ -8,9 +8,10 @@ import {fetchCurrentOffers} from '../../store/action';
 import OfferCard from '../offer-card/offer-card';
 import {AppRoute} from '../../constants';
 import {nanoid} from 'nanoid';
-import { pickOffers } from '../../store/new-reducer';
+import {pickOffers, setNearbyOffers} from '../../store/new-reducer';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import {useAppSelector} from '../../hooks/useAppSelector';
+import {useFetchNearbyOffersQuery, useSubmitCommentMutation} from '../../services/apiAxios';
 
 type offerId = {
   id: string,
@@ -24,17 +25,19 @@ function OffersList(): JSX.Element {
   const dispatch = useAppDispatch();
   const offers = useAppSelector((state => state.app.offers));
   const pickedOffers = useAppSelector((state => state.app.pickedOffers));
-  // const nearbyOffers = useAppSelector((state => state.app.nearbyOffers));
+
+
+  const {data} = useFetchNearbyOffersQuery(id);
+  useEffect(() => {
+    data && isOfferPage && dispatch(setNearbyOffers(data));
+  }, [data]);
 
   useEffect(() => {
-    if (isFirstRender && offers.length > 0) {
-      if (isOfferPage) {
-      } else {
-        dispatch(pickOffers(currentUrl.pathname));
-      }
+    if (isFirstRender && !isOfferPage && offers.length > 0) {
+      dispatch(pickOffers(currentUrl.pathname));
       setIsFirstRender(false);
     } else return;
-  }, [id, currentUrl, isOfferPage, isFirstRender, offers]);
+  }, [currentUrl, isFirstRender, offers]);
 
   return (
     <>

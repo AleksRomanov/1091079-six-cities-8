@@ -48,13 +48,13 @@ export const apiAxios = createApi({
       }),
       transformResponse: (response: OfferType[]) => adaptFromServerNew(response),
     }),
-    // fetchNearbyOffers: builder.query<OfferType[], any>({
-    //   query: (id) => ({
-    //     url: `/hotels/${id}`,
-    //     method: 'get',
-    //   }),
-    //   transformResponse: (response: OfferType[]) => adaptFromServerNew(response),
-    // }),
+    fetchNearbyOffers: builder.query<OfferType[], any>({
+      query: (id) => ({
+        url: `/hotels/${id}/nearby`,
+        method: 'get',
+      }),
+      transformResponse: (response: OfferType[]) => adaptFromServerNew(response),
+    }),
     fetchOffer: builder.query<OfferType, any>({
       query: (offerId) => {
         return {
@@ -98,5 +98,5 @@ export const apiAxios = createApi({
   }),
 })
 
-export const {useCheckAuthQuery, useFetchOffersQuery, useFetchOfferQuery, useLoginMutation, useFetchCommentsQuery, useSubmitCommentMutation} = apiAxios;
+export const {useCheckAuthQuery, useFetchOffersQuery, useFetchOfferQuery, useLoginMutation, useFetchCommentsQuery, useSubmitCommentMutation, useFetchNearbyOffersQuery} = apiAxios;
 

@@ -12,7 +12,6 @@ export interface CounterState {
   pickedOffers: OfferType[],
   authorizationStatus: string,
   mapHoveredOffer: OfferType | null,
-  nearbyOffers: OfferType[] | null,
   offerPageData: OfferType | undefined,
   currentOfferComments: ReviewType[] | undefined,
 }
@@ -23,7 +22,6 @@ const initialState: CounterState = {
   currentCity: CitiesList[0],
   authorizationStatus: AuthorizationStatus.Unknown,
   mapHoveredOffer: null,
-  nearbyOffers: [],
   offerPageData: undefined,
   currentOfferComments: undefined,
 }
@@ -38,9 +36,9 @@ export const appReducer = createSlice({
     setMapHoveredOffer: (state, action: PayloadAction<OfferType | null>) => {
       state.mapHoveredOffer = action.payload;
     },
-    // setNearbyOffers: (state, action: PayloadAction<OfferType[] | null>) => {
-    //   state.nearbyOffers = action.payload;
-    // },
+    setNearbyOffers: (state, action: PayloadAction<OfferType[]>) => {
+      state.pickedOffers = action.payload;
+    },
     setOfferPageData: (state, action: PayloadAction<OfferType | undefined>) => {
       state.offerPageData = action.payload;
     },
@@ -93,7 +91,7 @@ export const appReducer = createSlice({
   },
 })
 
-export const {selectCity, loadOffers, pickOffers, setAuthStatus, setMapHoveredOffer, sortCurrentOffers, setOfferPageData, setCurrentOfferComments} = appReducer.actions;
+export const {selectCity, loadOffers, pickOffers, setAuthStatus, setMapHoveredOffer, sortCurrentOffers, setOfferPageData, setCurrentOfferComments, setNearbyOffers} = appReducer.actions;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
