@@ -5,6 +5,8 @@ import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {redirectToRoute} from '../../store/action';
 import {useLoginMutation} from '../../services/apiAxios';
 import {setAuthStatus} from '../../store/new-reducer';
+import {ReactComponent as Logo} from '../../static/logo.svg';
+
 
 function Login(): JSX.Element {
   const [loginInput, setLoginInput] = useState('');
@@ -30,8 +32,8 @@ function Login(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link to={AppRoute.Main} className="header__logo-link" href="/">
-                <img className="header__logo" src={AppRoute.OfferLink} alt="6 cities logo" width="81" height="41"/>
+              <Link to={AppRoute.Main} className="header__logo-link">
+                <Logo/>
               </Link>
             </div>
           </div>

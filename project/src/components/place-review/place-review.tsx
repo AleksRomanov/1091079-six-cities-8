@@ -23,7 +23,6 @@ function PlaceReview({review}: PlaceReviewProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            {/*<span style={{width: `${20 * Math.round(rating)}%`}}/>*/}
             <span style={{width: `${(100 * rating) / 5.0}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>

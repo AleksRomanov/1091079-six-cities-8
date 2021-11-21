@@ -8,7 +8,6 @@ import {fetchCurrentOffers} from '../../store/action';
 import OfferCard from '../offer-card/offer-card';
 import {AppRoute} from '../../constants';
 import {nanoid} from 'nanoid';
-import {fetchNearbyOffers} from '../../store/api-actions';
 import { pickOffers } from '../../store/new-reducer';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
@@ -25,6 +24,7 @@ function OffersList(): JSX.Element {
   const dispatch = useAppDispatch();
   const offers = useAppSelector((state => state.app.offers));
   const pickedOffers = useAppSelector((state => state.app.pickedOffers));
+  // const nearbyOffers = useAppSelector((state => state.app.nearbyOffers));
 
   useEffect(() => {
     if (isFirstRender && offers.length > 0) {

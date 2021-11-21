@@ -48,6 +48,13 @@ export const apiAxios = createApi({
       }),
       transformResponse: (response: OfferType[]) => adaptFromServerNew(response),
     }),
+    // fetchNearbyOffers: builder.query<OfferType[], any>({
+    //   query: (id) => ({
+    //     url: `/hotels/${id}`,
+    //     method: 'get',
+    //   }),
+    //   transformResponse: (response: OfferType[]) => adaptFromServerNew(response),
+    // }),
     fetchOffer: builder.query<OfferType, any>({
       query: (offerId) => {
         return {
