@@ -2,44 +2,43 @@ import {BaseQueryFn} from '@reduxjs/toolkit/query';
 import {createApi} from '@reduxjs/toolkit/dist/query/react';
 import {OfferType} from '../types/offerType';
 import {adaptFromServerNew} from '../utils';
-import {getToken, saveToken, Token} from './token';
+import {getToken, saveToken} from './token';
 import {ReviewType} from '../types/reviewType';
 import {APIRoute} from '../constants';
 import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
+import {AuthData} from '../types/authData';
 
 const BASE_URL = 'https://8.react.pages.academy/six-cities';
-export type AuthData = {
+export type AuthTypeData = {
   email: string;
   password: string;
 }
-
-// data: {ratingValue:number, commentValue:string
 
 type commentSubmitData = {
   ratingValue: number,
   commentValue: string
 }
 
-
-const createAPIN = ({baseUrl}: { baseUrl: string } = {baseUrl: ''}): BaseQueryFn => {
+const createAPIN = (): BaseQueryFn => {
   const api = axios.create({
     baseURL: BASE_URL,
     timeout: 5000,
   });
 
-  // const controller = new AbortController();
-
 
   api.interceptors.response.use(
     (response: AxiosResponse) => response,
-    (error: AxiosError | string) => Promise.reject(error),
+    (err: AxiosError) => ({error: {status: err.response?.status, data: err.response?.data}}),
+
   );
 
   api.interceptors.request.use(
     (config: AxiosRequestConfig) => {
       const token = getToken();
       if (token && config.headers) {
+
         config.headers['x-token'] = token;
+
       }
       if (config.url && config.url.indexOf('undefined') !== -1) {
         return Promise.reject('Canceling nearby nearby offers fetching on manin page');
@@ -52,9 +51,9 @@ const createAPIN = ({baseUrl}: { baseUrl: string } = {baseUrl: ''}): BaseQueryFn
 
 export const api = createApi({
   reducerPath: 'api',
-  baseQuery: createAPIN({baseUrl: BASE_URL}),
+  baseQuery: createAPIN(),
   endpoints: (builder) => ({
-    checkAuth: builder.query<string, void>({
+    checkAuth: builder.query<any, void>({
       query: () => ({
         url: `${APIRoute.Login}`,
         method: 'get',
@@ -88,20 +87,20 @@ export const api = createApi({
       }),
       transformResponse: (response: ReviewType[]) => adaptFromServerNew(response),
     }),
-    login: builder.mutation<Token, AuthData>({
+    login: builder.mutation<AuthData, AuthTypeData>({
       query: (credentials) => ({
         url: `${APIRoute.Login}`,
         method: 'post',
         data: credentials,
       }),
-      transformResponse: (response: Token) => {
-        saveToken(response);
+      transformResponse: (response: AuthData) => {
+        response && saveToken(response.token);
         return response;
       },
     }),
     submitComment: builder.mutation<ReviewType[], { data: commentSubmitData; currentOfferId: string }>({
       query: ({data, currentOfferId}) => ({
-        url: `${APIRoute.Comments}/${currentOfferId}`,
+        url: `${APIRoute.Comments}${currentOfferId}`,
         method: 'post',
         data: {
           rating: data.ratingValue,

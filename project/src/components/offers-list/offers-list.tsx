@@ -50,5 +50,4 @@ function OffersList(): JSX.Element {
   );
 }
 
-// export {withOffersForMainPage(OffersList), OffersList};
 export default OffersList;

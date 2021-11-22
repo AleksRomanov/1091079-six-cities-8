@@ -2,7 +2,6 @@ import Map from '../map/map';
 import React from 'react';
 import {withHeader} from '../../hocks/withHeader';
 import LocationsList from '../locations-list/locations-list';
-// import OffersList from '../offers-list/offers-list';
 import SortingList from '../sorting-list/sorting-list';
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from 'react-toastify';
