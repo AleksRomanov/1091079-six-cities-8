@@ -53,7 +53,7 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: createAPIN(),
   endpoints: (builder) => ({
-    checkAuth: builder.query<any, void>({
+    checkAuth: builder.query<AuthData, void>({
       query: () => ({
         url: `${APIRoute.Login}`,
         method: 'get',

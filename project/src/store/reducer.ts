@@ -1,20 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {store} from '../index';
 import {AppRoute, AuthorizationStatus, CitiesList, SortType} from '../constants';
-import {City} from '../types/city';
 import {OfferType} from '../types/offerType';
 import {getOffersByCity} from '../utils';
 import {ReviewType} from '../types/reviewType';
-
-export interface CounterState {
-  currentCity: City,
-  offers: OfferType[],
-  pickedOffers: OfferType[],
-  authorizationStatus: string,
-  mapHoveredOffer: OfferType | null,
-  offerPageData: OfferType | undefined,
-  currentOfferComments: ReviewType[],
-}
+import {CounterState} from '../types/state';
 
 const initialState: CounterState = {
   offers: [],
