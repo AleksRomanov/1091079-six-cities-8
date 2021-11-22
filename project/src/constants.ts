@@ -13,10 +13,10 @@ export const enum AuthorizationStatus {
 }
 
 export enum APIRoute {
-  Offers = '/hotels',
-  Login = '/login',
-  Logout = '/logout',
-  Comments = '/comments',
+  Offers = '/hotels/',
+  Login = '/login/',
+  Logout = '/logout/',
+  Comments = '/comments/',
 }
 
 export const enum OfferKind {

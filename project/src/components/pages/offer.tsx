@@ -22,8 +22,8 @@ function Offer() {
   const {id}: offerId = useParams();
   const {data} = useFetchOfferQuery(id);
   data && dispatch(setOfferPageData(data));
-  const observingOffer = useAppSelector((state => state.app.offerPageData));
-  const authorizationStatus = useAppSelector((state => state.app.authorizationStatus));
+  const observingOffer = useAppSelector(((state) => state.app.offerPageData));
+  const authorizationStatus = useAppSelector(((state) => state.app.authorizationStatus));
 
   function RenderImages() {
     return (
@@ -55,9 +55,7 @@ function Offer() {
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
-            {observingOffer && observingOffer.isPremium && <div className="property__mark">
-              <span>Premium</span>
-            </div>}
+            {observingOffer && observingOffer.isPremium && <div className="property__mark"><span>Premium</span></div>}
             <div className="property__name-wrapper">
               <h1 className="property__name">
                 {observingOffer && observingOffer.title}

@@ -21,7 +21,7 @@ function OfferCard({offer}: OfferCardProps): JSX.Element {
     id,
   } = offer;
 
-  let isFavourite = useRouteMatch(AppRoute.Favorites);
+  const isFavourite = useRouteMatch(AppRoute.Favorites);
 
   const onCardSelect = (offerItem: OfferType | null): void => {
     dispatch(setMapHoveredOffer(offerItem));

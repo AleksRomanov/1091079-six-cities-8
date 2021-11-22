@@ -15,8 +15,8 @@ export const store = configureStore({
   middleware: (gDM) => gDM({
     thunk: {
       extraArgument: api,
-    },}).concat(redirect, api.middleware),
-})
+    }}).concat(redirect, api.middleware),
+});
 
 ReactDOM.render(
   <React.StrictMode>

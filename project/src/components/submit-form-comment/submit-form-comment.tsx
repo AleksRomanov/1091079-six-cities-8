@@ -17,7 +17,7 @@ function SubmitFormComment({currentOfferId}: OutsideCommentFormProps): JSX.Eleme
     for (let i = 5; i >= 1; i--) {
       panelMarkup.push(
         <React.Fragment key={nanoid()}>
-          <input className="form__rating-input visually-hidden" name="rating" value={i} id={`${i}-stars`} type="radio" onChange={(evt) => setRatingValue(parseInt(evt.target.value))}/>
+          <input className="form__rating-input visually-hidden" name="rating" value={i} id={`${i}-stars`} type="radio" onChange={(evt) => setRatingValue(parseInt(evt.target.value, 10))}/>
           <label htmlFor={`${i}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
             <IconStar className="form__star-image" width="37" height="33"/>
           </label>
@@ -29,11 +29,11 @@ function SubmitFormComment({currentOfferId}: OutsideCommentFormProps): JSX.Eleme
   const [submitComment, {data}] = useSubmitCommentMutation();
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    submitComment({data: {commentValue, ratingValue}, currentOfferId})
+    submitComment({data: {commentValue, ratingValue}, currentOfferId});
   };
 
   useEffect(() => {
-    data && dispatch(setCurrentOfferComments(data))
+    data && dispatch(setCurrentOfferComments(data));
   }, [data, dispatch]);
 
   const [commentValue, setCommentValue] = useState('');
@@ -45,11 +45,7 @@ function SubmitFormComment({currentOfferId}: OutsideCommentFormProps): JSX.Eleme
       <div className="reviews__rating-form form__rating">
         {RatingPanel()}
       </div>
-      <textarea className="reviews__textarea form__textarea"
-                onChange={(evt) => setCommentValue(evt.target.value)}
-                value={commentValue} id="review"
-                name="review"
-                placeholder="Tell how was your stay, what you like and what can be improved"/>
+      <textarea className="reviews__textarea form__textarea" onChange={(evt) => setCommentValue(evt.target.value)} value={commentValue} id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"/>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.

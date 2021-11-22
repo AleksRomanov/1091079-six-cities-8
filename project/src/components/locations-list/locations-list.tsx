@@ -7,7 +7,7 @@ import {selectCity} from '../../store/reducer';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 
 
-function LocationsList() {
+function LocationsList(): JSX.Element {
   const dispatch = useAppDispatch();
   const onCityChoose = (city: string) => {
     dispatch(selectCity(city));

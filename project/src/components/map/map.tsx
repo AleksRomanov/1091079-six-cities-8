@@ -6,10 +6,10 @@ import useMap from '../../hooks/useMap';
 import {useAppSelector} from '../../hooks/useAppSelector';
 
 
-function Map() {
-  const currentCity = useAppSelector((state => state.app.currentCity));
-  const pickedOffers = useAppSelector((state => state.app.pickedOffers));
-  const mapHoveredOffer = useAppSelector((state => state.app.mapHoveredOffer));
+function Map(): JSX.Element {
+  const currentCity = useAppSelector(((state) => state.app.currentCity));
+  const pickedOffers = useAppSelector(((state) => state.app.pickedOffers));
+  const mapHoveredOffer = useAppSelector(((state) => state.app.mapHoveredOffer));
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);
@@ -27,7 +27,6 @@ function Map() {
       });
     }
   }, [map, pickedOffers, mapHoveredOffer, defaultIcon, currentIcon]);
-  console.log('render');
   return <div style={{height: '100%'}} ref={mapRef}/>;
 }
 

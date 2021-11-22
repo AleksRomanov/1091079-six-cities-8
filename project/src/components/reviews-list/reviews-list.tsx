@@ -6,22 +6,21 @@ import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {setCurrentOfferComments} from '../../store/reducer';
 import React, {useEffect} from 'react';
 
-
 type ReviewsListOutsideProps = {
   currentOfferId: string;
 }
 
 function ReviewsList({currentOfferId}: ReviewsListOutsideProps): JSX.Element {
   const dispatch = useAppDispatch();
-  let {data, isFetching} = useFetchCommentsQuery(currentOfferId);
-  let currentOfferComments = useAppSelector(state => state.app.currentOfferComments);
+  const {data, isFetching} = useFetchCommentsQuery(currentOfferId);
+  const currentOfferComments = useAppSelector((state) => state.app.currentOfferComments);
 
   useEffect(() => {
-    data && dispatch(setCurrentOfferComments(data))
+    data && dispatch(setCurrentOfferComments(data));
   }, [data, dispatch]);
 
   useEffect(() => {
-    currentOfferComments && dispatch(setCurrentOfferComments(currentOfferComments))
+    currentOfferComments && dispatch(setCurrentOfferComments(currentOfferComments));
   }, [currentOfferComments, dispatch]);
 
   if (isFetching) {
@@ -31,7 +30,12 @@ function ReviewsList({currentOfferId}: ReviewsListOutsideProps): JSX.Element {
   }
   return (
     <>
-      {currentOfferComments && currentOfferComments.map((review) => (<PlaceReview review={review} key={nanoid()}/>))}
+      {currentOfferComments.map((review) => (
+        <PlaceReview
+          review={review}
+          key={nanoid()}
+        />
+      ))}
     </>
   );
 }

@@ -9,7 +9,7 @@ function PlaceReview({review}: PlaceReviewProps): JSX.Element {
     comment,
     date,
     rating,
-    user
+    user,
   } = review;
   return (
     <li className="reviews__item">

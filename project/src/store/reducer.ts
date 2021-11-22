@@ -13,7 +13,7 @@ export interface CounterState {
   authorizationStatus: string,
   mapHoveredOffer: OfferType | null,
   offerPageData: OfferType | undefined,
-  currentOfferComments: ReviewType[] | undefined,
+  currentOfferComments: ReviewType[],
 }
 
 const initialState: CounterState = {
@@ -23,8 +23,8 @@ const initialState: CounterState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   mapHoveredOffer: null,
   offerPageData: undefined,
-  currentOfferComments: undefined,
-}
+  currentOfferComments: [],
+};
 
 export const appReducer = createSlice({
   name: 'appReducer',
@@ -53,18 +53,18 @@ export const appReducer = createSlice({
       state.offers = action.payload;
     },
 
-    setCurrentOfferComments: (state, action: PayloadAction<ReviewType[] | undefined>) => {
+    setCurrentOfferComments: (state, action: PayloadAction<ReviewType[]>) => {
       state.currentOfferComments = action.payload;
     },
     pickOffers: (state, action: PayloadAction<string>) => {
       switch (action.payload) {
         case AppRoute.Main:
           state.pickedOffers = state.offers.filter((offer) => state.currentCity && offer.city.name === state.currentCity.city);
-          return;
+          break;
         case AppRoute.Favorites:
-          return;
+          break;
         default:
-          return;
+          break;
       }
     },
     sortCurrentOffers: (state, action: PayloadAction<string>) => {
@@ -83,14 +83,14 @@ export const appReducer = createSlice({
         }
         case SortType.TopRated: {
           state.pickedOffers = getOffersByCity(state.offers, state.currentCity).sort((offerA, offerB) => offerB.rating - offerA.rating);
-          return;
+          break;
         }
         default:
-          return;
+          break;
       }
     },
   },
-})
+});
 
 export const {selectCity, loadOffers, pickOffers, setAuthStatus, setMapHoveredOffer, sortCurrentOffers, setOfferPageData, setCurrentOfferComments, setNearbyOffers} = appReducer.actions;
 

@@ -1,14 +1,12 @@
 import {OfferType} from './types/offerType';
 import {City} from './types/city';
 
-export const getOffersByCity = (offers: OfferType[], currentCity: City) => {
-  return offers.filter((offer) => currentCity && offer.city.name === currentCity.city);
-}
+export const getOffersByCity = (offers: OfferType[], currentCity: City): OfferType[] => offers.filter((offer) => currentCity && offer.city.name === currentCity.city);
 
-export let adaptFromServerNew = (data: any) => {
+export const adaptFromServerNew = (data: any): any => {
 
-  let adaptOfferFeatures = (offer: any) => {
-    for (let feature in offer) {
+  const adaptOfferFeatures = (offer: any) => {
+    for (const feature in offer) {
       if (typeof (offer[feature]) === 'object') {
         adaptOfferFeatures(offer[feature]);
       } else {
@@ -19,12 +17,12 @@ export let adaptFromServerNew = (data: any) => {
         }
       }
     }
-  }
+  };
 
   if (data.length) {
     data.map(adaptOfferFeatures);
   } else {
     adaptOfferFeatures(data);
   }
-  return data
-}
+  return data;
+};

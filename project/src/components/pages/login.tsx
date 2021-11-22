@@ -12,10 +12,10 @@ function Login(): JSX.Element {
   const [loginInput, setLoginInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
-  let loginData = {
+  const loginData = {
     email: loginInput,
     password: passwordInput,
-  }
+  };
 
   const [login] = useLoginMutation();
   const dispatch = useAppDispatch();
@@ -47,21 +47,11 @@ function Login(): JSX.Element {
             <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input"
-                       onChange={(evt) => setLoginInput(evt.target.value)}
-                       value={loginInput}
-                       type="email"
-                       name="email"
-                       placeholder="Email" required/>
+                <input className="login__input form__input" onChange={(evt) => setLoginInput(evt.target.value)} value={loginInput} type="email" name="email" placeholder="Email" required/>
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input"
-                       onChange={(evt) => setPasswordInput(evt.target.value)}
-                       value={passwordInput}
-                       type="password"
-                       name="password"
-                       placeholder="Password" required/>
+                <input className="login__input form__input" onChange={(evt) => setPasswordInput(evt.target.value)} value={passwordInput} type="password" name="password" placeholder="Password" required/>
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>

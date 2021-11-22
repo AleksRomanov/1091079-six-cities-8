@@ -8,11 +8,9 @@ type HeaderChildrenProps = {
 }
 
 function HeaderLayout({children}: HeaderChildrenProps): JSX.Element {
-  const authStatus = useAppSelector(state => state.app.authorizationStatus);
+  const authStatus = useAppSelector((state) => state.app.authorizationStatus);
 
-  const isAuth = () => {
-    return authStatus === AuthorizationStatus.Auth;
-  }
+  const isAuth = () => authStatus === AuthorizationStatus.Auth;
 
   function getUserName() {
     return isAuth() ? <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
@@ -29,11 +27,7 @@ function HeaderLayout({children}: HeaderChildrenProps): JSX.Element {
             {getUserName()}
           </Link>
         </li>
-        {isAuth() && <li className="header__nav-item">
-          <Link to={AppRoute.Login} className="header__nav-link">
-            <span className="header__signout">Sign out</span>
-          </Link>
-        </li>}
+        {isAuth() && <li className="header__nav-item"><Link to={AppRoute.Login} className="header__nav-link"><span className="header__signout">Sign out</span></Link></li>}
       </ul>
     );
   }

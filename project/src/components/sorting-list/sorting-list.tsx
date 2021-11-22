@@ -7,8 +7,8 @@ import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {sortCurrentOffers} from '../../store/reducer';
 
 function SortingList(): JSX.Element {
-  const [isSortingListOpen, handleSortingListOpen] = useState(false)
-  const [currentSortType, changeCurrentSortType] = useState('Popular')
+  const [isSortingListOpen, handleSortingListOpen] = useState(false);
+  const [currentSortType, changeCurrentSortType] = useState('Popular');
   const dispatch = useAppDispatch();
 
   const onSortPanelClick = (): void => {
@@ -39,9 +39,9 @@ function SortingList(): JSX.Element {
     <>
       <span className="places__sorting-caption">Sort by</span>
       <span onClick={onSortPanelClick} className="places__sorting-type">
-                  {currentSortType}
+        {currentSortType}
         <IconArrowSelect/>
-              </span>
+      </span>
       <ul className={isSortingListOpen ?
         'places__options places__options--custom places__options--opened' :
         'places__options places__options--custom'}

@@ -13,25 +13,29 @@ type offerId = {
 }
 
 function OffersList(): JSX.Element {
-  let currentUrl = useLocation();
-  let isOfferPage = useRouteMatch(AppRoute.Offer);
+  const currentUrl = useLocation();
+  const isOfferPage = useRouteMatch(AppRoute.Offer);
   const [isFirstRender, setIsFirstRender] = useState(true);
   const {id}: offerId = useParams();
   const dispatch = useAppDispatch();
-  const offers = useAppSelector((state => state.app.offers));
-  const pickedOffers = useAppSelector((state => state.app.pickedOffers));
-
+  const offers = useAppSelector(((state) => state.app.offers));
+  const pickedOffers = useAppSelector(((state) => state.app.pickedOffers));
 
   const {data} = useFetchNearbyOffersQuery(id);
+
   useEffect(() => {
-    data && isOfferPage && dispatch(setNearbyOffers(data));
+
+    if (isOfferPage !== null) {
+      data && dispatch(setNearbyOffers(data));
+    }
   }, [data, isOfferPage, dispatch]);
 
   useEffect(() => {
-    if (isFirstRender && !isOfferPage && offers.length > 0) {
+    if (isFirstRender && isOfferPage === null && offers.length > 0) {
+
       dispatch(pickOffers(currentUrl.pathname));
       setIsFirstRender(false);
-    } else return;
+    }
   }, [currentUrl, isFirstRender, offers, isOfferPage, dispatch]);
 
   return (
@@ -46,4 +50,5 @@ function OffersList(): JSX.Element {
   );
 }
 
+// export {withOffersForMainPage(OffersList), OffersList};
 export default OffersList;
