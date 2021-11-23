@@ -1,4 +1,4 @@
-import Main from './pages/main';
+// import Main from './pages/main';
 import {AppRoute, AuthorizationStatus} from '../constants';
 import React, {useEffect} from 'react';
 import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
@@ -12,6 +12,8 @@ import Login from './pages/login';
 import Favorites from './pages/favorites';
 import PrivateRoute from './private-route';
 import Page404 from './pages/404';
+import {MainEmpty} from './pages/main-empty';
+import {Main} from './pages/main';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -37,6 +39,7 @@ function App(): JSX.Element {
       <Switch>
         <Route exact path={AppRoute.Main}>
           <Main/>
+          {/*<MainEmpty/>*/}
         </Route>
         <Route path={AppRoute.Offer} exact render={() => <Offer/>}/>
         <Route path={AppRoute.Login} exact><Login/></Route>

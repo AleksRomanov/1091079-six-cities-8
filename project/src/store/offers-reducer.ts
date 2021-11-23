@@ -23,10 +23,11 @@ export const offersReducer = createSlice({
     loadOffers: (state, action: PayloadAction<OfferType[]>) => {
       state.offers = action.payload;
     },
-
     pickOffers: (state, action: PayloadAction<string>) => {
       switch (action.payload) {
         case AppRoute.Main:
+          console.log('here');
+          console.log(state.offers);
           state.pickedOffers = state.offers.filter((offer) => state.currentCity && offer.city.name === state.currentCity.city);
           break;
         case AppRoute.Favorites:

@@ -25,7 +25,6 @@ const createAPIN = (): BaseQueryFn => {
     timeout: 5000,
   });
 
-
   api.interceptors.response.use(
     (response: AxiosResponse) => response,
     (err: AxiosError) => ({error: {status: err.response?.status, data: err.response?.data}}),
@@ -62,7 +61,25 @@ export const api = createApi({
         url: `${APIRoute.Offers}`,
         method: 'get',
       }),
-      transformResponse: (response: OfferType[]) => adaptFromServerNew(response),
+      transformResponse: (response: OfferType[]) => {
+        // const res = adaptFromServerNew(response);
+
+        // adaptFromServerNew(response).filter((item: OfferType) => {
+        //   return item.city.name === 'Paris'
+        // })
+
+
+
+        // console.log(response);
+        // console.log(adaptFromServerNew(response).filter((item: OfferType) => {
+        //   return item.city.name === 'Paris'
+        // }));
+
+        return adaptFromServerNew(response).filter((item: OfferType) => {
+          return item.city.name === 'Paris'
+        });
+        // return adaptFromServerNew(response)
+      },
     }),
     fetchOffer: builder.query<OfferType, string>({
       query: (offerId) => ({

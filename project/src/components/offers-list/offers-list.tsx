@@ -7,7 +7,9 @@ import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {useFetchNearbyOffersQuery} from '../../services/api';
 import React from 'react';
-import { pickOffers, setNearbyOffers } from '../../store/offers-reducer';
+import {pickOffers, setNearbyOffers} from '../../store/offers-reducer';
+import {redirect} from '../../store/middlewares/redirect';
+import {redirectToRoute} from '../../store/action';
 
 type offerId = {
   id: string,
@@ -30,12 +32,21 @@ function OffersList(): JSX.Element {
   }, [data, isOfferPage, dispatch]);
 
   useEffect(() => {
-    if (isFirstRender && isOfferPage === null && offers.length > 0) {
+    if (isFirstRender && isOfferPage === null) {
+      if (pickedOffers.length === 0) {
+        dispatch(pickOffers(currentUrl.pathname));
 
-      dispatch(pickOffers(currentUrl.pathname));
+        // dispatch(redirectToRoute(AppRoute.Main));
+        // dispatch(redirect('/main-empty/'))
+      } else  {
+        console.log('redirect');
+
+      }
       setIsFirstRender(false);
     }
   }, [currentUrl, isFirstRender, offers, isOfferPage, dispatch]);
+
+  console.log(offers);
 
   return (
     <>
