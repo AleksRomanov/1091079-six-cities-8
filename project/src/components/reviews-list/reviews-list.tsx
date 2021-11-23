@@ -12,11 +12,13 @@ type ReviewsListOutsideProps = {
 
 function ReviewsList({currentOfferId}: ReviewsListOutsideProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const {data, isFetching} = useFetchCommentsQuery(currentOfferId);
+  const {data, isFetching, isSuccess} = useFetchCommentsQuery(currentOfferId);
   const currentOfferComments = useAppSelector((state) => state.app.currentOfferComments);
-
+  // const magicCount = React.useMemo(() => getMagicCount(testString), [testString])
   useEffect(() => {
-    data && dispatch(setCurrentOfferComments(data));
+    if (isSuccess) {
+      data && dispatch(setCurrentOfferComments(data));
+    }
   }, [data, dispatch]);
 
   useEffect(() => {
@@ -40,4 +42,4 @@ function ReviewsList({currentOfferId}: ReviewsListOutsideProps): JSX.Element {
   );
 }
 
-export default ReviewsList;
+export default React.memo(ReviewsList);

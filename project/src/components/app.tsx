@@ -1,6 +1,6 @@
 import Main from './pages/main';
 import {AppRoute, AuthorizationStatus} from '../constants';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
 import Login from './pages/login';
 import browserHistory from '../browser-history';
@@ -14,11 +14,18 @@ import Page404 from './pages/404';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {isSuccess} = useCheckAuthQuery();
-  const {data, isLoading} = useFetchOffersQuery();
+  const {isSuccess: isSuccessAuth} = useCheckAuthQuery();
+  const {data, isLoading, isSuccess: isSuccessFetchOffers} = useFetchOffersQuery();
 
-  isSuccess ? dispatch(setAuthStatus(AuthorizationStatus.Auth)) : dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
-  data && dispatch(loadOffers(data));
+
+  useEffect(() => {
+    isSuccessAuth ? dispatch(setAuthStatus(AuthorizationStatus.Auth)) : dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+  }, [isSuccessAuth]);
+
+  useEffect(() => {
+    data && dispatch(loadOffers(data));
+  }, [isSuccessFetchOffers]);
+
 
   if (isLoading) {
     return (
@@ -40,4 +47,4 @@ function App(): JSX.Element {
   );
 }
 
-export default App;
+export default React.memo(App);

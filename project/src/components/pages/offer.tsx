@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Map from '../map/map';
 import {withHeader} from '../../hocks/withHeader';
 import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
@@ -20,8 +20,11 @@ type offerId = {
 function Offer() {
   const dispatch = useAppDispatch();
   const {id}: offerId = useParams();
-  const {data} = useFetchOfferQuery(id);
-  data && dispatch(setOfferPageData(data));
+  const {data, isSuccess} = useFetchOfferQuery(id);
+  useEffect(() => {
+    data && dispatch(setOfferPageData(data));
+  }, [isSuccess]);
+
   const observingOffer = useAppSelector(((state) => state.app.offerPageData));
   const authorizationStatus = useAppSelector(((state) => state.app.authorizationStatus));
 
