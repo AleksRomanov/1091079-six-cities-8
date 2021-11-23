@@ -1,45 +1,40 @@
 import {Link} from 'react-router-dom';
 import {CitiesList} from '../../constants';
 import {nanoid} from 'nanoid';
-import React from 'react';
-import {Dispatch} from 'redux';
-import {connect, ConnectedProps} from 'react-redux';
-import {selectCity} from '../../store/action';
-import {ActionsType} from '../../types/action';
+import React, {memo} from 'react';
 import {City} from '../../types/city';
+import {useAppDispatch} from '../../hooks/useAppDispatch';
+import {useAppSelector} from '../../hooks/useAppSelector';
+import {selectCity} from '../../store/offers-reducer';
 
 
-function mapStateToProps() {
-  return ({});
-}
-
-function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
-  return {
-    onSelectCity(city: string) {
-      dispatch(selectCity(city));
-    },
-  };
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type LocationListProps = ConnectedProps<typeof connector>;
-
-function LocationsList({onSelectCity}: LocationListProps): JSX.Element {
+function LocationsList(): JSX.Element {
+  const dispatch = useAppDispatch();
   const onCityChoose = (city: string) => {
-    onSelectCity(city);
+    if (currentCity.city !== city){
+      currentCity.city !== city && dispatch(selectCity(city));
+    }
   };
+  const currentCity = useAppSelector((state) => state.offersReducer.currentCity);
+
+  function CitieItemRender(city: any) {
+    const isCurrentCityClass = currentCity === city ? 'tabs__item--active' : '';
+    return (
+      <li className="locations__item" key={nanoid()}>
+        <Link onClick={() => onCityChoose(city.city)} to="#" className={`locations__item-link tabs__item ${isCurrentCityClass}`}>
+          <span>{city.city}</span>
+        </Link>
+      </li>
+    );
+  }
 
   return (
     <ul className="locations__list tabs__list">
       {CitiesList.map((city: City) => (
-        <li className="locations__item" key={nanoid()}>
-          <Link onClick={() => onCityChoose(city.city)} to="#" className="locations__item-link tabs__item">
-            <span>{city.city}</span>
-          </Link>
-        </li>
+        CitieItemRender(city)
       ))}
     </ul>
   );
 }
 
-export default connector(LocationsList);
+export default memo(LocationsList);

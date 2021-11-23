@@ -1,48 +1,32 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import Map from '../map/map';
 import {withHeader} from '../../hocks/withHeader';
 import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
-import {State} from '../../types/state';
-import {connect, ConnectedProps} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import {nanoid} from 'nanoid';
 import ReviewsList from '../reviews-list/reviews-list';
 import SubmitFormComment from '../submit-form-comment/submit-form-comment';
 import OffersList from '../offers-list/offers-list';
-import {ThunkAppDispatch} from '../../types/action';
-import {fetchCurrentOffer} from '../../store/api-actions';
 import {AuthorizationStatus} from '../../constants';
-
-function mapStateToProps({observingOffer, authorizationStatus}: State) {
-  return ({
-    observingOffer,
-    authorizationStatus,
-  });
-}
-
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onFetchCurrentOffer(id: string) {
-    dispatch(fetchCurrentOffer(id));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type OfferPageProps = ConnectedProps<typeof connector>;
+import {useAppDispatch} from '../../hooks/useAppDispatch';
+import {useAppSelector} from '../../hooks/useAppSelector';
+import {useFetchOfferQuery} from '../../services/api';
+import {setOfferPageData} from '../../store/reducer';
 
 type offerId = {
   id: string,
 }
 
-function Offer({onFetchCurrentOffer, observingOffer, authorizationStatus}: OfferPageProps): JSX.Element {
+function Offer(): JSX.Element {
+  const dispatch = useAppDispatch();
   const {id}: offerId = useParams();
-  const [isFirstRender, setIsFirstRender] = useState(true);
-
+  const {data, isSuccess} = useFetchOfferQuery(id);
   useEffect(() => {
-    if (isFirstRender) {
-      onFetchCurrentOffer(id);
-      setIsFirstRender(false);
-    } else return;
-  }, [id, isFirstRender, onFetchCurrentOffer]);
+    data && dispatch(setOfferPageData(data));
+  }, [isSuccess, data, dispatch]);
+
+  const observingOffer = useAppSelector(((state) => state.appReducer.offerPageData));
+  const authorizationStatus = useAppSelector(((state) => state.appReducer.authorizationStatus));
 
   function RenderImages() {
     return (
@@ -74,21 +58,19 @@ function Offer({onFetchCurrentOffer, observingOffer, authorizationStatus}: Offer
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
-            {observingOffer && observingOffer.isPremium && <div className="property__mark">
-              <span>Premium</span>
-            </div>}
+            {observingOffer && observingOffer.isPremium && <div className="property__mark"><span>Premium</span></div>}
             <div className="property__name-wrapper">
               <h1 className="property__name">
                 {observingOffer && observingOffer.title}
               </h1>
-              <button className={`property__bookmark-button button ${observingOffer && observingOffer.isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
-                <IconBookmark/>
+              <button className={`property__bookmark-button button ${observingOffer && observingOffer.isFavorite ? 'property__bookmark-button--active ' : ''}`} type="button">
+                <IconBookmark className="property__bookmark-icon" width="31" height="33"/>
                 <span className="visually-hidden">To bookmarks</span>
               </button>
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{width: `${Math.round(observingOffer ? 10 * observingOffer.rating : 0)}%`}}/>
+                <span style={{width: `${(observingOffer ? 100 * observingOffer.rating : 0) / 5.0}%`}}/>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="property__rating-value rating__value">{observingOffer && observingOffer.rating}</span>
@@ -118,7 +100,7 @@ function Offer({onFetchCurrentOffer, observingOffer, authorizationStatus}: Offer
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src={observingOffer && observingOffer.host.avatarUrl} alt="Host avatar" width="74" height="74"/>
+                  <img className="property__avatar user__avatar" src={observingOffer && `../${observingOffer.host.avatarUrl}`} alt="Host avatar" width="74" height="74"/>
                 </div>
                 <span className="property__user-name">
                   {observingOffer && observingOffer.host.name}
@@ -157,4 +139,4 @@ function Offer({onFetchCurrentOffer, observingOffer, authorizationStatus}: Offer
   );
 }
 
-export default connector(withHeader(Offer));
+export default withHeader(Offer);

@@ -1,24 +1,16 @@
 import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../constants';
-import {State} from '../types/state';
-import {connect, ConnectedProps} from 'react-redux';
 import React from 'react';
-
-const mapStateToProps = ({authorizationStatus}: State) => ({
-  authorizationStatus,
-});
-
-const connector = connect(mapStateToProps, {});
-type HeaderLayoutProps = HeaderChildrenProps & ConnectedProps<typeof connector>;
+import {useAppSelector} from '../hooks/useAppSelector';
 
 type HeaderChildrenProps = {
   children: JSX.Element,
 }
 
-function HeaderLayout({children, authorizationStatus}: HeaderLayoutProps): JSX.Element {
-  const isAuth = () => {
-    return authorizationStatus === AuthorizationStatus.Auth;
-  }
+function HeaderLayout({children}: HeaderChildrenProps): JSX.Element {
+  const authStatus = useAppSelector((state) => state.appReducer.authorizationStatus);
+
+  const isAuth = () => authStatus === AuthorizationStatus.Auth;
 
   function getUserName() {
     return isAuth() ? <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
@@ -35,11 +27,7 @@ function HeaderLayout({children, authorizationStatus}: HeaderLayoutProps): JSX.E
             {getUserName()}
           </Link>
         </li>
-        {isAuth() && <li className="header__nav-item">
-          <Link to={AppRoute.Login} className="header__nav-link">
-            <span className="header__signout">Sign out</span>
-          </Link>
-        </li>}
+        {isAuth() && <li className="header__nav-item"><Link to={AppRoute.Login} className="header__nav-link"><span className="header__signout">Sign out</span></Link></li>}
       </ul>
     );
   }
@@ -65,4 +53,4 @@ function HeaderLayout({children, authorizationStatus}: HeaderLayoutProps): JSX.E
   );
 }
 
-export default connector(HeaderLayout);
+export default HeaderLayout;

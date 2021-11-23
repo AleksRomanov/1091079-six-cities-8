@@ -1,57 +1,45 @@
-import {State} from '../../types/state';
-import {connect, ConnectedProps} from 'react-redux';
 import {useLocation, useParams, useRouteMatch} from 'react-router-dom';
-import {useEffect, useState} from 'react';
-import {Dispatch} from 'redux';
-import {ActionsType, ThunkAppDispatch} from '../../types/action';
-import {fetchCurrentOffers} from '../../store/action';
+import {memo, useEffect, useState} from 'react';
 import OfferCard from '../offer-card/offer-card';
 import {AppRoute} from '../../constants';
 import {nanoid} from 'nanoid';
-import {fetchNearbyOffers} from '../../store/api-actions';
-
-function mapStateToProps({fetchedOffers, offers}: State) {
-  return ({
-    fetchedOffers,
-    offers,
-  });
-}
-
-const mapDispatchToProps = (dispatch: Dispatch<ActionsType> & ThunkAppDispatch) => ({
-  onFetchCurrentOffers(currentUrl: string, currentOfferId: string) {
-    dispatch(fetchCurrentOffers(currentUrl, currentOfferId));
-  },
-  onFetchNearbyOffers(id: string) {
-    dispatch(fetchNearbyOffers(id));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type OffersListProps = ConnectedProps<typeof connector>;
+import {useAppDispatch} from '../../hooks/useAppDispatch';
+import {useAppSelector} from '../../hooks/useAppSelector';
+import {useFetchNearbyOffersQuery} from '../../services/api';
+import React from 'react';
+import { pickOffers, setNearbyOffers } from '../../store/offers-reducer';
 
 type offerId = {
   id: string,
 }
 
-function OffersList({fetchedOffers, onFetchCurrentOffers, offers, onFetchNearbyOffers}: OffersListProps): JSX.Element {
-  let currentUrl = useLocation();
-  let isOfferPage = useRouteMatch(AppRoute.Offer);
+function OffersList(): JSX.Element {
+  const currentUrl = useLocation();
+  const isOfferPage = useRouteMatch(AppRoute.Offer);
   const [isFirstRender, setIsFirstRender] = useState(true);
   const {id}: offerId = useParams();
+  const dispatch = useAppDispatch();
+  const offers = useAppSelector((state) => state.offersReducer.offers);
+  const {data} = useFetchNearbyOffersQuery(id);
+  const pickedOffers = useAppSelector((state) => state.offersReducer.pickedOffers);
 
   useEffect(() => {
-    if (isFirstRender && offers.length > 0) {
-      if (isOfferPage) {
-        onFetchNearbyOffers(id);
-      } else {
-        onFetchCurrentOffers(currentUrl.pathname, id);
-      }
+    if (isOfferPage !== null) {
+      data && dispatch(setNearbyOffers(data));
+    }
+  }, [data, isOfferPage, dispatch]);
+
+  useEffect(() => {
+    if (isFirstRender && isOfferPage === null && offers.length > 0) {
+
+      dispatch(pickOffers(currentUrl.pathname));
       setIsFirstRender(false);
-    } else return;
-  }, [id, currentUrl, isOfferPage, isFirstRender, onFetchCurrentOffers, offers, onFetchNearbyOffers]);
+    }
+  }, [currentUrl, isFirstRender, offers, isOfferPage, dispatch]);
+
   return (
     <>
-      {fetchedOffers.map((offer) => (
+      {pickedOffers.map((offer) => (
         <OfferCard
           offer={offer}
           key={nanoid()}
@@ -61,4 +49,11 @@ function OffersList({fetchedOffers, onFetchCurrentOffers, offers, onFetchNearbyO
   );
 }
 
-export default connector(OffersList);
+// export default memo(OffersList, (prevProps, nextProps) => {
+//   return prevProps === nextProps;
+// });
+
+export default memo(OffersList);
+
+
+// const magicCount = React.useMemo(() => getMagicCount(testString), [testString])

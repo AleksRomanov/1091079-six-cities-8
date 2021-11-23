@@ -1,30 +1,18 @@
 import {OfferType} from '../../types/offerType';
 import {Link, useRouteMatch} from 'react-router-dom';
 import {AppRoute, offerCardClasses} from '../../constants';
-import {Dispatch} from 'redux';
-import {ActionsType} from '../../types/action';
-import {connect, ConnectedProps} from 'react-redux';
-import {rewriteActiveCity} from '../../store/action';
+import {useAppDispatch} from '../../hooks/useAppDispatch';
+import {setMapHoveredOffer} from '../../store/reducer';
+import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
+import React from 'react';
 
-function mapStateToProps() {
-  return ({});
-}
 
-function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
-  return {
-    setActiveCity(city: OfferType | null) {
-      dispatch(rewriteActiveCity(city));
-    },
-  };
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
 type OfferCardProps = {
   offer: OfferType,
 }
 
-function OfferCard({offer, setActiveCity}: PropsFromRedux & OfferCardProps): JSX.Element {
+function OfferCard({offer}: OfferCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const {
     isPremium,
     previewImage,
@@ -34,10 +22,10 @@ function OfferCard({offer, setActiveCity}: PropsFromRedux & OfferCardProps): JSX
     id,
   } = offer;
 
-  let isFavourite = useRouteMatch(AppRoute.Favorites);
+  const isFavourite = useRouteMatch(AppRoute.Favorites);
 
   const onCardSelect = (offerItem: OfferType | null): void => {
-    setActiveCity(offerItem);
+    dispatch(setMapHoveredOffer(offerItem));
   };
 
   const articleClass = isFavourite ? offerCardClasses.favoritesArticleClass : offerCardClasses.mainArticleClass;
@@ -61,15 +49,13 @@ function OfferCard({offer, setActiveCity}: PropsFromRedux & OfferCardProps): JSX
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className={isFavourite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"/>
-            </svg>
+            <IconBookmark className="place-card__bookmark-icon" width="18" height="19"/>
             <span className="visually-hidden">To bookmarks</span>
           </button>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${20 * Math.round(offer.rating)}%`}}/>
+            <span style={{width: `${(100 * offer.rating) / 5.0}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -82,4 +68,4 @@ function OfferCard({offer, setActiveCity}: PropsFromRedux & OfferCardProps): JSX
   );
 }
 
-export default connector(OfferCard);
+export default React.memo(OfferCard);

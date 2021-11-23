@@ -1,40 +1,29 @@
 import 'leaflet/dist/leaflet.css';
 import {SortType} from '../../constants';
-import {State} from '../../types/state';
-import {connect, ConnectedProps} from 'react-redux';
 import {ReactComponent as IconArrowSelect} from '../../static/icon-arrow-select.svg';
-import React from 'react';
-import {Dispatch} from 'redux';
-import {ActionsType} from '../../types/action';
-import {changeSortPanelOpenStatus, changeSortType, sortCurrentOffers} from '../../store/action';
+import React, {useCallback, useState} from 'react';
 import {nanoid} from 'nanoid';
+import {useAppDispatch} from '../../hooks/useAppDispatch';
+import {sortCurrentOffers} from '../../store/offers-reducer';
 
-function mapStateToProps({isSortingListOpen, currentSortType}: State) {
-  return ({
-    isSortingListOpen,
-    currentSortType,
-  });
-}
+function SortingList(): JSX.Element {
+  const [isSortingListOpen, handleSortingListOpen] = useState(false);
+  const [currentSortType, changeCurrentSortType] = useState('Popular');
+  const dispatch = useAppDispatch();
 
-function mapDispatchToProps(dispatch: Dispatch<ActionsType>) {
-  return {
-    onSortPanelClick() {
-      dispatch(changeSortPanelOpenStatus());
-    },
-    onChangeSortType(type: string) {
-      dispatch(changeSortType(type));
-      dispatch(sortCurrentOffers(type));
-    },
+  const onSortPanelClick = (): void => {
+    handleSortingListOpen(!isSortingListOpen);
   };
-}
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type SortingListProps = ConnectedProps<typeof connector>;
-
-function SortingList({isSortingListOpen, onSortPanelClick, currentSortType, onChangeSortType}: SortingListProps): JSX.Element {
-  const handleOptionClick = (sortType: string): void => {
-    onChangeSortType(sortType);
-  };
+  const handleOptionClick = useCallback(
+    (sortType: string) => {
+      if (currentSortType !== sortType) {
+        changeCurrentSortType(sortType);
+        dispatch(sortCurrentOffers(sortType));
+      }
+    },
+    [currentSortType, dispatch],
+  );
 
   function SortingItems() {
     return (
@@ -55,9 +44,9 @@ function SortingList({isSortingListOpen, onSortPanelClick, currentSortType, onCh
     <>
       <span className="places__sorting-caption">Sort by</span>
       <span onClick={onSortPanelClick} className="places__sorting-type">
-                  {currentSortType}
+        {currentSortType}
         <IconArrowSelect/>
-              </span>
+      </span>
       <ul className={isSortingListOpen ?
         'places__options places__options--custom places__options--opened' :
         'places__options places__options--custom'}
@@ -68,4 +57,4 @@ function SortingList({isSortingListOpen, onSortPanelClick, currentSortType, onCh
   );
 }
 
-export default connector(SortingList);
+export default SortingList;

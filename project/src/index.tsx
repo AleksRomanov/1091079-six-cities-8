@@ -1,34 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app';
-import {composeWithDevTools} from 'redux-devtools-extension';
-import {reducer} from './store/reducer';
-import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import {createAPI} from './services/api';
-import {changeLoadingStatus, requireAuthorization} from './store/action';
-import {AuthorizationStatus} from './constants';
-import {applyMiddleware} from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
+import {configureStore} from '@reduxjs/toolkit';
+import {api} from './services/api';
 import {redirect} from './store/middlewares/redirect';
-import {ThunkAppDispatch} from './types/action';
-import {checkAuthAction, fetchOffersAction} from './store/api-actions';
+import offersReducer from './store/offers-reducer';
+import appReducer from './store/reducer';
 
-const api = createAPI(
-  () => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
-  () => store.dispatch(changeLoadingStatus(false)),
-);
-
-const store = createStore(
-  reducer,
-  composeWithDevTools(
-    applyMiddleware(thunk.withExtraArgument(api)),
-    applyMiddleware(redirect),
-  ),
-);
-
-(store.dispatch as ThunkAppDispatch)(checkAuthAction());
-(store.dispatch as ThunkAppDispatch)(fetchOffersAction());
+export const store = configureStore({
+  reducer: {
+    appReducer,
+    offersReducer,
+    [api.reducerPath]: api.reducer,
+  },
+  middleware: (gDM) => gDM({
+    thunk: {
+      extraArgument: api,
+    }}).concat(redirect, api.middleware),
+});
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,27 +1,33 @@
 import Main from './pages/main';
-import Offer from './pages/offer';
 import {AppRoute, AuthorizationStatus} from '../constants';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
-import PrivateRoute from './private-route';
-import Favorites from './pages/favorites';
-import Login from './pages/login';
-import {State} from '../types/state';
-import {connect, ConnectedProps} from 'react-redux';
-import Page404 from './pages/404';
 import browserHistory from '../browser-history';
+import {useAppDispatch} from '../hooks/useAppDispatch';
+import {useCheckAuthQuery, useFetchOffersQuery} from '../services/api';
+import {setAuthStatus} from '../store/reducer';
+import {loadOffers} from '../store/offers-reducer';
+import Offer from './pages/offer';
+import Login from './pages/login';
+import Favorites from './pages/favorites';
+import PrivateRoute from './private-route';
+import Page404 from './pages/404';
+
+function App(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const {isSuccess: isSuccessAuth} = useCheckAuthQuery();
+  const {data, isLoading, isSuccess: isSuccessFetchOffers} = useFetchOffersQuery();
+
+  useEffect(() => {
+    isSuccessAuth ? dispatch(setAuthStatus(AuthorizationStatus.Auth)) : dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+  }, [isSuccessAuth, dispatch]);
+
+  useEffect(() => {
+    data && dispatch(loadOffers(data));
+  }, [isSuccessFetchOffers, data, dispatch]);
 
 
-const mapStateToProps = ({authorizationStatus, isDataLoaded}: State) => ({
-  authorizationStatus,
-  isDataLoaded,
-});
-
-const connector = connect(mapStateToProps, {});
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function App({authorizationStatus, isDataLoaded}: PropsFromRedux): JSX.Element {
-  if ((authorizationStatus === AuthorizationStatus.Unknown) || isDataLoaded) {
+  if (isLoading) {
     return (
       <p>Loading ...</p>
     );
@@ -41,4 +47,4 @@ function App({authorizationStatus, isDataLoaded}: PropsFromRedux): JSX.Element {
   );
 }
 
-export default connector(App);
+export default React.memo(App);

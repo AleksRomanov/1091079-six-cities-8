@@ -1,16 +1,13 @@
-import {reducer} from '../reducer';
 import {ActionType} from '../../types/action';
 import browserHistory from '../../browser-history';
 import {Middleware} from '@reduxjs/toolkit';
 
-type Reducer = ReturnType<typeof reducer>;
-
-export const redirect: Middleware<unknown, Reducer> =
+export const redirect: Middleware<unknown, any> =
   (_store) =>
     (next) =>
       (action) => {
         if (action.type === ActionType.RedirectToRoute) {
-          browserHistory.goBack();
+          browserHistory.push(action.url);
         }
         return next(action);
       };

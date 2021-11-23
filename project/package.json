@@ -6,6 +6,7 @@
     "@htmlacademy/cra-template-typescript": "1.0.3",
     "@reduxjs/toolkit": "^1.6.2",
     "@svgr/webpack": "^5.5.0",
+    "axios": "^0.21.1",
     "history": "^4.10.1",
     "leaflet": "^1.7.1",
     "nanoid": "^3.1.30",

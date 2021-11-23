@@ -1,26 +1,16 @@
 import Map from '../map/map';
 import React from 'react';
-import {connect, ConnectedProps} from 'react-redux';
-import {State} from '../../types/state';
 import {withHeader} from '../../hocks/withHeader';
 import LocationsList from '../locations-list/locations-list';
-import OffersList from '../offers-list/offers-list';
 import SortingList from '../sorting-list/sorting-list';
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from 'react-toastify';
+import {useAppSelector} from '../../hooks/useAppSelector';
+import OffersList from '../offers-list/offers-list';
 
-
-function mapStateToProps({currentCity, fetchedOffers}: State) {
-  return ({
-    currentCity,
-    fetchedOffers,
-  });
-}
-
-const connector = connect(mapStateToProps, {});
-type MainPageProps = ConnectedProps<typeof connector>;
-
-function Main({currentCity, fetchedOffers}: MainPageProps): JSX.Element {
+function Main(): JSX.Element {
+  const pickedOffers = useAppSelector(((state) => state.offersReducer.pickedOffers));
+  const currentCity = useAppSelector(((state) => state.offersReducer.currentCity));
   return (
     <main className="page__main page__main--index">
       <ToastContainer autoClose={2000}/>
@@ -34,7 +24,7 @@ function Main({currentCity, fetchedOffers}: MainPageProps): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{fetchedOffers && fetchedOffers.length} places to stay in {currentCity && currentCity.city}</b>
+            <b className="places__found">{pickedOffers && pickedOffers.length} places to stay in {currentCity && currentCity.city}</b>
             <form className="places__sorting" action="#" method="get">
               <SortingList/>
             </form>
@@ -54,4 +44,4 @@ function Main({currentCity, fetchedOffers}: MainPageProps): JSX.Element {
 }
 
 export {Main};
-export default connector(withHeader(Main));
+export default React.memo(withHeader(Main));
