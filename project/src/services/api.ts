@@ -76,7 +76,7 @@ export const api = createApi({
         // }));
 
         return adaptFromServerNew(response).filter((item: OfferType) => {
-          return item.city.name === 'Paris'
+          return item.city.name !== 'Paris'
         });
         // return adaptFromServerNew(response)
       },

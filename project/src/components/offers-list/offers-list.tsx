@@ -31,22 +31,22 @@ function OffersList(): JSX.Element {
     }
   }, [data, isOfferPage, dispatch]);
 
-  useEffect(() => {
-    if (isFirstRender && isOfferPage === null) {
-      if (pickedOffers.length === 0) {
-        dispatch(pickOffers(currentUrl.pathname));
+  // useEffect(() => {
+  //   if (isFirstRender && isOfferPage === null) {
+  //     if (pickedOffers.length === 0) {
+  //       dispatch(pickOffers(currentUrl.pathname));
+  //
+  //       // dispatch(redirectToRoute(AppRoute.Main));
+  //       // dispatch(redirect('/main-empty/'))
+  //     } else  {
+  //       console.log('redirect');
+  //
+  //     }
+  //     setIsFirstRender(false);
+  //   }
+  // }, [currentUrl, isFirstRender, offers, isOfferPage, dispatch]);
 
-        // dispatch(redirectToRoute(AppRoute.Main));
-        // dispatch(redirect('/main-empty/'))
-      } else  {
-        console.log('redirect');
-
-      }
-      setIsFirstRender(false);
-    }
-  }, [currentUrl, isFirstRender, offers, isOfferPage, dispatch]);
-
-  console.log(offers);
+  // console.log(offers);
 
   return (
     <>

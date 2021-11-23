@@ -61,4 +61,4 @@ function MainEmpty(): JSX.Element {
 }
 
 export {MainEmpty};
-export default memo(withHeader(MainEmpty));
+export default withHeader(MainEmpty);
