@@ -8,7 +8,7 @@ type HeaderChildrenProps = {
 }
 
 function HeaderLayout({children}: HeaderChildrenProps): JSX.Element {
-  const authStatus = useAppSelector((state) => state.app.authorizationStatus);
+  const authStatus = useAppSelector((state) => state.appReducer.authorizationStatus);
 
   const isAuth = () => authStatus === AuthorizationStatus.Auth;
 

@@ -7,7 +7,7 @@ type PrivateRouteProps = RouteProps & {
 }
 
 function PrivateRoute({exact, path, render}: PrivateRouteProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.app.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.appReducer.authorizationStatus);
   return (
     <Route
       exact={exact}

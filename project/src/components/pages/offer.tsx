@@ -17,7 +17,7 @@ type offerId = {
   id: string,
 }
 
-function Offer() {
+function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
   const {id}: offerId = useParams();
   const {data, isSuccess} = useFetchOfferQuery(id);
@@ -25,8 +25,8 @@ function Offer() {
     data && dispatch(setOfferPageData(data));
   }, [isSuccess]);
 
-  const observingOffer = useAppSelector(((state) => state.app.offerPageData));
-  const authorizationStatus = useAppSelector(((state) => state.app.authorizationStatus));
+  const observingOffer = useAppSelector(((state) => state.appReducer.offerPageData));
+  const authorizationStatus = useAppSelector(((state) => state.appReducer.authorizationStatus));
 
   function RenderImages() {
     return (

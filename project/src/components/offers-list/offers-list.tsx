@@ -1,12 +1,13 @@
 import {useLocation, useParams, useRouteMatch} from 'react-router-dom';
-import {useEffect, useState} from 'react';
+import {memo, useEffect, useState} from 'react';
 import OfferCard from '../offer-card/offer-card';
 import {AppRoute} from '../../constants';
 import {nanoid} from 'nanoid';
-import {pickOffers, setNearbyOffers} from '../../store/reducer';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {useFetchNearbyOffersQuery} from '../../services/api';
+import React from 'react';
+import { pickOffers, setNearbyOffers } from '../../store/offers-reducer';
 
 type offerId = {
   id: string,
@@ -18,17 +19,15 @@ function OffersList(): JSX.Element {
   const [isFirstRender, setIsFirstRender] = useState(true);
   const {id}: offerId = useParams();
   const dispatch = useAppDispatch();
-  const offers = useAppSelector(((state) => state.app.offers));
-  const pickedOffers = useAppSelector(((state) => state.app.pickedOffers));
-
+  const offers = useAppSelector((state) => state.offersReducer.offers);
   const {data} = useFetchNearbyOffersQuery(id);
+  const pickedOffers = useAppSelector((state) => state.offersReducer.pickedOffers);
 
   useEffect(() => {
-
     if (isOfferPage !== null) {
       data && dispatch(setNearbyOffers(data));
     }
-  }, [data, isOfferPage, dispatch]);
+  }, [data, dispatch]);
 
   useEffect(() => {
     if (isFirstRender && isOfferPage === null && offers.length > 0) {
@@ -50,4 +49,11 @@ function OffersList(): JSX.Element {
   );
 }
 
-export default OffersList;
+// export default memo(OffersList, (prevProps, nextProps) => {
+//   return prevProps === nextProps;
+// });
+
+export default memo(OffersList);
+
+
+// const magicCount = React.useMemo(() => getMagicCount(testString), [testString])

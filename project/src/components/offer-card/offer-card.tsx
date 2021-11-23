@@ -4,6 +4,7 @@ import {AppRoute, offerCardClasses} from '../../constants';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {setMapHoveredOffer} from '../../store/reducer';
 import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
+import React from 'react';
 
 
 type OfferCardProps = {
@@ -67,4 +68,4 @@ function OfferCard({offer}: OfferCardProps): JSX.Element {
   );
 }
 
-export default OfferCard;
+export default React.memo(OfferCard);

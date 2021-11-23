@@ -2,8 +2,8 @@ import {ReactComponent as IconStar} from '../../static/icon-star.svg';
 import {nanoid} from 'nanoid';
 import React, {FormEvent, useEffect, useState} from 'react';
 import {useSubmitCommentMutation} from '../../services/api';
-import {setCurrentOfferComments} from '../../store/reducer';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
+import {setCurrentOfferComments} from '../../store/reducer';
 
 type OutsideCommentFormProps = {
   currentOfferId: string

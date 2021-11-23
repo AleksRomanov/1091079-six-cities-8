@@ -9,8 +9,8 @@ import {useAppSelector} from '../../hooks/useAppSelector';
 import OffersList from '../offers-list/offers-list';
 
 function Main(): JSX.Element {
-  const pickedOffers = useAppSelector(((state) => state.app.pickedOffers));
-  const currentCity = useAppSelector(((state) => state.app.currentCity));
+  const pickedOffers = useAppSelector(((state) => state.offersReducer.pickedOffers));
+  const currentCity = useAppSelector(((state) => state.offersReducer.currentCity));
   return (
     <main className="page__main page__main--index">
       <ToastContainer autoClose={2000}/>
@@ -44,4 +44,4 @@ function Main(): JSX.Element {
 }
 
 export {Main};
-export default withHeader(Main);
+export default React.memo(withHeader(Main));

@@ -1,10 +1,10 @@
 import 'leaflet/dist/leaflet.css';
 import {SortType} from '../../constants';
 import {ReactComponent as IconArrowSelect} from '../../static/icon-arrow-select.svg';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {nanoid} from 'nanoid';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {sortCurrentOffers} from '../../store/reducer';
+import {sortCurrentOffers} from '../../store/offers-reducer';
 
 function SortingList(): JSX.Element {
   const [isSortingListOpen, handleSortingListOpen] = useState(false);
@@ -14,11 +14,16 @@ function SortingList(): JSX.Element {
   const onSortPanelClick = (): void => {
     handleSortingListOpen(!isSortingListOpen);
   };
-  const handleOptionClick = (sortType: string): void => {
-    changeCurrentSortType(sortType);
-    dispatch(sortCurrentOffers(sortType));
-  };
 
+  const handleOptionClick = useCallback(
+    (sortType: string) => {
+      if (currentSortType !== sortType) {
+        changeCurrentSortType(sortType);
+        dispatch(sortCurrentOffers(sortType));
+      }
+    },
+    [currentSortType],
+  );
 
   function SortingItems() {
     return (

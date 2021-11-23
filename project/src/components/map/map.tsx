@@ -7,9 +7,9 @@ import {useAppSelector} from '../../hooks/useAppSelector';
 
 
 function Map(): JSX.Element {
-  const currentCity = useAppSelector(((state) => state.app.currentCity));
-  const pickedOffers = useAppSelector(((state) => state.app.pickedOffers));
-  const mapHoveredOffer = useAppSelector(((state) => state.app.mapHoveredOffer));
+  const currentCity = useAppSelector(((state) => state.offersReducer.currentCity));
+  const pickedOffers = useAppSelector(((state) => state.offersReducer.pickedOffers));
+  const mapHoveredOffer = useAppSelector(((state) => state.appReducer.mapHoveredOffer));
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);

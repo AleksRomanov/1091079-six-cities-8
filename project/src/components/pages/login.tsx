@@ -4,8 +4,8 @@ import {Link} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {redirectToRoute} from '../../store/action';
 import {useLoginMutation} from '../../services/api';
-import {setAuthStatus} from '../../store/reducer';
 import {ReactComponent as Logo} from '../../static/logo.svg';
+import {setAuthStatus} from '../../store/reducer';
 
 
 function Login(): JSX.Element {

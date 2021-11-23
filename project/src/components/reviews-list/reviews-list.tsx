@@ -3,8 +3,8 @@ import {nanoid} from 'nanoid';
 import {useFetchCommentsQuery} from '../../services/api';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {setCurrentOfferComments} from '../../store/reducer';
 import React, {useEffect} from 'react';
+import {setCurrentOfferComments} from '../../store/reducer';
 
 type ReviewsListOutsideProps = {
   currentOfferId: string;
@@ -12,18 +12,14 @@ type ReviewsListOutsideProps = {
 
 function ReviewsList({currentOfferId}: ReviewsListOutsideProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const {data, isFetching, isSuccess} = useFetchCommentsQuery(currentOfferId);
-  const currentOfferComments = useAppSelector((state) => state.app.currentOfferComments);
-  // const magicCount = React.useMemo(() => getMagicCount(testString), [testString])
+
+  const {data, isFetching, isSuccess: isSuccessFetchComments} = useFetchCommentsQuery(currentOfferId);
+  const currentOfferComments = useAppSelector((state) => state.appReducer.currentOfferComments);
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccessFetchComments) {
       data && dispatch(setCurrentOfferComments(data));
     }
-  }, [data, dispatch]);
-
-  useEffect(() => {
-    currentOfferComments && dispatch(setCurrentOfferComments(currentOfferComments));
-  }, [currentOfferComments, dispatch]);
+  }, [data, dispatch, isSuccessFetchComments]);
 
   if (isFetching) {
     return (

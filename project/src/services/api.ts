@@ -29,19 +29,13 @@ const createAPIN = (): BaseQueryFn => {
   api.interceptors.response.use(
     (response: AxiosResponse) => response,
     (err: AxiosError) => ({error: {status: err.response?.status, data: err.response?.data}}),
-
   );
 
   api.interceptors.request.use(
     (config: AxiosRequestConfig) => {
       const token = getToken();
       if (token && config.headers) {
-
         config.headers['x-token'] = token;
-
-      }
-      if (config.url && config.url.indexOf('undefined') !== -1) {
-        return Promise.reject('Canceling nearby nearby offers fetching on manin page');
       }
       return config;
     },
@@ -66,19 +60,19 @@ export const api = createApi({
       }),
       transformResponse: (response: OfferType[]) => adaptFromServerNew(response),
     }),
-    fetchNearbyOffers: builder.query<OfferType[], string>({
-      query: (id) => ({
-        url: `${APIRoute.Offers}${id}/nearby`,
-        method: 'get',
-      }),
-      transformResponse: (response: OfferType[]) => adaptFromServerNew(response),
-    }),
     fetchOffer: builder.query<OfferType, string>({
       query: (offerId) => ({
         url: `${APIRoute.Offers}${offerId}`,
         method: 'get',
       }),
       transformResponse: (response: OfferType) => adaptFromServerNew(response),
+    }),
+    fetchNearbyOffers: builder.query<OfferType[], string>({
+      query: (id) => ({
+        url: `${APIRoute.Offers}${id}/nearby`,
+        method: 'get',
+      }),
+      transformResponse: (response: OfferType[]) => adaptFromServerNew(response),
     }),
     fetchComments: builder.query<ReviewType[], string>({
       query: (id) => ({
