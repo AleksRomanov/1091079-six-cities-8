@@ -23,7 +23,7 @@ function Offer(): JSX.Element {
   const {data, isSuccess} = useFetchOfferQuery(id);
   useEffect(() => {
     data && dispatch(setOfferPageData(data));
-  }, [isSuccess]);
+  }, [isSuccess, data, dispatch]);
 
   const observingOffer = useAppSelector(((state) => state.appReducer.offerPageData));
   const authorizationStatus = useAppSelector(((state) => state.appReducer.authorizationStatus));

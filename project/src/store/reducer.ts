@@ -1,8 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {store} from '../index';
-import {AuthorizationStatus, CitiesList} from '../constants';
+import {AuthorizationStatus} from '../constants';
 import {OfferType} from '../types/offerType';
-import {City} from '../types/city';
 import {ReviewType} from '../types/reviewType';
 
 interface CounterState {

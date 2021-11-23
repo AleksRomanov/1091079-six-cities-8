@@ -5,7 +5,7 @@ import React, {memo} from 'react';
 import {City} from '../../types/city';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
-import {offersReducer, selectCity} from '../../store/offers-reducer';
+import {selectCity} from '../../store/offers-reducer';
 
 
 function LocationsList(): JSX.Element {

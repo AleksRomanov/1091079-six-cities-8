@@ -27,7 +27,7 @@ function OffersList(): JSX.Element {
     if (isOfferPage !== null) {
       data && dispatch(setNearbyOffers(data));
     }
-  }, [data, dispatch]);
+  }, [data, isOfferPage, dispatch]);
 
   useEffect(() => {
     if (isFirstRender && isOfferPage === null && offers.length > 0) {

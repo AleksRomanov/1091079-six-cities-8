@@ -22,7 +22,7 @@ function SortingList(): JSX.Element {
         dispatch(sortCurrentOffers(sortType));
       }
     },
-    [currentSortType],
+    [currentSortType, dispatch],
   );
 
   function SortingItems() {
