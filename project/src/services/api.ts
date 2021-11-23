@@ -36,6 +36,10 @@ const createAPIN = (): BaseQueryFn => {
       const token = getToken();
       if (token && config.headers) {
         config.headers['x-token'] = token;
+
+      }
+      if (config.url && config.url.indexOf('undefined') !== -1) {
+        return Promise.reject('Canceling nearby nearby offers fetching on manin page');
       }
       return config;
     },
