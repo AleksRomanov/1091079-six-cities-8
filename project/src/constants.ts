@@ -4,6 +4,7 @@ export const enum AppRoute {
   Favorites = '/favorites',
   Offer = '/offer/:id',
   OfferLink = '/offer/',
+  EmptyMain = '/empty-main/',
 }
 
 export const enum AuthorizationStatus {
@@ -79,3 +80,8 @@ export enum SortType {
   HighToLowPrice = 'Price: high to low',
   TopRated = 'Top rated first',
 }
+
+export const citiesContainerEmptyClass = 'cities__places-container container cities__places-container--empty';
+export const citiesContainerClass = 'cities__places-container container';
+export const citiesSectionEmptyClass = 'cities__no-places';
+export const citiesSectionClass = 'cities__places places';

@@ -1,16 +1,42 @@
 import Map from '../map/map';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {withHeader} from '../../hocks/withHeader';
 import LocationsList from '../locations-list/locations-list';
-import SortingList from '../sorting-list/sorting-list';
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from 'react-toastify';
 import {useAppSelector} from '../../hooks/useAppSelector';
-import OffersList from '../offers-list/offers-list';
+import {OffersEmpty} from '../offers-empty/offers-empty';
+import {loadOffers, pickOffers} from '../../store/offers-reducer';
+import {useAppDispatch} from '../../hooks/useAppDispatch';
+import {useFetchOffersQuery} from '../../services/api';
+import {useLocation} from 'react-router-dom';
+import {OffersFiled} from '../offers-filed/offers-filed';
+import {citiesContainerClass, citiesContainerEmptyClass, citiesSectionClass, citiesSectionEmptyClass} from '../../constants';
 
 function Main(): JSX.Element {
   const pickedOffers = useAppSelector(((state) => state.offersReducer.pickedOffers));
-  const currentCity = useAppSelector(((state) => state.offersReducer.currentCity));
+  const [isFirstRender, setIsFirstRender] = useState(true);
+  const currentUrl = useLocation();
+
+  const dispatch = useAppDispatch();
+
+
+  const {data: fetchedOffers, isLoading: isLoadingOffers, isSuccess: isSuccessFetchOffers} = useFetchOffersQuery();
+
+  useEffect(() => {
+    fetchedOffers && isSuccessFetchOffers && dispatch(loadOffers(fetchedOffers));
+  }, [isSuccessFetchOffers, fetchedOffers, dispatch]);
+
+
+  useEffect(() => {
+    if (!isLoadingOffers && isSuccessFetchOffers) {
+      dispatch(pickOffers(currentUrl.pathname));
+      setIsFirstRender(false);
+    }
+  }, [currentUrl, isFirstRender, dispatch, isLoadingOffers, isSuccessFetchOffers]);
+
+  const isEmptyOffers = () => !pickedOffers.length;
+
   return (
     <main className="page__main page__main--index">
       <ToastContainer autoClose={2000}/>
@@ -21,21 +47,14 @@ function Main(): JSX.Element {
         </section>
       </div>
       <div className="cities">
-        <div className="cities__places-container container">
-          <section className="cities__places places">
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{pickedOffers && pickedOffers.length} places to stay in {currentCity && currentCity.city}</b>
-            <form className="places__sorting" action="#" method="get">
-              <SortingList/>
-            </form>
-            <div className="cities__places-list places__list tabs__content">
-              <OffersList/>
-            </div>
+        <div className={isEmptyOffers() ? citiesContainerEmptyClass : citiesContainerClass}>
+          <section className={isEmptyOffers() ? citiesSectionEmptyClass : citiesSectionClass}>
+            {isEmptyOffers() ? <OffersEmpty/> : <OffersFiled/>}
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map">
+            {!isEmptyOffers() && <section className="cities__map map">
               <Map/>
-            </section>
+            </section>}
           </div>
         </div>
       </div>
@@ -43,5 +62,4 @@ function Main(): JSX.Element {
   );
 }
 
-export {Main};
 export default React.memo(withHeader(Main));
