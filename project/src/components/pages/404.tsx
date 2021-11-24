@@ -1,4 +1,4 @@
-import {withHeader} from '../../hocks/withHeader';
+import {withHeader} from '../../hocs/withHeader';
 
 function Page404(): JSX.Element {
   return (

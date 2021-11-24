@@ -62,23 +62,10 @@ export const api = createApi({
         method: 'get',
       }),
       transformResponse: (response: OfferType[]) => {
-        // const res = adaptFromServerNew(response);
-
-        // adaptFromServerNew(response).filter((item: OfferType) => {
-        //   return item.city.name === 'Paris'
-        // })
-
-
-
-        // console.log(response);
-        // console.log(adaptFromServerNew(response).filter((item: OfferType) => {
-        //   return item.city.name === 'Paris'
-        // }));
 
         return adaptFromServerNew(response).filter((item: OfferType) => {
           return item.city.name === 'Amsterdam'
         });
-        // return adaptFromServerNew(response)
       },
     }),
     fetchOffer: builder.query<OfferType, string>({

@@ -11,7 +11,7 @@ function SortingList(): JSX.Element {
   const [currentSortType, changeCurrentSortType] = useState('Popular');
   const dispatch = useAppDispatch();
 
-  const onSortPanelClick = (): void => {
+  const onSortPanelClicked = (): void => {
     handleSortingListOpen(!isSortingListOpen);
   };
 
@@ -43,7 +43,7 @@ function SortingList(): JSX.Element {
   return (
     <>
       <span className="places__sorting-caption">Sort by</span>
-      <span onClick={onSortPanelClick} className="places__sorting-type">
+      <span onClick={onSortPanelClicked} className="places__sorting-type">
         {currentSortType}
         <IconArrowSelect/>
       </span>

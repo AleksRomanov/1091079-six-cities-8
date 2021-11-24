@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 import Map from '../map/map';
-import {withHeader} from '../../hocks/withHeader';
+import {withHeader} from '../../hocs/withHeader';
 import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
+import {ReactComponent as IconStars} from '../../static/stars.svg';
 import {useParams} from 'react-router-dom';
 import {nanoid} from 'nanoid';
 import ReviewsList from '../reviews-list/reviews-list';
@@ -69,10 +70,10 @@ function Offer(): JSX.Element {
               </button>
             </div>
             <div className="property__rating rating">
-              <div className="property__stars rating__stars">
+              <IconStars className="property__stars rating__stars">
                 <span style={{width: `${(observingOffer ? 100 * observingOffer.rating : 0) / 5.0}%`}}/>
                 <span className="visually-hidden">Rating</span>
-              </div>
+              </IconStars>
               <span className="property__rating-value rating__value">{observingOffer && observingOffer.rating}</span>
             </div>
             <ul className="property__features">

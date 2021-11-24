@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants';
-import {withHeader} from '../../hocks/withHeader';
+import {withHeader} from '../../hocs/withHeader';
 import OffersList from '../offers-list/offers-list';
 import {ReactComponent as Logo} from '../../static/logo.svg';
 

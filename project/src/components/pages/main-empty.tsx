@@ -1,12 +1,9 @@
 import React, {memo} from 'react';
-import {withHeader} from '../../hocks/withHeader';
+import {withHeader} from '../../hocs/withHeader';
 import 'react-toastify/dist/ReactToastify.css';
 import LocationsList from '../locations-list/locations-list';
-// import LocationsList from '../locations-list/locations-list';
 
 function MainEmpty(): JSX.Element {
-  // const pickedOffers = useAppSelector(((state) => state.offersReducer.pickedOffers));
-  // const currentCity = useAppSelector(((state) => state.offersReducer.currentCity));
   return (
     <main className="page__main page__main--index page__main--index-empty">
       <h1 className="visually-hidden">Cities</h1>

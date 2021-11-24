@@ -4,6 +4,7 @@ import {AppRoute, offerCardClasses} from '../../constants';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {setMapHoveredOffer} from '../../store/reducer';
 import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
+import {ReactComponent as IconStars} from '../../static/stars.svg';
 import React from 'react';
 
 
@@ -54,10 +55,10 @@ function OfferCard({offer}: OfferCardProps): JSX.Element {
           </button>
         </div>
         <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
+          <IconStars className="place-card__stars rating__stars">
             <span style={{width: `${(100 * offer.rating) / 5.0}%`}}/>
             <span className="visually-hidden">Rating</span>
-          </div>
+          </IconStars>
         </div>
         <h2 className="place-card__name">
           <Link to={AppRoute.OfferLink}>{title}</Link>

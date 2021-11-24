@@ -1,6 +1,6 @@
 import Map from '../map/map';
 import React, {useEffect, useState} from 'react';
-import {withHeader} from '../../hocks/withHeader';
+import {withHeader} from '../../hocs/withHeader';
 import LocationsList from '../locations-list/locations-list';
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from 'react-toastify';
@@ -35,7 +35,7 @@ function Main(): JSX.Element {
     }
   }, [currentUrl, isFirstRender, dispatch, isLoadingOffers, isSuccessFetchOffers]);
 
-  const isEmptyOffers = () => !pickedOffers.length;
+  const isEmptyOffersGet = () => !pickedOffers.length;
 
   return (
     <main className="page__main page__main--index">
@@ -47,12 +47,12 @@ function Main(): JSX.Element {
         </section>
       </div>
       <div className="cities">
-        <div className={isEmptyOffers() ? citiesContainerEmptyClass : citiesContainerClass}>
-          <section className={isEmptyOffers() ? citiesSectionEmptyClass : citiesSectionClass}>
-            {isEmptyOffers() ? <OffersEmpty/> : <OffersFiled/>}
+        <div className={isEmptyOffersGet() ? citiesContainerEmptyClass : citiesContainerClass}>
+          <section className={isEmptyOffersGet() ? citiesSectionEmptyClass : citiesSectionClass}>
+            {isEmptyOffersGet() ? <OffersEmpty/> : <OffersFiled/>}
           </section>
           <div className="cities__right-section">
-            {!isEmptyOffers() && <section className="cities__map map">
+            {!isEmptyOffersGet() && <section className="cities__map map">
               <Map/>
             </section>}
           </div>
