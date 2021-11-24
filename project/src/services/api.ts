@@ -61,12 +61,11 @@ export const api = createApi({
         url: `${APIRoute.Offers}`,
         method: 'get',
       }),
-      transformResponse: (response: OfferType[]) => {
+      transformResponse: (response: OfferType[]) => adaptFromServerNew(response),
 
-        return adaptFromServerNew(response).filter((item: OfferType) => {
-          return item.city.name === 'Amsterdam'
-        });
-      },
+      // return adaptFromServerNew(response).filter((item: OfferType) => {
+      // return item.city.name === 'Amsterdam'
+      // });
     }),
     fetchOffer: builder.query<OfferType, string>({
       query: (offerId) => ({

@@ -13,14 +13,19 @@ import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {useFetchOfferQuery} from '../../services/api';
 import {setOfferPageData} from '../../store/reducer';
+import {getRatingValue} from '../../utils';
 
 type offerId = {
   id: string,
+}
+type rating = {
+  rating: any,
 }
 
 function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
   const {id}: offerId = useParams();
+  const {rating}: rating = useParams();
   const {data, isSuccess} = useFetchOfferQuery(id);
   useEffect(() => {
     data && dispatch(setOfferPageData(data));
@@ -28,6 +33,7 @@ function Offer(): JSX.Element {
 
   const observingOffer = useAppSelector(((state) => state.appReducer.offerPageData));
   const authorizationStatus = useAppSelector(((state) => state.appReducer.authorizationStatus));
+  const starRatingValue = getRatingValue(rating);
 
   function RenderImages() {
     return (
@@ -71,7 +77,8 @@ function Offer(): JSX.Element {
             </div>
             <div className="property__rating rating">
               <IconStars className="property__stars rating__stars">
-                <span style={{width: `${(observingOffer ? 100 * observingOffer.rating : 0) / 5.0}%`}}/>
+                <span style={{width: starRatingValue}}/>
+                {/*<span style={{width: `${(observingOffer ? 100 * observingOffer.rating : 0) / 5.0}%`}}/>*/}
                 <span className="visually-hidden">Rating</span>
               </IconStars>
               <span className="property__rating-value rating__value">{observingOffer && observingOffer.rating}</span>

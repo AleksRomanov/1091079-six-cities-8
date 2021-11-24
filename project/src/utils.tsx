@@ -1,7 +1,10 @@
 import {OfferType} from './types/offerType';
 import {City} from './types/city';
+import {MAX_RATING_VALUE} from './constants';
 
 export const getOffersByCity = (offers: OfferType[], currentCity: City): OfferType[] => offers.filter((offer) => currentCity && offer.city.name === currentCity.city);
+
+export const getRatingValue = (rating: any): any => `${(100 / MAX_RATING_VALUE) * rating}%`;
 
 export const adaptFromServerNew = (data: any): any => {
 
