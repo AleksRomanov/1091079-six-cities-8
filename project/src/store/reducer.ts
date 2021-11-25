@@ -38,10 +38,17 @@ export const appReducer = createSlice({
       state.offerPageData = action.payload;
     },
 
+    setOfferPageFavoriteStatus: (state, action: PayloadAction<OfferType>) => {
+      const newFavoriteStatus = action.payload.isFavorite
+      if (state.offerPageData) {
+        state.offerPageData.isFavorite = newFavoriteStatus;
+      }
+    },
+
   },
 });
 
-export const {setMapHoveredOffer, setOfferPageData, setAuthStatus, setCurrentOfferComments} = appReducer.actions;
+export const {setMapHoveredOffer, setOfferPageData, setAuthStatus, setCurrentOfferComments, setOfferPageFavoriteStatus} = appReducer.actions;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

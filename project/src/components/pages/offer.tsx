@@ -11,8 +11,9 @@ import OffersList from '../offers-list/offers-list';
 import {AuthorizationStatus} from '../../constants';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
-import {useFetchOfferQuery} from '../../services/api';
-import {setOfferPageData} from '../../store/reducer';
+import {useFetchOfferQuery, useSubmitFavoriteMutation} from '../../services/api';
+import {setOfferPageData, setOfferPageFavoriteStatus} from '../../store/reducer';
+import {setOfferFavoriteStatus} from '../../store/offers-reducer';
 
 type offerId = {
   id: string,
@@ -21,15 +22,29 @@ type offerId = {
 function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
   const {id}: offerId = useParams();
-  const {data, isSuccess} = useFetchOfferQuery(id);
+  const {data, isSuccess: isSuccessFetchOffer, isUninitialized} = useFetchOfferQuery(id);
+
+
   useEffect(() => {
-    isSuccess && data && dispatch(setOfferPageData(data));
-  }, [isSuccess, data, dispatch]);
+    if (isSuccessFetchOffer && data && !isUninitialized) {
+      console.log('dispatch fetching')
+      console.log(isUninitialized);
+      dispatch(setOfferPageData(data));
+    }
+  }, [isSuccessFetchOffer, data, dispatch]);
 
   const observingOffer = useAppSelector(((state) => state.appReducer.offerPageData));
   const authorizationStatus = useAppSelector(((state) => state.appReducer.authorizationStatus));
 
   const currentOfferComments = useAppSelector((state) => state.appReducer.currentOfferComments);
+  const [submitFavorite, {data: submitFavoriteData, isSuccess: isFavoriteSuccess}] = useSubmitFavoriteMutation();
+
+  useEffect(() => {
+    if (submitFavoriteData && isFavoriteSuccess) {
+      console.log('dispatch submit')
+      dispatch(setOfferPageFavoriteStatus(submitFavoriteData));
+    }
+  }, [submitFavoriteData, isFavoriteSuccess, dispatch]);
 
   function RenderImages() {
     return (
@@ -66,7 +81,7 @@ function Offer(): JSX.Element {
               <h1 className="property__name">
                 {observingOffer && observingOffer.title}
               </h1>
-              <button className={`property__bookmark-button button ${observingOffer && observingOffer.isFavorite ? 'property__bookmark-button--active ' : ''}`} type="button">
+              <button className={`property__bookmark-button button ${observingOffer && observingOffer.isFavorite ? 'property__bookmark-button--active ' : ''}`} type="button" onClick={() => observingOffer && submitFavorite({offerId: observingOffer.id, offerStatus: + !observingOffer.isFavorite})}>
                 <IconBookmark className="property__bookmark-icon" width="31" height="33"/>
                 <span className="visually-hidden">To bookmarks</span>
               </button>
