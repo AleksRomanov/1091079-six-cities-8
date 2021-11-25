@@ -74,13 +74,6 @@ export const api = createApi({
       }),
       transformResponse: (response: OfferType) => adaptFromServerNew(response),
     }),
-    // fetchOfferRating: builder.query<OfferType, string>({
-    //   query: (id) => ({
-    //     url: `${APIRoute.Offers}${id}`,
-    //     method: 'get',
-    //   }),
-    //   transformResponse: (response: OfferType) => adaptFromServerNew(response),
-    // }),
     fetchNearbyOffers: builder.query<OfferType[], string>({
       query: (id) => ({
         url: `${APIRoute.Offers}${id}/nearby`,
@@ -117,8 +110,17 @@ export const api = createApi({
       }),
       transformResponse: (response: ReviewType[]) => adaptFromServerNew(response),
     }),
+    submitFavorite: builder.mutation<OfferType, { offerId: number; offerStatus: number }>({
+      query: ({offerId, offerStatus}) => ({
+        url: `${APIRoute.Favorite}${offerId}/${offerStatus}`,
+        method: 'post',
+      }),
+      transformResponse: (response: OfferType) => {
+        return adaptFromServerNew(response);
+      },
+    }),
   }),
 });
 
-export const {useCheckAuthQuery, useFetchOffersQuery, useFetchOfferQuery, useLoginMutation, useFetchCommentsQuery, useSubmitCommentMutation, useFetchNearbyOffersQuery} = api;
+export const {useSubmitFavoriteMutation, useCheckAuthQuery, useFetchOffersQuery, useFetchOfferQuery, useLoginMutation, useFetchCommentsQuery, useSubmitCommentMutation, useFetchNearbyOffersQuery} = api;
 

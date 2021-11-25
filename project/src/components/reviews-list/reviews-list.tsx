@@ -5,16 +5,17 @@ import {useAppSelector} from '../../hooks/useAppSelector';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import React, {memo, useEffect} from 'react';
 import {setCurrentOfferComments} from '../../store/reducer';
+import {ReviewType} from '../../types/reviewType';
 
 type ReviewsListOutsideProps = {
   currentOfferId: string;
+  currentOfferComments: ReviewType[];
 }
 
-function ReviewsList({currentOfferId}: ReviewsListOutsideProps): JSX.Element {
+function ReviewsList({currentOfferId, currentOfferComments}: ReviewsListOutsideProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const {data, isFetching, isSuccess: isSuccessFetchComments} = useFetchCommentsQuery(currentOfferId);
-  const currentOfferComments = useAppSelector((state) => state.appReducer.currentOfferComments);
   useEffect(() => {
     if (isSuccessFetchComments) {
       data && dispatch(setCurrentOfferComments(data));

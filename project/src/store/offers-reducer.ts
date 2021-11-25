@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice, current, PayloadAction} from '@reduxjs/toolkit';
 import {AppRoute, CitiesList, SortType} from '../constants';
 import {getOffersByCity} from '../utils';
 import {City} from '../types/city';
@@ -67,9 +67,17 @@ export const offersReducer = createSlice({
           break;
       }
     },
+    setOfferFavoriteStatus: (state, action: PayloadAction<OfferType>) => {
+      const currentOffer = state.offers.find((offer) => offer.id === action.payload.id)
+      const currentPickedOffer = state.pickedOffers.find((offer) => offer.id === action.payload.id)
+      if (currentOffer && currentPickedOffer){
+        currentOffer.isFavorite = action.payload.isFavorite;
+        currentPickedOffer.isFavorite = action.payload.isFavorite;
+      }
+    },
   },
 });
 
-export const {selectCity, pickOffers, sortCurrentOffers, loadOffers, setNearbyOffers} = offersReducer.actions;
+export const {setOfferFavoriteStatus, selectCity, pickOffers, sortCurrentOffers, loadOffers, setNearbyOffers} = offersReducer.actions;
 
 export default offersReducer.reducer;

@@ -29,6 +29,8 @@ function Offer(): JSX.Element {
   const observingOffer = useAppSelector(((state) => state.appReducer.offerPageData));
   const authorizationStatus = useAppSelector(((state) => state.appReducer.authorizationStatus));
 
+  const currentOfferComments = useAppSelector((state) => state.appReducer.currentOfferComments);
+
   function RenderImages() {
     return (
       <div className="property__gallery">
@@ -71,7 +73,8 @@ function Offer(): JSX.Element {
             </div>
             <div className="property__rating rating" >
               <div className="property__stars rating__stars">
-                <span style={{width: `${(observingOffer ? 100 * observingOffer.rating : 0) / 5.0}%`}}/>
+                <span style={{width: `${(observingOffer ? 100 * observingOffer.rating : 0) / 5}%`}}/>
+                {/*<span style={{width: `${calculateRatingWidth()}%`}}/>*/}
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="property__rating-value rating__value">{observingOffer && observingOffer.rating}</span>
@@ -116,7 +119,7 @@ function Offer(): JSX.Element {
               </div>
             </div>
             <section className="property__reviews reviews">
-              <ReviewsList currentOfferId={id}/>
+              <ReviewsList currentOfferComments={currentOfferComments}  currentOfferId={id}/>
 
               {authorizationStatus === AuthorizationStatus.Auth && <SubmitFormComment currentOfferId={id}/>}
             </section>

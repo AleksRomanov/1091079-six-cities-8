@@ -1,35 +1,8 @@
 import {OfferType} from './types/offerType';
 import {City} from './types/city';
-// import {MAX_RATING_VALUE} from './constants';
 
 export const getOffersByCity = (offers: OfferType[], currentCity: City): OfferType[] => offers.filter((offer) => currentCity && offer.city.name === currentCity.city);
-
-
-// export const validateLogin = (login: string): string => {
-//   const loginReg = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
-//   if (loginReg.test(login)) {
-//     return '';
-//   }
-//   return 'Login must contain a valid email address';
-// };
-//
-// export const validatePassword = (password: string): string => {
-  //   const passwordReg = /(?=.*\d)(?=.*[a-zA-Z])./;
-//   if (passwordReg.test(password)) {
-//     return '';
-//   }
-//   return 'Password must contain at least 1 letter and 1 number.\n No spaces allowed';
-// };
-//
-// export const checkIsValidUserReview = (rating: number, comment: string): boolean => !((rating > 0) && ((comment.length >= MIN_REVIEW_LENGTH) && (comment.length < MAX_REVIEW_LENGTH)));
-//
-
-// export const getRatingValue = (rating: any): any => `${(100 / MAX_RATING_VALUE) * rating}%`;
-export const widthRating = (rating: number): string => `${(100 * rating) / 5.0}%`;
-
-
 export const adaptFromServerNew = (data: any): any => {
-
   const adaptOfferFeatures = (offer: any) => {
     for (const feature in offer) {
       if (typeof (offer[feature]) === 'object') {
@@ -51,3 +24,23 @@ export const adaptFromServerNew = (data: any): any => {
   }
   return data;
 };
+
+// export const getNewFavoriteOffers = (offers: OfferType[], newOffer: OfferType): OfferType[] => {
+//   // console.log(offers);
+//   // console.log(newOffer);
+//   let ina;
+//   offers.find((offer, index) => {
+//     if (offer.id === newOffer.id) {
+//       ina = index
+//       return
+//     }
+//   });
+//
+//   let changingOffer:OfferType[] = [];
+//
+//   if (ina !== undefined && ina >= 0) {
+//     changingOffer = offers.splice(ina, 1, newOffer);
+//     // console.log(changingOffer);
+//   }
+//   return changingOffer
+// };
