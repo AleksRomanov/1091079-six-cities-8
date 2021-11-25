@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import Map from '../map/map';
 import {withHeader} from '../../hocs/withHeader';
 import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
-import {ReactComponent as IconStars} from '../../static/stars.svg';
+import {ReactComponent as Stars} from '../../static/stars.svg';
 import {useParams} from 'react-router-dom';
 import {nanoid} from 'nanoid';
 import ReviewsList from '../reviews-list/reviews-list';
@@ -13,27 +13,21 @@ import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {useFetchOfferQuery} from '../../services/api';
 import {setOfferPageData} from '../../store/reducer';
-import {getRatingValue} from '../../utils';
 
 type offerId = {
   id: string,
-}
-type rating = {
-  rating: any,
 }
 
 function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
   const {id}: offerId = useParams();
-  const {rating}: rating = useParams();
   const {data, isSuccess} = useFetchOfferQuery(id);
   useEffect(() => {
-    data && dispatch(setOfferPageData(data));
+    isSuccess && data && dispatch(setOfferPageData(data));
   }, [isSuccess, data, dispatch]);
 
   const observingOffer = useAppSelector(((state) => state.appReducer.offerPageData));
   const authorizationStatus = useAppSelector(((state) => state.appReducer.authorizationStatus));
-  const starRatingValue = getRatingValue(rating);
 
   function RenderImages() {
     return (
@@ -75,12 +69,11 @@ function Offer(): JSX.Element {
                 <span className="visually-hidden">To bookmarks</span>
               </button>
             </div>
-            <div className="property__rating rating">
-              <IconStars className="property__stars rating__stars">
-                <span style={{width: starRatingValue}}/>
-                {/*<span style={{width: `${(observingOffer ? 100 * observingOffer.rating : 0) / 5.0}%`}}/>*/}
+            <div className="property__rating rating" >
+              <div className="property__stars rating__stars">
+                <span style={{width: `${(observingOffer ? 100 * observingOffer.rating : 0) / 5.0}%`}}/>
                 <span className="visually-hidden">Rating</span>
-              </IconStars>
+              </div>
               <span className="property__rating-value rating__value">{observingOffer && observingOffer.rating}</span>
             </div>
             <ul className="property__features">
@@ -111,8 +104,8 @@ function Offer(): JSX.Element {
                   <img className="property__avatar user__avatar" src={observingOffer && `../${observingOffer.host.avatarUrl}`} alt="Host avatar" width="74" height="74"/>
                 </div>
                 <span className="property__user-name">
-                  {observingOffer && observingOffer.host.name}
-                </span>
+                {observingOffer && observingOffer.host.name}
+                  </span>
                 {observingOffer && observingOffer.host.isPro &&
                 <span className="property__user-status">Pro</span>}
               </div>
@@ -123,10 +116,8 @@ function Offer(): JSX.Element {
               </div>
             </div>
             <section className="property__reviews reviews">
-              <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
-              <ul className="reviews__list">
-                <ReviewsList currentOfferId={id}/>
-              </ul>
+              <ReviewsList currentOfferId={id}/>
+
               {authorizationStatus === AuthorizationStatus.Auth && <SubmitFormComment currentOfferId={id}/>}
             </section>
           </div>

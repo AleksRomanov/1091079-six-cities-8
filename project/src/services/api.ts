@@ -74,6 +74,13 @@ export const api = createApi({
       }),
       transformResponse: (response: OfferType) => adaptFromServerNew(response),
     }),
+    // fetchOfferRating: builder.query<OfferType, string>({
+    //   query: (id) => ({
+    //     url: `${APIRoute.Offers}${id}`,
+    //     method: 'get',
+    //   }),
+    //   transformResponse: (response: OfferType) => adaptFromServerNew(response),
+    // }),
     fetchNearbyOffers: builder.query<OfferType[], string>({
       query: (id) => ({
         url: `${APIRoute.Offers}${id}/nearby`,

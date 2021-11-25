@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import {AppRoute, AuthorizationStatus} from '../../constants';
 import {Link} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
@@ -6,6 +6,7 @@ import {redirectToRoute} from '../../store/action';
 import {useLoginMutation} from '../../services/api';
 import {ReactComponent as Logo} from '../../static/logo.svg';
 import {setAuthStatus} from '../../store/reducer';
+import {useAppSelector} from '../../hooks/useAppSelector';
 
 
 function Login(): JSX.Element {
@@ -17,15 +18,25 @@ function Login(): JSX.Element {
     password: passwordInput,
   };
 
-  const [login] = useLoginMutation();
+  const [submitLogin] = useLoginMutation();
   const dispatch = useAppDispatch();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    login(loginData);
+    submitLogin(loginData);
     dispatch(setAuthStatus(AuthorizationStatus.Auth));
     dispatch(redirectToRoute(AppRoute.Main));
   };
+
+  const authStatus = useAppSelector(state => state.appReducer.authorizationStatus)
+  useEffect(() => {
+    console.log(authStatus);
+    if (authStatus !== AuthorizationStatus.NoAuth && authStatus !== AuthorizationStatus.Unknown) {
+      dispatch(redirectToRoute(AppRoute.Main));
+    }
+    // data && dispatch(setCurrentOfferComments(data));
+  }, [authStatus, dispatch]);
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -51,7 +62,7 @@ function Login(): JSX.Element {
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" onChange={(evt) => setPasswordInput(evt.target.value)} value={passwordInput} type="password" name="password" placeholder="Password" required/>
+                <input className="login__input form__input" onChange={(evt) => setPasswordInput(evt.target.value)} pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{2,}$" value={passwordInput} type="password" name="password" placeholder="Password" required/>
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>

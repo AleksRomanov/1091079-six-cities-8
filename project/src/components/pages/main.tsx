@@ -1,5 +1,5 @@
 import Map from '../map/map';
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {withHeader} from '../../hocs/withHeader';
 import LocationsList from '../locations-list/locations-list';
 import 'react-toastify/dist/ReactToastify.css';
@@ -62,4 +62,5 @@ function Main(): JSX.Element {
   );
 }
 
-export default React.memo(withHeader(Main));
+export {Main};
+export default memo(withHeader(Main));

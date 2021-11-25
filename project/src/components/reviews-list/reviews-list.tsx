@@ -3,7 +3,7 @@ import {nanoid} from 'nanoid';
 import {useFetchCommentsQuery} from '../../services/api';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import React, {useEffect} from 'react';
+import React, {memo, useEffect} from 'react';
 import {setCurrentOfferComments} from '../../store/reducer';
 
 type ReviewsListOutsideProps = {
@@ -28,14 +28,19 @@ function ReviewsList({currentOfferId}: ReviewsListOutsideProps): JSX.Element {
   }
   return (
     <>
-      {currentOfferComments.map((review) => (
-        <PlaceReview
-          review={review}
-          key={nanoid()}
-        />
-      ))}
+
+      <h2 className="reviews__title">Reviews · <span className="reviews__amount">{currentOfferComments.length}</span></h2>
+      <ul className="reviews__list">
+        {currentOfferComments.map((review) => (
+          <PlaceReview
+            review={review}
+            key={nanoid()}
+          />
+        ))}
+      </ul>
+
     </>
   );
 }
 
-export default React.memo(ReviewsList);
+export default memo(ReviewsList);

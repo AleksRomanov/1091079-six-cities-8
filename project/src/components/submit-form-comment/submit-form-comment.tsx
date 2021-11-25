@@ -19,7 +19,7 @@ function SubmitFormComment({currentOfferId}: OutsideCommentFormProps): JSX.Eleme
         <React.Fragment key={nanoid()}>
           <input className="form__rating-input visually-hidden" name="rating" value={i} id={`${i}-stars`} type="radio" onChange={(evt) => setRatingValue(parseInt(evt.target.value, 10))}/>
           <label htmlFor={`${i}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
-            <IconStar className="form__star-image" width="37" height="33"/>
+            <IconStar className="form__star-image" width="37" height="33" />
           </label>
         </React.Fragment>);
     }
