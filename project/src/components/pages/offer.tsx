@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Map from '../map/map';
 import {withHeader} from '../../hocs/withHeader';
 import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
@@ -22,13 +22,10 @@ type offerId = {
 function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
   const {id}: offerId = useParams();
-  const {data, isSuccess: isSuccessFetchOffer, isUninitialized} = useFetchOfferQuery(id);
-
+  const {data, isSuccess: isSuccessFetchOffer} = useFetchOfferQuery(id, {refetchOnMountOrArgChange: true});
 
   useEffect(() => {
-    if (isSuccessFetchOffer && data && !isUninitialized) {
-      console.log('dispatch fetching')
-      console.log(isUninitialized);
+    if (isSuccessFetchOffer && data) {
       dispatch(setOfferPageData(data));
     }
   }, [isSuccessFetchOffer, data, dispatch]);
@@ -41,7 +38,6 @@ function Offer(): JSX.Element {
 
   useEffect(() => {
     if (submitFavoriteData && isFavoriteSuccess) {
-      console.log('dispatch submit')
       dispatch(setOfferPageFavoriteStatus(submitFavoriteData));
     }
   }, [submitFavoriteData, isFavoriteSuccess, dispatch]);
@@ -68,6 +64,10 @@ function Offer(): JSX.Element {
     );
   }
 
+  // observingOffer && console.log(+ !observingOffer.isFavorite);
+  // console.log('is first');
+  // console.log(isFirstRender);
+
   return (
     <main className="page__main page__main--property">
       <section className="property">
@@ -81,7 +81,8 @@ function Offer(): JSX.Element {
               <h1 className="property__name">
                 {observingOffer && observingOffer.title}
               </h1>
-              <button className={`property__bookmark-button button ${observingOffer && observingOffer.isFavorite ? 'property__bookmark-button--active ' : ''}`} type="button" onClick={() => observingOffer && submitFavorite({offerId: observingOffer.id, offerStatus: + !observingOffer.isFavorite})}>
+              <button className={`property__bookmark-button button ${observingOffer && observingOffer.isFavorite ? 'property__bookmark-button--active ' : ''}`} type="button"
+                      onClick={() => observingOffer && submitFavorite({offerId: observingOffer.id, offerStatus: + !observingOffer.isFavorite})}>
                 <IconBookmark className="property__bookmark-icon" width="31" height="33"/>
                 <span className="visually-hidden">To bookmarks</span>
               </button>

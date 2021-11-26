@@ -8,12 +8,14 @@ interface CounterState {
   currentCity: City,
   offers: OfferType[],
   pickedOffers: OfferType[],
+  favoritesOffers: OfferType[],
 }
 
 const initialState: CounterState = {
   offers: [],
   pickedOffers: [],
   currentCity: CitiesList[0],
+  favoritesOffers: [],
 };
 
 export const offersReducer = createSlice({
@@ -28,13 +30,19 @@ export const offersReducer = createSlice({
         case AppRoute.Main:
           state.pickedOffers = state.offers.filter((offer) => state.currentCity && offer.city.name === state.currentCity.city);
           break;
-        case AppRoute.Favorites:
-          break;
+        // case AppRoute.Favorites:
+        //   let res =
+        //   // state.favoritesOffers =;
+        //
+        //   // const citiesWithFavoriteOffers = [...new Set(state.pickedOffers .map((offer) => offer.city.name))];
+        //   // console.log(citiesWithFavoriteOffers);
+        //
+        //
+        //   break;
         default:
           break;
       }
     },
-
     selectCity: (state, action: PayloadAction<string>) => {
       const currentCity = CitiesList.find((city) => city.city === action.payload);
       if (currentCity) {
@@ -70,14 +78,23 @@ export const offersReducer = createSlice({
     setOfferFavoriteStatus: (state, action: PayloadAction<OfferType>) => {
       const currentOffer = state.offers.find((offer) => offer.id === action.payload.id)
       const currentPickedOffer = state.pickedOffers.find((offer) => offer.id === action.payload.id)
-      if (currentOffer && currentPickedOffer){
+      if (currentOffer && currentPickedOffer) {
         currentOffer.isFavorite = action.payload.isFavorite;
         currentPickedOffer.isFavorite = action.payload.isFavorite;
       }
     },
+    pickFavoritesOffers: (state, action: PayloadAction<OfferType[]>) => {
+      CitiesList.forEach((city, index) => {
+        action.payload.map((favoriteOffer) => {
+          if (favoriteOffer.city.name === city.city) {
+            state.favoritesOffers.push(favoriteOffer)
+          }
+        })
+      })
+    },
   },
 });
 
-export const {setOfferFavoriteStatus, selectCity, pickOffers, sortCurrentOffers, loadOffers, setNearbyOffers} = offersReducer.actions;
+export const {pickFavoritesOffers, setOfferFavoriteStatus, selectCity, pickOffers, sortCurrentOffers, loadOffers, setNearbyOffers} = offersReducer.actions;
 
 export default offersReducer.reducer;

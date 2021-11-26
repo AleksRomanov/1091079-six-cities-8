@@ -11,11 +11,10 @@ import Favorites from './pages/favorites';
 import PrivateRoute from './private-route';
 import Page404 from './pages/404';
 import Main from './pages/main';
-import {MainEmpty} from './pages/main-empty';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {isSuccess: isSuccessAuth} = useCheckAuthQuery();
+  const {isSuccess: isSuccessAuth} = useCheckAuthQuery(undefined, {refetchOnMountOrArgChange: true});
 
   useEffect(() => {
     isSuccessAuth ? dispatch(setAuthStatus(AuthorizationStatus.Auth)) : dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
@@ -26,9 +25,6 @@ function App(): JSX.Element {
       <Switch>
         <Route exact path={AppRoute.Main}>
           <Main/>
-        </Route>
-        <Route exact path={AppRoute.EmptyMain}>
-          <MainEmpty/>
         </Route>
         <Route path={AppRoute.Offer} exact render={() => <Offer/>}/>
         <Route path={AppRoute.Login} exact><Login/></Route>

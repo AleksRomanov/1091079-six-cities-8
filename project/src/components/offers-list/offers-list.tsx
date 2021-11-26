@@ -5,9 +5,9 @@ import {AppRoute} from '../../constants';
 import {nanoid} from 'nanoid';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
-import {useFetchNearbyOffersQuery} from '../../services/api';
+import {useFetchFavoritesQuery, useFetchNearbyOffersQuery} from '../../services/api';
 import React from 'react';
-import {setNearbyOffers} from '../../store/offers-reducer';
+import {loadOffers, pickOffers, setNearbyOffers} from '../../store/offers-reducer';
 
 type offerId = {
   id: string,
@@ -15,6 +15,7 @@ type offerId = {
 
 function OffersList(): JSX.Element {
   const isOfferPage = useRouteMatch(AppRoute.Offer);
+  const isFavouritePage = useRouteMatch(AppRoute.Favorites);
   const {id}: offerId = useParams();
   const dispatch = useAppDispatch();
   const pickedOffers = useAppSelector((state) => state.offersReducer.pickedOffers);
@@ -25,7 +26,7 @@ function OffersList(): JSX.Element {
     if (isOfferPage !== null) {
       nearbyData && dispatch(setNearbyOffers(nearbyData));
     }
-  }, [nearbyData, isOfferPage, dispatch]);
+  }, [nearbyData, isOfferPage, dispatch, isFavouritePage]);
 
   return (
     <>

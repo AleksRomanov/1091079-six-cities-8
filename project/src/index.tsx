@@ -12,6 +12,7 @@ export const store = configureStore({
   reducer: {
     appReducer,
     offersReducer,
+    // favoritesReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (gDM) => gDM({

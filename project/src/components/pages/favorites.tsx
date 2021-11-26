@@ -1,11 +1,63 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../constants';
+import {AppRoute, CitiesList} from '../../constants';
 import {withHeader} from '../../hocs/withHeader';
 import OffersList from '../offers-list/offers-list';
 import {ReactComponent as Logo} from '../../static/logo.svg';
-
+import {useFetchFavoritesQuery} from '../../services/api';
+import {Fragment, useEffect} from 'react';
+import {setOfferPageData} from '../../store/reducer';
+import {useAppDispatch} from '../../hooks/useAppDispatch';
+import {loadOffers, pickFavoritesOffers, pickOffers} from '../../store/offers-reducer';
+import {useAppSelector} from '../../hooks/useAppSelector';
+import {nanoid} from 'nanoid';
+import {OfferType} from '../../types/offerType';
+import OfferCard from '../offer-card/offer-card';
+import {City} from '../../types/city';
 
 function Favorites(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const {isSuccess: isSuccessFetchFavorites, data: favoriteData} = useFetchFavoritesQuery(undefined, {refetchOnMountOrArgChange: true});
+
+  useEffect(() => {
+    if (favoriteData && isSuccessFetchFavorites) {
+      dispatch(pickFavoritesOffers(favoriteData));
+    }
+  }, [favoriteData, isSuccessFetchFavorites]);
+
+
+  function renderFavoritesList(currentCity: City, favoriteOffersByCity: OfferType[]) {
+    return (
+      <li className="favorites__locations-items" key={nanoid()}>
+      <div className="favorites__locations locations locations--current">
+        <div className="locations__item">
+          <Link
+            className="locations__item-link"
+            to={AppRoute.Main}
+          >
+            <span>{currentCity.city}</span>
+          </Link>
+        </div>
+      </div>
+      <div className="favorites__places">
+        {favoriteOffersByCity && favoriteOffersByCity.map((favoriteOfferByCity: OfferType) => <OfferCard key={nanoid()} offer={favoriteOfferByCity}/>)}
+      </div>
+    </li>
+    )
+  }
+
+
+  function favoriteOffersRender() {
+    return CitiesList.map((city) => {
+      const favoriteOffersByCity = favoriteData && favoriteData.filter((favoriteOffer: OfferType) => {
+        return favoriteOffer.city.name === city.city
+      });
+      return (
+        <Fragment key={nanoid()}>
+          {favoriteOffersByCity && favoriteOffersByCity.length > 0 && renderFavoritesList(city, favoriteOffersByCity)}
+        </Fragment>
+      )
+    })
+  }
 
   return (
     <>
@@ -14,18 +66,7 @@ function Favorites(): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <Link to={AppRoute.Main} className="locations__item-link">
-                      <span>Amsterdam</span>
-                    </Link>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <OffersList/>
-                </div>
-              </li>
+              {favoriteOffersRender()}
             </ul>
           </section>
         </div>

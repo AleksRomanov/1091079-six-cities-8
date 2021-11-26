@@ -30,8 +30,7 @@ function Login(): JSX.Element {
 
   const authStatus = useAppSelector(state => state.appReducer.authorizationStatus)
   useEffect(() => {
-    console.log(authStatus);
-    if (authStatus !== AuthorizationStatus.NoAuth && authStatus !== AuthorizationStatus.Unknown) {
+    if (authStatus === AuthorizationStatus.NoAuth || !AuthorizationStatus.Unknown) {
       dispatch(redirectToRoute(AppRoute.Main));
     }
     // data && dispatch(setCurrentOfferComments(data));

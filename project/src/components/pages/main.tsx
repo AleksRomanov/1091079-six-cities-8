@@ -15,27 +15,25 @@ import {citiesContainerClass, citiesContainerEmptyClass, citiesSectionClass, cit
 
 function Main(): JSX.Element {
   const pickedOffers = useAppSelector(((state) => state.offersReducer.pickedOffers));
-  const [isFirstRender, setIsFirstRender] = useState(true);
   const currentUrl = useLocation();
-
   const dispatch = useAppDispatch();
 
-
-  const {data: fetchedOffers, isLoading: isLoadingOffers, isSuccess: isSuccessFetchOffers} = useFetchOffersQuery();
+  const {data: fetchedOffers, isLoading: isLoadingOffers, isSuccess: isSuccessFetchOffers} = useFetchOffersQuery(undefined, {refetchOnMountOrArgChange: true});
 
   useEffect(() => {
-    fetchedOffers && isSuccessFetchOffers && dispatch(loadOffers(fetchedOffers));
+    if (isSuccessFetchOffers && fetchedOffers) {
+      dispatch(loadOffers(fetchedOffers));
+    }
   }, [isSuccessFetchOffers, fetchedOffers, dispatch]);
 
 
   useEffect(() => {
-    if (!isLoadingOffers && isSuccessFetchOffers) {
+    if (isSuccessFetchOffers) {
       dispatch(pickOffers(currentUrl.pathname));
-      setIsFirstRender(false);
     }
-  }, [currentUrl, isFirstRender, dispatch, isLoadingOffers, isSuccessFetchOffers]);
+  }, [currentUrl, dispatch, isSuccessFetchOffers, fetchedOffers]);
 
-  const isEmptyOffersGet = () => !pickedOffers.length;
+  const isEmptyOffers = () => !pickedOffers.length;
 
   return (
     <main className="page__main page__main--index">
@@ -47,12 +45,12 @@ function Main(): JSX.Element {
         </section>
       </div>
       <div className="cities">
-        <div className={isEmptyOffersGet() ? citiesContainerEmptyClass : citiesContainerClass}>
-          <section className={isEmptyOffersGet() ? citiesSectionEmptyClass : citiesSectionClass}>
-            {isEmptyOffersGet() ? <OffersEmpty/> : <OffersFiled/>}
+        <div className={isEmptyOffers() ? citiesContainerEmptyClass : citiesContainerClass}>
+          <section className={isEmptyOffers() ? citiesSectionEmptyClass : citiesSectionClass}>
+            {isEmptyOffers() ? <OffersEmpty/> : <OffersFiled/>}
           </section>
           <div className="cities__right-section">
-            {!isEmptyOffersGet() && <section className="cities__map map">
+            {!isEmptyOffers() && <section className="cities__map map">
               <Map/>
             </section>}
           </div>

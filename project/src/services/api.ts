@@ -119,8 +119,15 @@ export const api = createApi({
         return adaptFromServerNew(response);
       },
     }),
+    fetchFavorites: builder.query<OfferType[], void>({
+      query: (id) => ({
+        url: `${APIRoute.Favorite}`,
+        method: 'get',
+      }),
+      transformResponse: (response: OfferType[]) => adaptFromServerNew(response),
+    }),
   }),
 });
 
-export const {useSubmitFavoriteMutation, useCheckAuthQuery, useFetchOffersQuery, useFetchOfferQuery, useLoginMutation, useFetchCommentsQuery, useSubmitCommentMutation, useFetchNearbyOffersQuery} = api;
+export const {useFetchFavoritesQuery, useSubmitFavoriteMutation, useCheckAuthQuery, useFetchOffersQuery, useFetchOfferQuery, useLoginMutation, useFetchCommentsQuery, useSubmitCommentMutation, useFetchNearbyOffersQuery} = api;
 
