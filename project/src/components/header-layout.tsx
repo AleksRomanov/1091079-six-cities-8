@@ -37,22 +37,20 @@ function HeaderLayout({children}: HeaderChildrenProps): JSX.Element {
     return (
       <ul className="header__nav-list">
         {isAuthorised() ?
-        <>
-          <li className="header__nav-item user">
-            <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile">
-              <div className="header__avatar-wrapper user__avatar-wrapper">
-              </div>
-              {getUserName()}
-            </Link>
-          </li>
-          <li className="header__nav-item">
-            <Link to={AppRoute.Login} className="header__nav-link">
-            <span onClick={() => {
-              logOut()
-            }} className="header__signout">Sign out</span>
-            </Link>
-          </li>
-        </>
+          <>
+            <li className="header__nav-item user">
+              <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile">
+                <div className="header__avatar-wrapper user__avatar-wrapper">
+                </div>
+                {getUserName()}
+              </Link>
+            </li>
+            <li className="header__nav-item">
+              <Link to={AppRoute.Login} className="header__nav-link">
+                <span onClick={() => logOut()} className="header__signout">Sign out</span>
+              </Link>
+            </li>
+          </>
           : <><span className="header__login">Sign in</span></>}
       </ul>
     );
