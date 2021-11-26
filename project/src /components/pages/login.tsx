@@ -7,6 +7,7 @@ import {useLoginMutation} from '../../services/api';
 import {ReactComponent as Logo} from '../../static/logo.svg';
 import {setAuthStatus} from '../../store/reducer';
 import {useAppSelector} from '../../hooks/useAppSelector';
+import {saveEmail} from '../../services/token';
 
 
 function Login(): JSX.Element {
@@ -23,14 +24,15 @@ function Login(): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    saveEmail(loginData.email);
     submitLogin(loginData);
     dispatch(setAuthStatus(AuthorizationStatus.Auth));
     dispatch(redirectToRoute(AppRoute.Main));
   };
-
   const authStatus = useAppSelector(state => state.appReducer.authorizationStatus)
+
   useEffect(() => {
-    if (authStatus !== AuthorizationStatus.NoAuth || !AuthorizationStatus.Unknown) {
+    if (authStatus === AuthorizationStatus.Auth) {
       dispatch(redirectToRoute(AppRoute.Main));
     }
   }, [authStatus, dispatch]);

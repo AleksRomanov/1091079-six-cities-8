@@ -35,7 +35,7 @@ function SubmitFormComment({currentOfferId}: OutsideCommentFormProps): JSX.Eleme
     for (let i = 5; i >= 1; i--) {
       panelMarkup.push(
         <Fragment key={nanoid()}>
-          <input className="form__rating-input visually-hidden" name="rating" value={i} id={`${i}-stars`} type="radio" onChange={(evt) => {
+          <input className="form__rating-input visually-hidden" checked={ratingValue === i} name="rating" value={i} id={`${i}-stars`} type="radio" onChange={(evt) => {
             setRatingValue(i)
           }}/>
           <label htmlFor={`${i}-stars`} className="reviews__rating-label form__rating-label" title="perfect">

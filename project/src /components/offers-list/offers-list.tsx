@@ -1,5 +1,5 @@
 import {useParams, useRouteMatch} from 'react-router-dom';
-import {memo, useEffect} from 'react';
+import {memo, useEffect, useState} from 'react';
 import OfferCard from '../offer-card/offer-card';
 import {AppRoute} from '../../constants';
 import {nanoid} from 'nanoid';
@@ -19,14 +19,18 @@ function OffersList(): JSX.Element {
   const {id}: offerId = useParams();
   const dispatch = useAppDispatch();
   const pickedOffers = useAppSelector((state) => state.offersReducer.pickedOffers);
-
-  const {data: nearbyData} = useFetchNearbyOffersQuery(id);
+  const {data: nearbyData, isSuccess} = useFetchNearbyOffersQuery(id, {refetchOnMountOrArgChange: true});
+  const [isFirstRender, setFirstRenderStatus] = useState(true);
 
   useEffect(() => {
-    if (isOfferPage !== null) {
+    if (isOfferPage !== null && isFirstRender && isSuccess) {
       nearbyData && dispatch(setNearbyOffers(nearbyData));
+      setFirstRenderStatus(false);
     }
-  }, [nearbyData, isOfferPage, dispatch, isFavouritePage]);
+    if (isOfferPage !== null && !isFirstRender) {
+      nearbyData && dispatch(setNearbyOffers(pickedOffers));
+    }
+  }, [isSuccess, nearbyData, isOfferPage, dispatch, isFavouritePage, pickedOffers, isFirstRender, setFirstRenderStatus]);
 
   return (
     <>

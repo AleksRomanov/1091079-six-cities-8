@@ -1,12 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+
 import App from './components/app';
 import {Provider} from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit';
 import {api} from './services/api';
-import {redirect} from './store/middlewares/redirect';
 import offersReducer from './store/offers-reducer';
 import appReducer from './store/reducer';
+// import favoritesReducer from './store/favorites-reducer';
+import {redirect} from './store/middlewares/redirect';
+import ReactDOM = require('react-dom');
+import React = require('react');
+
 
 export const store = configureStore({
   reducer: {
@@ -18,7 +21,8 @@ export const store = configureStore({
   middleware: (gDM) => gDM({
     thunk: {
       extraArgument: api,
-    }}).concat(redirect, api.middleware),
+    }
+  }).concat(redirect, api.middleware),
 });
 
 ReactDOM.render(

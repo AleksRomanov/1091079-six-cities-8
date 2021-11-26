@@ -76,15 +76,25 @@ export const offersReducer = createSlice({
       }
     },
     setOfferFavoriteStatus: (state, action: PayloadAction<OfferType>) => {
-      const currentOffer = state.offers.find((offer) => offer.id === action.payload.id)
-      const currentPickedOffer = state.pickedOffers.find((offer) => offer.id === action.payload.id)
-      if (currentOffer && currentPickedOffer) {
+      const currentOffer = state.offers.find((offer) => offer.id === action.payload.id);
+      const currentPickedOffer = state.pickedOffers.find((offer) => offer.id === action.payload.id);
+      // console.log('submit')
+
+      if (currentOffer) {
+        console.log('submit1')
+        console.log(currentOffer)
         currentOffer.isFavorite = action.payload.isFavorite;
+      }
+      if (currentPickedOffer) {
+        console.log('submit2')
         currentPickedOffer.isFavorite = action.payload.isFavorite;
+        console.log(action.payload.isFavorite)
+        console.log(current(currentPickedOffer))
+
       }
     },
     pickFavoritesOffers: (state, action: PayloadAction<OfferType[]>) => {
-      CitiesList.forEach((city, index) => {
+      CitiesList.forEach((city) => {
         action.payload.map((favoriteOffer) => {
           if (favoriteOffer.city.name === city.city) {
             state.favoritesOffers.push(favoriteOffer)
