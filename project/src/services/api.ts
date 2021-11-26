@@ -2,7 +2,7 @@ import {BaseQueryFn} from '@reduxjs/toolkit/query';
 import {createApi} from '@reduxjs/toolkit/dist/query/react';
 import {OfferType} from '../types/offerType';
 import {adaptFromServerNew} from '../utils';
-import {getToken, saveToken} from './token';
+import {dropEmail, dropToken, getToken, saveEmail, saveToken} from './token';
 import {ReviewType} from '../types/reviewType';
 import {APIRoute} from '../constants';
 import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
@@ -96,6 +96,18 @@ export const api = createApi({
       }),
       transformResponse: (response: AuthData) => {
         response && saveToken(response.token);
+        response && saveEmail(response.email);
+        return response;
+      },
+    }),
+    logOut: builder.mutation<void, void>({
+      query: () => ({
+        url: `${APIRoute.Logout}`,
+        method: 'delete',
+      }),
+      transformResponse: (response: void) => {
+        dropEmail();
+        dropToken();
         return response;
       },
     }),
@@ -129,5 +141,5 @@ export const api = createApi({
   }),
 });
 
-export const {useFetchFavoritesQuery, useSubmitFavoriteMutation, useCheckAuthQuery, useFetchOffersQuery, useFetchOfferQuery, useLoginMutation, useFetchCommentsQuery, useSubmitCommentMutation, useFetchNearbyOffersQuery} = api;
+export const {useLogOutMutation, useFetchFavoritesQuery, useSubmitFavoriteMutation, useCheckAuthQuery, useFetchOffersQuery, useFetchOfferQuery, useLoginMutation, useFetchCommentsQuery, useSubmitCommentMutation, useFetchNearbyOffersQuery} = api;
 
