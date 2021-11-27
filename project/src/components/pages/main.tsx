@@ -12,7 +12,7 @@ import {useFetchOffersQuery} from '../../services/api';
 import {useLocation} from 'react-router-dom';
 import {OffersFiled} from '../offers-filed/offers-filed';
 import {citiesContainerClass, citiesContainerEmptyClass, citiesSectionClass, citiesSectionEmptyClass} from '../../constants';
-import {isEmptyOffers} from '../../utils';
+import {isEmptyOffers} from '../../utils/utils';
 
 function Main(): JSX.Element {
   const dispatch = useAppDispatch();

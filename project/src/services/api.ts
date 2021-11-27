@@ -1,7 +1,7 @@
 import {BaseQueryFn} from '@reduxjs/toolkit/query';
 import {createApi} from '@reduxjs/toolkit/dist/query/react';
 import {OfferType} from '../types/offerType';
-import {adaptFromServerNew} from '../utils';
+import {adaptFromServerNew} from '../utils/utils';
 import {dropEmail, dropToken, getToken, saveEmail, saveToken} from './token';
 import {ReviewType} from '../types/reviewType';
 import {APIRoute} from '../constants';
