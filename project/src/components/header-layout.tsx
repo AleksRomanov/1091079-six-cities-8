@@ -7,7 +7,7 @@ import {getEmail} from '../services/token';
 import {useLogOutMutation} from '../services/api';
 import {useAppDispatch} from '../hooks/useAppDispatch';
 import {setAuthStatus} from '../store/reducer';
-import {isAuthorised} from '../utils';
+import {redirectToRoute} from '../store/action';
 
 
 type HeaderChildrenProps = {
@@ -15,35 +15,36 @@ type HeaderChildrenProps = {
 }
 
 function HeaderLayout({children}: HeaderChildrenProps): JSX.Element {
-  const dispatch = useAppDispatch();
   const authStatus = useAppSelector((state) => state.appReducer.authorizationStatus);
+  const dispatch = useAppDispatch();
+  const isAuthorised = () => authStatus === AuthorizationStatus.Auth;
   const [logOut] = useLogOutMutation();
-  const [userDataEmail, setUserData] = useState(getEmail())
+  const [userDataEmail, setUserData] = useState(getEmail());
 
   useEffect(() => {
     let userEmail = getEmail();
     setUserData(userEmail);
   }, [authStatus, getEmail()])
 
-
   const onLogoutClick = () => {
     dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
     logOut();
+    // dispatch(redirectToRoute(AppRoute.Main));
   }
 
   function LoginPanel() {
     return (
       <ul className="header__nav-list">
         <li className="header__nav-item user">
-          <Link to={isAuthorised(authStatus) ? AppRoute.Favorites : AppRoute.Login} className="header__nav-link header__nav-link--profile">
-            <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-            {isAuthorised(authStatus) ? <span className="header__user-name user__name">{userDataEmail}</span> : <span className="header__login">Sign in</span>}
+          <Link to={isAuthorised() ? AppRoute.Favorites : AppRoute.Login} className="header__nav-link header__nav-link--profile">
+            {/*<div className="header__avatar-wrapper user__avatar-wrapper"></div>*/}
+            {isAuthorised() ? <span className="header__user-name user__name">{userDataEmail}</span> : <span className="header__login">Sign in</span>}
           </Link>
         </li>
-        {isAuthorised(authStatus) && <li className="header__nav-item">
-            <a className="header__nav-link" onClick={onLogoutClick} href="#">
-                <span className="header__signout">Sign out</span>
-            </a>
+        {isAuthorised() && <li className="header__nav-item">
+          <Link className="header__nav-link" onClick={onLogoutClick} to={AppRoute.Main}>
+            <span className="header__signout">Sign out</span>
+          </Link>
         </li>}
       </ul>
     );
