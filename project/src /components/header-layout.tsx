@@ -34,6 +34,7 @@ function HeaderLayout({children}: HeaderChildrenProps): JSX.Element {
 
   }
 
+
   function LoginPanel() {
     return (
       <ul className="header__nav-list">
@@ -60,6 +61,7 @@ function HeaderLayout({children}: HeaderChildrenProps): JSX.Element {
             <div className="header__left">
               <Link to={AppRoute.Main} className="header__logo-link header__logo-link--active">
                 <Logo className="header__logo" width="81" height="41"/>
+                {/*<img className="header__logo" src="../static/logo.svg" alt="6 cities logo" width="81" height="41"/>*/}
               </Link>
             </div>
             <nav className="header__nav">

@@ -96,7 +96,7 @@ export const api = createApi({
       }),
       transformResponse: (response: AuthData) => {
         response && saveToken(response.token);
-        response && saveEmail(response.email);
+        // response && saveEmail(response.email);
         return response;
       },
     }),
