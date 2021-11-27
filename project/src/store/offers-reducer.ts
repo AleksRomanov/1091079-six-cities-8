@@ -36,8 +36,6 @@ export const offersReducer = createSlice({
         //
         //   // const citiesWithFavoriteOffers = [...new Set(state.pickedOffers .map((offer) => offer.city.name))];
         //   // console.log(citiesWithFavoriteOffers);
-        //
-        //
         //   break;
         default:
           break;
