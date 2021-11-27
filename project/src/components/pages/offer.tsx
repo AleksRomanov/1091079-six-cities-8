@@ -64,10 +64,6 @@ function Offer(): JSX.Element {
     );
   }
 
-  // observingOffer && console.log(+ !observingOffer.isFavorite);
-  // console.log('is first');
-  // console.log(isFirstRender);
-
   return (
     <main className="page__main page__main--property">
       <section className="property">

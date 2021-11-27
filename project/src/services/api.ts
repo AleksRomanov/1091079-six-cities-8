@@ -105,10 +105,9 @@ export const api = createApi({
         url: `${APIRoute.Logout}`,
         method: 'delete',
       }),
-      transformResponse: (response: void) => {
+      transformResponse: () => {
         dropEmail();
         dropToken();
-        return response;
       },
     }),
     submitComment: builder.mutation<ReviewType[], { data: commentSubmitData; currentOfferId: string }>({

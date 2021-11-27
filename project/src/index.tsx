@@ -7,6 +7,7 @@ import {api} from './services/api';
 import {redirect} from './store/middlewares/redirect';
 import offersReducer from './store/offers-reducer';
 import appReducer from './store/reducer';
+// import {favoritesReducer} from './store/favorites-reducer';
 
 export const store = configureStore({
   reducer: {

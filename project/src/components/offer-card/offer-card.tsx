@@ -5,7 +5,6 @@ import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {setMapHoveredOffer} from '../../store/reducer';
 import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
 import React, {useEffect} from 'react';
-import {log} from 'util';
 import {useSubmitFavoriteMutation} from '../../services/api';
 import {setOfferFavoriteStatus} from '../../store/offers-reducer';
 
@@ -34,11 +33,11 @@ function OfferCard({offer}: OfferCardProps): JSX.Element {
 
   const articleClass = isFavouritePage ? offerCardClasses.favoritesArticleClass : offerCardClasses.mainArticleClass;
   const imageData = isFavouritePage ? offerCardClasses.favoritesImageData : offerCardClasses.mainImageData;
-  const [submitFavorite, {data: submitFavoriteData, isSuccess: isFavoriteSuccess}] = useSubmitFavoriteMutation();
+  const [submitFavorite, {data: submitFavoriteData, isSuccess: isFavoriteSubmitSuccess}] = useSubmitFavoriteMutation();
 
   useEffect(() => {
-    submitFavoriteData && isFavoriteSuccess && dispatch(setOfferFavoriteStatus(submitFavoriteData));
-  }, [submitFavoriteData, isFavoriteSuccess, dispatch]);
+    submitFavoriteData && isFavoriteSubmitSuccess && dispatch(setOfferFavoriteStatus(submitFavoriteData));
+  }, [submitFavoriteData, isFavoriteSubmitSuccess, dispatch]);
 
   return (
     <article className={articleClass} onMouseEnter={() => onCardSelect(offer)} onMouseLeave={() => onCardSelect(null)}>
