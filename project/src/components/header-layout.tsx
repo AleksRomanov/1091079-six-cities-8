@@ -29,7 +29,6 @@ function HeaderLayout({children}: HeaderChildrenProps): JSX.Element {
   const onLogoutClick = () => {
     dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
     logOut();
-    // dispatch(redirectToRoute(AppRoute.Main));
   }
 
   function LoginPanel() {
