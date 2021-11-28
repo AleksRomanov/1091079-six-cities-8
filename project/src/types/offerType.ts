@@ -35,7 +35,7 @@ type OfferType = {
   type: OfferKind;
 };
 
-
+/*eslint-disable*/
 type OfferTypeFromServer = {
   bedrooms: number;
   city: {
@@ -70,6 +70,6 @@ type OfferTypeFromServer = {
   title: string;
   type: OfferKind;
 };
-
+/*eslint-disable*/
 
 export type {OfferType, OfferTypeFromServer};

@@ -2,7 +2,7 @@ import {OfferType, OfferTypeFromServer} from '../types/offerType';
 import {address, datatype, image, lorem, name, date} from 'faker';
 import {ReviewType} from '../types/reviewType';
 import {CitiesList} from '../constants';
-
+/*eslint-disable*/
 export let makeFakeOffer = (): OfferType => ({
   bedrooms: datatype.number({min: 1, max: 5}),
   city: {name: CitiesList[0].name, location: {latitude:  + address.latitude(), longitude: + address.longitude(), zoom: datatype.number(8)}},
@@ -51,8 +51,8 @@ export const makeFakeReview = (): ReviewType => ({
     id: datatype.number(),
     isPro: datatype.boolean(),
     name: name.firstName(),
-  }
-} as ReviewType)
-
+  },
+} as ReviewType);
 
 export const makeFakeComment = (): string => lorem.words(50);
+/*eslint-disable*/

@@ -6,7 +6,7 @@ import {makeFakeOffer, makeFakeReview} from '../../utils/mocks';
 const mockOffer = makeFakeOffer();
 const mockReview = makeFakeReview();
 
-
+/*eslint-disable*/
 describe('Reducer: app-reducer', () => {
   describe('Action: setAuthStatus', () => {
     it('should set authorization status by a given value', () => {
@@ -65,3 +65,4 @@ describe('Reducer: app-reducer', () => {
     });
   });
 });
+/*eslint-disable*/

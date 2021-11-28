@@ -6,7 +6,7 @@ import {loadOffers, pickFavoritesOffers, pickOffers, selectCity, setNearbyOffers
 const mockOffer = makeFakeOffer();
 const mockOfferSecond = makeFakeOffer();
 
-
+/*eslint-disable*/
 describe('Reducer: offers-reducer', () => {
   describe('Action: loadOffers', () => {
     it('should set offers data by a given value', () => {
@@ -92,3 +92,4 @@ describe('Reducer: offers-reducer', () => {
     });
   });
 });
+/*eslint-disable*/

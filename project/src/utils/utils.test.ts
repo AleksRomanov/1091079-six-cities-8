@@ -2,7 +2,7 @@ import {checkCommentLengthValidity, isEmptyOffers} from './utils';
 import {OfferType} from '../types/offerType';
 import {makeFakeComment, makeFakeOffer, makeFakeOfferFromServer} from './mocks';
 import {adaptDataFromServer} from './data-server-adapter';
-
+/*eslint-disable*/
 const mockOffer = makeFakeOffer();
 const mockServerOffer = makeFakeOfferFromServer();
 
@@ -14,7 +14,7 @@ describe('Utils', () => {
         .toBe(true);
     });
     it('should return "false" if offers array not empty', () => {
-      const filledOffersArray: OfferType[] = [mockOffer]
+      const filledOffersArray: OfferType[] = [mockOffer];
       expect(isEmptyOffers(filledOffersArray))
         .toBe(false);
     });
@@ -46,4 +46,4 @@ describe('Utils', () => {
     });
   });
 });
-
+/*eslint-disable*/
