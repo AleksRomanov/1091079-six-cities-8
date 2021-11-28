@@ -1,5 +1,5 @@
 import {OfferType, OfferTypeFromServer} from '../types/offerType';
-import {address, datatype, image, lorem, random, name, date} from 'faker';
+import {address, datatype, image, lorem, name, date} from 'faker';
 import {ReviewType} from '../types/reviewType';
 import {CitiesList} from '../constants';
 
