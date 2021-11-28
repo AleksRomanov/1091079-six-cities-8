@@ -19,7 +19,7 @@ function Favorites(): JSX.Element {
     if (favoriteData && isSuccessFetchFavorites) {
       dispatch(pickFavoritesOffers(favoriteData));
     }
-  }, [favoriteData, isSuccessFetchFavorites]);
+  }, [favoriteData, dispatch,isSuccessFetchFavorites]);
 
   function renderFavoritesList(currentCity: City, favoriteOffersByCity: OfferType[]) {
     return (

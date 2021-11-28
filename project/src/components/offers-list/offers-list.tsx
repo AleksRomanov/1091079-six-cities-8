@@ -7,7 +7,7 @@ import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {useFetchNearbyOffersQuery} from '../../services/api';
 import React from 'react';
-import {pickOffers, setNearbyOffers} from '../../store/offers-reducer/offers-reducer';
+import {setNearbyOffers} from '../../store/offers-reducer/offers-reducer';
 
 type offerId = {
   id: string,
