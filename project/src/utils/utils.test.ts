@@ -1,6 +1,7 @@
-import {adaptDataFromServer, checkCommentLengthValidity, isEmptyOffers} from './utils';
-import {OfferType, OfferTypeFromServer} from '../types/offerType';
+import {checkCommentLengthValidity, isEmptyOffers} from './utils';
+import {OfferType} from '../types/offerType';
 import {makeFakeComment, makeFakeOffer, makeFakeOfferFromServer} from './mocks';
+import {adaptDataFromServer} from './data-server-adapter';
 
 const mockOffer = makeFakeOffer();
 const mockServerOffer = makeFakeOfferFromServer();
@@ -30,19 +31,6 @@ describe('Utils', () => {
         .toBe(false);
     });
   });
-  describe('Function: isCommentsValid', () => {
-    it('should return "true" if comment valid', () => {
-      const validComment = makeFakeComment();
-      expect(checkCommentLengthValidity(validComment))
-        .toBe(true);
-    });
-    it('should return "false" if comment not valid', () => {
-      const notValidComment: string = '';
-      expect(checkCommentLengthValidity(notValidComment))
-        .toBe(false);
-    });
-  });
-
   describe('Function: adaptDataFromServer', () => {
     it('should return adapted from server offer object ', () => {
       const localOfferKeys = Object.keys(mockOffer);

@@ -63,7 +63,6 @@ export const apiReducer = createApi({
       }),
       transformResponse: (response: AuthData) => {
         response && saveToken(response.token);
-        // response && saveEmail(response.email);
         return response;
       },
     }),
