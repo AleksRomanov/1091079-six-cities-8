@@ -7,6 +7,8 @@ function useMap(
   city: City | undefined,
 ): Map | null {
 
+  const zoomValue = 10;
+
   const [map, setMap] = useState<Map | null>(null);
 
   useEffect(() => {
@@ -18,7 +20,7 @@ function useMap(
             lat: city.location.latitude,
             lng: city.location.longitude,
           },
-          zoom: 10,
+          zoom: zoomValue,
         });
 
         const layer = new TileLayer(

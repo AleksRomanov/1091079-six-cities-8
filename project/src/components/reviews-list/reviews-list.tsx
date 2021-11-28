@@ -1,6 +1,6 @@
 import PlaceReview from '../place-review/place-review';
 import {nanoid} from 'nanoid';
-import {useFetchCommentsQuery} from '../../services/api';
+import {useFetchCommentsQuery} from '../../store/api-reducer';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import React, {memo, useEffect} from 'react';
 import {setCurrentOfferComments} from '../../store/app-reducer/app-reducer';

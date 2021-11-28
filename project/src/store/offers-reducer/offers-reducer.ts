@@ -27,7 +27,6 @@ export const offersReducer = createSlice({
     },
     selectCity: (state, action: PayloadAction<City>) => {
       state.currentCity = action.payload;
-      state.pickedOffers = state.offers.filter((offer) => offer.city.name === action.payload.name);
     },
     pickOffers: (state) => {
       state.pickedOffers = state.offers.filter((offer) => state.currentCity && offer.city.name === state.currentCity.name);
@@ -70,12 +69,8 @@ export const offersReducer = createSlice({
     },
     pickFavoritesOffers: (state, action: PayloadAction<OfferType[]>) => {
       CitiesList.forEach((city) => {
-        action.payload.map((favoriteOffer) => {
-          if (favoriteOffer.city.name === city.name) {
-            state.favoritesOffers.push(favoriteOffer)
-          }
-        })
-      })
+        action.payload.map((favoriteOffer) => favoriteOffer.city.name === city.name && state.favoritesOffers.push(favoriteOffer));
+      });
     },
   },
 });

@@ -2,6 +2,7 @@ import {ActionType} from '../../types/action';
 import browserHistory from '../../browser-history';
 import {Middleware} from '@reduxjs/toolkit';
 
+/*eslint-disable*/
 export const redirect: Middleware<unknown, any> =
   (_store) =>
     (next) =>
@@ -11,3 +12,4 @@ export const redirect: Middleware<unknown, any> =
         }
         return next(action);
       };
+/*eslint-disable*/

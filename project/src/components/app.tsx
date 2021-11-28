@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {Router as BrowserRouter, Route, Switch} from 'react-router-dom';
 import browserHistory from '../browser-history';
 import {useAppDispatch} from '../hooks/useAppDispatch';
-import {useCheckAuthQuery} from '../services/api';
+import {useCheckAuthQuery} from '../store/api-reducer';
 import {setAuthStatus} from '../store/app-reducer/app-reducer';
 import Offer from './pages/offer';
 import Login from './pages/login';

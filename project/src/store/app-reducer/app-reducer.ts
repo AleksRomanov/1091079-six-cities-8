@@ -22,7 +22,7 @@ export const appReducer = createSlice({
   initialState,
   reducers: {
     setAuthStatus: (state, action: PayloadAction<AuthorizationStatus>) => {
-      state.authorizationStatus = action.payload
+      state.authorizationStatus = action.payload;
     },
     setMapHoveredOffer: (state, action: PayloadAction<OfferType | null>) => {
       state.mapHoveredOffer = action.payload;

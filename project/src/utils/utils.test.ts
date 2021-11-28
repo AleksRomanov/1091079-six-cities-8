@@ -1,4 +1,4 @@
-import {adaptDataFromServer, isCommentsValid, isEmptyOffers} from './utils';
+import {adaptDataFromServer, checkCommentLengthValidity, isEmptyOffers} from './utils';
 import {OfferType, OfferTypeFromServer} from '../types/offerType';
 import {makeFakeComment, makeFakeOffer, makeFakeOfferFromServer} from './mocks';
 
@@ -21,24 +21,24 @@ describe('Utils', () => {
   describe('Function: isCommentsValid', () => {
     it('should return "true" if comment valid', () => {
       const validComment = makeFakeComment();
-      expect(isCommentsValid(validComment))
+      expect(checkCommentLengthValidity(validComment))
         .toBe(true);
     });
     it('should return "false" if comment not valid', () => {
       const notValidComment: string = '';
-      expect(isCommentsValid(notValidComment))
+      expect(checkCommentLengthValidity(notValidComment))
         .toBe(false);
     });
   });
   describe('Function: isCommentsValid', () => {
     it('should return "true" if comment valid', () => {
       const validComment = makeFakeComment();
-      expect(isCommentsValid(validComment))
+      expect(checkCommentLengthValidity(validComment))
         .toBe(true);
     });
     it('should return "false" if comment not valid', () => {
       const notValidComment: string = '';
-      expect(isCommentsValid(notValidComment))
+      expect(checkCommentLengthValidity(notValidComment))
         .toBe(false);
     });
   });

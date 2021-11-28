@@ -1,20 +1,19 @@
 import {configureStore} from '@reduxjs/toolkit';
 import appReducer from './app-reducer/app-reducer';
 import offersReducer from './offers-reducer/offers-reducer';
-import {api} from '../services/api';
+import {apiReducer} from './api-reducer';
 import {redirect} from './middlewares/redirect';
 
 export const store = configureStore({
   reducer: {
     appReducer,
     offersReducer,
-    // favoritesReducer,
-    [api.reducerPath]: api.reducer,
+    [apiReducer.reducerPath]: apiReducer.reducer,
   },
   middleware: (gDM) => gDM({
     thunk: {
-      extraArgument: api,
-    }}).concat(redirect, api.middleware),
+      extraArgument: apiReducer,
+    }}).concat(redirect, apiReducer.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

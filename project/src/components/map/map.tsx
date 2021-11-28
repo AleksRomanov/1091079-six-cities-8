@@ -5,7 +5,6 @@ import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import {useAppSelector} from '../../hooks/useAppSelector';
 
-
 function Map(): JSX.Element {
   const currentCity = useAppSelector(((state) => state.offersReducer.currentCity));
   const pickedOffers = useAppSelector(((state) => state.offersReducer.pickedOffers));

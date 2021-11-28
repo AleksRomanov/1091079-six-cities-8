@@ -3,12 +3,11 @@ import React, {memo, useEffect} from 'react';
 import {withHeader} from '../../hocs/withHeader';
 import LocationsList from '../locations-list/locations-list';
 import 'react-toastify/dist/ReactToastify.css';
-import {ToastContainer} from 'react-toastify';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {OffersEmpty} from '../offers-empty/offers-empty';
 import {loadOffers, pickOffers} from '../../store/offers-reducer/offers-reducer';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {useFetchOffersQuery} from '../../services/api';
+import {useFetchOffersQuery} from '../../store/api-reducer';
 import {useLocation} from 'react-router-dom';
 import {OffersFiled} from '../offers-filed/offers-filed';
 import {citiesContainerClass, citiesContainerEmptyClass, citiesSectionClass, citiesSectionEmptyClass} from '../../constants';
@@ -35,7 +34,6 @@ function Main(): JSX.Element {
 
   return (
     <main className="page__main page__main--index">
-      <ToastContainer autoClose={2000}/>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
@@ -48,9 +46,7 @@ function Main(): JSX.Element {
             {isEmptyOffers(pickedOffers) ? <OffersEmpty/> : <OffersFiled/>}
           </section>
           <div className="cities__right-section">
-            {!isEmptyOffers(pickedOffers) && <section className="cities__map map">
-              <Map/>
-            </section>}
+            {!isEmptyOffers(pickedOffers) && <section className="cities__map map"><Map/></section>}
           </div>
         </div>
       </div>

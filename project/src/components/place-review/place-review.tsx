@@ -1,5 +1,6 @@
 import {ReviewType} from '../../types/reviewType';
 import dayjs from 'dayjs';
+import {countOfStars, fullPercentageCount} from '../../constants';
 
 type PlaceReviewProps = {
   review: ReviewType,
@@ -7,6 +8,8 @@ type PlaceReviewProps = {
 
 function PlaceReview({review}: PlaceReviewProps): JSX.Element {
   const {comment, date, rating, user} = review;
+  const calculateRatingWidth = () => (fullPercentageCount * rating) / countOfStars;
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -19,7 +22,7 @@ function PlaceReview({review}: PlaceReviewProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${(100 * rating) / 5}%`}}/>
+            <span style={{width: `${calculateRatingWidth()}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

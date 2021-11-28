@@ -33,42 +33,42 @@ export const CitiesList = [
     location: {
       latitude: 48.85661,
       longitude: 2.351499,
-    }
+    },
   },
   {
     name: 'Cologne',
     location: {
       latitude: 50.938361,
       longitude: 6.959974,
-    }
+    },
   },
   {
     name: 'Brussels',
     location: {
       latitude: 50.846557,
       longitude: 4.351697,
-    }
+    },
   },
   {
     name: 'Amsterdam',
     location: {
       latitude: 52.37454,
       longitude: 4.897976,
-    }
+    },
   },
   {
     name: 'Hamburg',
     location: {
       latitude: 53.550341,
       longitude: 10.000654,
-    }
+    },
   },
   {
     name: 'Dusseldorf',
     location: {
       latitude: 51.225402,
       longitude: 6.776314,
-    }
+    },
   },
 ];
 
@@ -98,3 +98,6 @@ export const citiesContainerEmptyClass = 'cities__places-container container cit
 export const citiesContainerClass = 'cities__places-container container';
 export const citiesSectionEmptyClass = 'cities__no-places';
 export const citiesSectionClass = 'cities__places places';
+
+export const fullPercentageCount = 100;
+export const countOfStars = 5;

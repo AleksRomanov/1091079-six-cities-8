@@ -3,7 +3,7 @@ import {AppRoute, AuthorizationStatus} from '../../constants';
 import {Link} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {redirectToRoute} from '../../store/action';
-import {useLoginMutation} from '../../services/api';
+import {useLoginMutation} from '../../store/api-reducer';
 import {ReactComponent as Logo} from '../../static/logo.svg';
 import {setAuthStatus} from '../../store/app-reducer/app-reducer';
 import {useAppSelector} from '../../hooks/useAppSelector';
@@ -13,7 +13,7 @@ import {saveEmail} from '../../services/token';
 function Login(): JSX.Element {
   const dispatch = useAppDispatch();
   const [submitLogin] = useLoginMutation();
-  const authStatus = useAppSelector(state => state.appReducer.authorizationStatus)
+  const authStatus = useAppSelector((state) => state.appReducer.authorizationStatus);
   const [loginInput, setLoginInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 

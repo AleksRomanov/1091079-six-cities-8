@@ -7,10 +7,10 @@ import {nanoid} from 'nanoid';
 import ReviewsList from '../reviews-list/reviews-list';
 import SubmitFormComment from '../submit-form-comment/submit-form-comment';
 import OffersList from '../offers-list/offers-list';
-import {AuthorizationStatus} from '../../constants';
+import {AuthorizationStatus, countOfStars, fullPercentageCount} from '../../constants';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
-import {useFetchOfferQuery, useSubmitFavoriteMutation} from '../../services/api';
+import {useFetchOfferQuery, useSubmitFavoriteMutation} from '../../store/api-reducer';
 import {setOfferPageData, setOfferPageFavoriteStatus} from '../../store/app-reducer/app-reducer';
 
 type offerId = {
@@ -37,6 +37,8 @@ function Offer(): JSX.Element {
       dispatch(setOfferPageFavoriteStatus(submitFavoriteData));
     }
   }, [submitFavoriteData, isSuccessFavoriteSubmit, dispatch]);
+
+  const calculateRatingWidth = () => (observingOffer ? fullPercentageCount * observingOffer.rating : 0) / countOfStars;
 
   function RenderImages() {
     return (
@@ -73,15 +75,14 @@ function Offer(): JSX.Element {
               <h1 className="property__name">
                 {observingOffer && observingOffer.title}
               </h1>
-              <button className={`property__bookmark-button button ${observingOffer && observingOffer.isFavorite ? 'property__bookmark-button--active ' : ''}`} type="button"
-                      onClick={() => observingOffer && submitFavorite({offerId: observingOffer.id, offerStatus: + !observingOffer.isFavorite})}>
+              <button className={`property__bookmark-button button ${observingOffer && observingOffer.isFavorite ? 'property__bookmark-button--active ' : ''}`} type="button" onClick={() => observingOffer && submitFavorite({offerId: observingOffer.id, offerStatus: +!observingOffer.isFavorite})}>
                 <IconBookmark className="property__bookmark-icon" width="31" height="33"/>
                 <span className="visually-hidden">To bookmarks</span>
               </button>
             </div>
-            <div className="property__rating rating" >
+            <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{width: `${(observingOffer ? 100 * observingOffer.rating : 0) / 5}%`}}/>
+                <span style={{width: `${calculateRatingWidth()}%`}}/>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="property__rating-value rating__value">{observingOffer && observingOffer.rating}</span>
@@ -113,9 +114,7 @@ function Offer(): JSX.Element {
                 <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
                   <img className="property__avatar user__avatar" src={observingOffer && `../${observingOffer.host.avatarUrl}`} alt="Host avatar" width="74" height="74"/>
                 </div>
-                <span className="property__user-name">
-                {observingOffer && observingOffer.host.name}
-                  </span>
+                <span className="property__user-name">{observingOffer && observingOffer.host.name}</span>
                 {observingOffer && observingOffer.host.isPro &&
                 <span className="property__user-status">Pro</span>}
               </div>
@@ -126,7 +125,7 @@ function Offer(): JSX.Element {
               </div>
             </div>
             <section className="property__reviews reviews">
-              <ReviewsList currentOfferComments={currentOfferComments}  currentOfferId={id}/>
+              <ReviewsList currentOfferComments={currentOfferComments} currentOfferId={id}/>
               {authorizationStatus === AuthorizationStatus.Auth && <SubmitFormComment currentOfferId={id}/>}
             </section>
           </div>

@@ -5,7 +5,7 @@ import {AppRoute} from '../../constants';
 import {nanoid} from 'nanoid';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
-import {useFetchNearbyOffersQuery} from '../../services/api';
+import {useFetchNearbyOffersQuery} from '../../store/api-reducer';
 import React from 'react';
 import {setNearbyOffers} from '../../store/offers-reducer/offers-reducer';
 
