@@ -5,7 +5,7 @@ import {ReactComponent as Logo} from '../../static/logo.svg';
 import {useFetchFavoritesQuery} from '../../services/api';
 import {Fragment, useEffect} from 'react';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {pickFavoritesOffers} from '../../store/offers-reducer';
+import {pickFavoritesOffers} from '../../store/offers-reducer/offers-reducer';
 import {nanoid} from 'nanoid';
 import {OfferType} from '../../types/offerType';
 import OfferCard from '../offer-card/offer-card';
@@ -19,7 +19,7 @@ function Favorites(): JSX.Element {
     if (favoriteData && isSuccessFetchFavorites) {
       dispatch(pickFavoritesOffers(favoriteData));
     }
-  }, [favoriteData, isSuccessFetchFavorites, dispatch]);
+  }, [favoriteData, isSuccessFetchFavorites]);
 
   function renderFavoritesList(currentCity: City, favoriteOffersByCity: OfferType[]) {
     return (
@@ -30,7 +30,7 @@ function Favorites(): JSX.Element {
             className="locations__item-link"
             to={AppRoute.Main}
           >
-            <span>{currentCity.city}</span>
+            <span>{currentCity.name}</span>
           </Link>
         </div>
       </div>
@@ -44,7 +44,7 @@ function Favorites(): JSX.Element {
   function favoriteOffersRender() {
     return CitiesList.map((city) => {
       const favoriteOffersByCity = favoriteData && favoriteData.filter((favoriteOffer: OfferType) => {
-        return favoriteOffer.city.name === city.city;
+        return favoriteOffer.city.name === city.name;
       });
       return (
         <Fragment key={nanoid()}>

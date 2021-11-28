@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from 'react-toastify';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {OffersEmpty} from '../offers-empty/offers-empty';
-import {loadOffers, pickOffers} from '../../store/offers-reducer';
+import {loadOffers, pickOffers} from '../../store/offers-reducer/offers-reducer';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useFetchOffersQuery} from '../../services/api';
 import {useLocation} from 'react-router-dom';
@@ -29,7 +29,7 @@ function Main(): JSX.Element {
 
   useEffect(() => {
     if (isSuccessFetchOffers) {
-      dispatch(pickOffers(currentUrl.pathname));
+      dispatch(pickOffers());
     }
   }, [currentUrl, dispatch, isSuccessFetchOffers, fetchedOffers]);
 

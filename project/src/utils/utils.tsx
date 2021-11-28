@@ -2,7 +2,7 @@ import {OfferType} from '../types/offerType';
 import {City} from '../types/city';
 import {AuthorizationStatus} from '../constants';
 
-export const adaptFromServerNew = (data: any): any => {
+export const adaptDataFromServer = (data: any): any => {
   const adaptOfferFeatures = (offer: any) => {
     for (const feature in offer) {
       if (typeof (offer[feature]) === 'object') {
@@ -25,17 +25,13 @@ export const adaptFromServerNew = (data: any): any => {
   return data;
 };
 
-export const getOffersByCity = (offers: OfferType[], currentCity: City): OfferType[] => offers.filter((offer) => currentCity && offer.city.name === currentCity.city);
+export const getOffersByCity = (offers: OfferType[], currentCity: City): OfferType[] => offers.filter((offer) => currentCity && offer.city.name === currentCity.name);
 
 export const isEmptyOffers = (offers: OfferType[]) => !offers.length;
 
-export const isCommentsValid = (commentValue: string) => {
-  return commentValue.length >= 50;
-}
+export const isCommentsValid = (commentValue: string) => commentValue.length >= 50;
 
-export const isRatingValid = (ratingValue: number) => {
-  return ratingValue !== 0;
-}
+export const isRatingValid = (ratingValue: number) => ratingValue !== 0;
 
 export const isAuthorised = (authStatus: AuthorizationStatus) => authStatus === AuthorizationStatus.Auth;
 

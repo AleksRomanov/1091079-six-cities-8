@@ -5,7 +5,7 @@ import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {redirectToRoute} from '../../store/action';
 import {useLoginMutation} from '../../services/api';
 import {ReactComponent as Logo} from '../../static/logo.svg';
-import {setAuthStatus} from '../../store/reducer';
+import {setAuthStatus} from '../../store/app-reducer/app-reducer';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {saveEmail} from '../../services/token';
 

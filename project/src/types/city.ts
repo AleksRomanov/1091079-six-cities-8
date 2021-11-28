@@ -1,7 +1,9 @@
 type City = {
-  city: string,
-  latitude: number,
-  longitude: number,
+  name: string,
+  location: {
+    latitude: number,
+    longitude: number,
+  }
 }
 
 export type {City};

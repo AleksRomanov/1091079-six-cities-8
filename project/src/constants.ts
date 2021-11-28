@@ -4,7 +4,6 @@ export const enum AppRoute {
   Favorites = '/favorites',
   Offer = '/offer/:id',
   OfferLink = '/offer/',
-  EmptyMain = '/empty-main/',
 }
 
 export const enum AuthorizationStatus {
@@ -30,40 +29,50 @@ export const enum OfferKind {
 
 export const CitiesList = [
   {
-    city: 'Paris',
-    latitude: 48.85661,
-    longitude: 2.351499,
+    name: 'Paris',
+    location: {
+      latitude: 48.85661,
+      longitude: 2.351499,
+    }
   },
   {
-    city: 'Cologne',
-    latitude: 50.938361,
-    longitude: 6.959974,
+    name: 'Cologne',
+    location: {
+      latitude: 50.938361,
+      longitude: 6.959974,
+    }
   },
   {
-    city: 'Brussels',
-    latitude: 50.846557,
-    longitude: 4.351697,
+    name: 'Brussels',
+    location: {
+      latitude: 50.846557,
+      longitude: 4.351697,
+    }
   },
   {
-    city: 'Amsterdam',
-    latitude: 52.37454,
-    longitude: 4.897976,
+    name: 'Amsterdam',
+    location: {
+      latitude: 52.37454,
+      longitude: 4.897976,
+    }
   },
   {
-    city: 'Hamburg',
-    latitude: 53.550341,
-    longitude: 10.000654,
+    name: 'Hamburg',
+    location: {
+      latitude: 53.550341,
+      longitude: 10.000654,
+    }
   },
   {
-    city: 'Dusseldorf',
-    latitude: 51.225402,
-    longitude: 6.776314,
+    name: 'Dusseldorf',
+    location: {
+      latitude: 51.225402,
+      longitude: 6.776314,
+    }
   },
 ];
 
 export const MAX_RATING_VALUE = 5;
-export const CYCLE_conditions = 5;
-
 
 export const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';

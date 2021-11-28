@@ -1,12 +1,12 @@
 import {BaseQueryFn} from '@reduxjs/toolkit/query';
 import {createApi} from '@reduxjs/toolkit/dist/query/react';
 import {OfferType} from '../types/offerType';
-import {adaptFromServerNew} from '../utils/utils';
-import {dropEmail, dropToken, getToken, saveEmail, saveToken} from './token';
+import {dropEmail, dropToken, getToken, saveToken} from './token';
 import {ReviewType} from '../types/reviewType';
 import {APIRoute} from '../constants';
 import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
 import {AuthData} from '../types/authData';
+import {adaptDataFromServer} from '../utils/utils';
 
 const BASE_URL = 'https://8.react.pages.academy/six-cities';
 export type AuthTypeData = {
@@ -61,7 +61,7 @@ export const api = createApi({
         url: `${APIRoute.Offers}`,
         method: 'get',
       }),
-      transformResponse: (response: OfferType[]) => adaptFromServerNew(response),
+      transformResponse: (response: OfferType[]) => adaptDataFromServer(response),
 
       // return adaptFromServerNew(response).filter((item: OfferType) => {
       // return item.city.name === 'Amsterdam'
@@ -72,21 +72,21 @@ export const api = createApi({
         url: `${APIRoute.Offers}${offerId}`,
         method: 'get',
       }),
-      transformResponse: (response: OfferType) => adaptFromServerNew(response),
+      transformResponse: (response: OfferType) => adaptDataFromServer(response),
     }),
     fetchNearbyOffers: builder.query<OfferType[], string>({
       query: (id) => ({
         url: `${APIRoute.Offers}${id}/nearby`,
         method: 'get',
       }),
-      transformResponse: (response: OfferType[]) => adaptFromServerNew(response),
+      transformResponse: (response: OfferType[]) => adaptDataFromServer(response),
     }),
     fetchComments: builder.query<ReviewType[], string>({
       query: (id) => ({
         url: `${APIRoute.Comments}${id}`,
         method: 'get',
       }),
-      transformResponse: (response: ReviewType[]) => adaptFromServerNew(response),
+      transformResponse: (response: ReviewType[]) => adaptDataFromServer(response),
     }),
     login: builder.mutation<AuthData, AuthTypeData>({
       query: (credentials) => ({
@@ -96,7 +96,7 @@ export const api = createApi({
       }),
       transformResponse: (response: AuthData) => {
         response && saveToken(response.token);
-        response && saveEmail(response.email);
+        // response && saveEmail(response.email);
         return response;
       },
     }),
@@ -120,7 +120,7 @@ export const api = createApi({
           comment: data.commentValue,
         },
       }),
-      transformResponse: (response: ReviewType[]) => adaptFromServerNew(response),
+      transformResponse: (response: ReviewType[]) => adaptDataFromServer(response),
     }),
     submitFavorite: builder.mutation<OfferType, { offerId: number; offerStatus: number }>({
       query: ({offerId, offerStatus}) => ({
@@ -128,7 +128,7 @@ export const api = createApi({
         method: 'post',
       }),
       transformResponse: (response: OfferType) => {
-        return adaptFromServerNew(response);
+        return adaptDataFromServer(response);
       },
     }),
     fetchFavorites: builder.query<OfferType[], void>({
@@ -136,7 +136,7 @@ export const api = createApi({
         url: `${APIRoute.Favorite}`,
         method: 'get',
       }),
-      transformResponse: (response: OfferType[]) => adaptFromServerNew(response),
+      transformResponse: (response: OfferType[]) => adaptDataFromServer(response),
     }),
   }),
 });

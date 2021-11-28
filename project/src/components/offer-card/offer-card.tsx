@@ -2,11 +2,11 @@ import {OfferType} from '../../types/offerType';
 import {Link, useRouteMatch} from 'react-router-dom';
 import {AppRoute, offerCardClasses} from '../../constants';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {setMapHoveredOffer} from '../../store/reducer';
+import {setMapHoveredOffer} from '../../store/app-reducer/app-reducer';
 import {ReactComponent as IconBookmark} from '../../static/icon-bookmark.svg';
 import React, {useEffect} from 'react';
 import {useSubmitFavoriteMutation} from '../../services/api';
-import {setOfferFavoriteStatus} from '../../store/offers-reducer';
+import {setOfferFavoriteStatus} from '../../store/offers-reducer/offers-reducer';
 
 type OfferCardProps = {
   offer: OfferType,

@@ -11,7 +11,7 @@ import {AuthorizationStatus} from '../../constants';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {useFetchOfferQuery, useSubmitFavoriteMutation} from '../../services/api';
-import {setOfferPageData, setOfferPageFavoriteStatus} from '../../store/reducer';
+import {setOfferPageData, setOfferPageFavoriteStatus} from '../../store/app-reducer/app-reducer';
 
 type offerId = {
   id: string,
@@ -38,33 +38,33 @@ function Offer(): JSX.Element {
     }
   }, [submitFavoriteData, isSuccessFavoriteSubmit, dispatch]);
 
-  function RenderImages() {
-    return (
-      <div className="property__gallery">
-        {observingOffer && observingOffer.images.map((image) => (
-          <div className="property__image-wrapper" key={nanoid()}>
-            <img className="property__image" src={image} alt=""/>
-          </div>))}
-      </div>
-    );
-  }
+  // function RenderImages() {
+  //   return (
+  //     <div className="property__gallery">
+  //       {observingOffer && observingOffer.images.map((image) => (
+  //         <div className="property__image-wrapper" key={nanoid()}>
+  //           <img className="property__image" src={image} alt=""/>
+  //         </div>))}
+  //     </div>
+  //   );
+  // }
 
-  function RenderGoodsFeatures() {
-    return (
-      <ul className="property__inside-list">
-        {observingOffer && observingOffer.goods.map((good) => (
-          <li className="property__inside-item" key={good}>
-            {good}
-          </li>))}
-      </ul>
-    );
-  }
+  // function RenderGoodsFeatures() {
+  //   return (
+  //     <ul className="property__inside-list">
+  //       {observingOffer && observingOffer.goods.map((good) => (
+  //         <li className="property__inside-item" key={good}>
+  //           {good}
+  //         </li>))}
+  //     </ul>
+  //   );
+  // }
 
   return (
     <main className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">
-          <RenderImages/>
+          {/*<RenderImages/>*/}
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
@@ -104,7 +104,7 @@ function Offer(): JSX.Element {
 
             <div className="property__inside">
               <h2 className="property__inside-title">What&apos;s inside</h2>
-              <RenderGoodsFeatures/>
+              {/*<RenderGoodsFeatures/>*/}
             </div>
 
             <div className="property__host">

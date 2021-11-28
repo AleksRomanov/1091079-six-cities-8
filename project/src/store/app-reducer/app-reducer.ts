@@ -1,35 +1,29 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {store} from '../index';
-import {AuthorizationStatus} from '../constants';
-import {OfferType} from '../types/offerType';
-import {ReviewType} from '../types/reviewType';
+import {AuthorizationStatus} from '../../constants';
+import {OfferType} from '../../types/offerType';
+import {ReviewType} from '../../types/reviewType';
 
-interface CounterState {
+export type CounterState = {
   authorizationStatus: AuthorizationStatus,
   mapHoveredOffer: OfferType | null,
   offerPageData: OfferType | undefined,
   currentOfferComments: ReviewType[],
 }
 
-const initialState: CounterState = {
+export const initialState: CounterState = {
+  authorizationStatus: AuthorizationStatus.Unknown,
   mapHoveredOffer: null,
   offerPageData: undefined,
   currentOfferComments: [],
-  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 export const appReducer = createSlice({
   name: 'appReducer',
   initialState,
   reducers: {
-    setCurrentOfferComments: (state, action: PayloadAction<ReviewType[]>) => {
-      state.currentOfferComments = action.payload;
-    },
     setAuthStatus: (state, action: PayloadAction<AuthorizationStatus>) => {
-      state.authorizationStatus = action.payload;
+      state.authorizationStatus = action.payload
     },
-
-
     setMapHoveredOffer: (state, action: PayloadAction<OfferType | null>) => {
       state.mapHoveredOffer = action.payload;
     },
@@ -37,11 +31,12 @@ export const appReducer = createSlice({
     setOfferPageData: (state, action: PayloadAction<OfferType | undefined>) => {
       state.offerPageData = action.payload;
     },
-
+    setCurrentOfferComments: (state, action: PayloadAction<ReviewType[]>) => {
+      state.currentOfferComments = action.payload;
+    },
     setOfferPageFavoriteStatus: (state, action: PayloadAction<OfferType>) => {
-      const newFavoriteStatus = action.payload.isFavorite
       if (state.offerPageData) {
-        state.offerPageData.isFavorite = newFavoriteStatus;
+        state.offerPageData.isFavorite = action.payload.isFavorite;
       }
     },
 
@@ -49,8 +44,5 @@ export const appReducer = createSlice({
 });
 
 export const {setMapHoveredOffer, setOfferPageData, setAuthStatus, setCurrentOfferComments, setOfferPageFavoriteStatus} = appReducer.actions;
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
 
 export default appReducer.reducer;

@@ -4,7 +4,7 @@ import {ReactComponent as IconArrowSelect} from '../../static/icon-arrow-select.
 import React, {useCallback, useState} from 'react';
 import {nanoid} from 'nanoid';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {sortCurrentOffers} from '../../store/offers-reducer';
+import {sortCurrentOffers} from '../../store/offers-reducer/offers-reducer';
 
 function SortingList(): JSX.Element {
   const dispatch = useAppDispatch();

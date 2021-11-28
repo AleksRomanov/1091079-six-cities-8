@@ -9,7 +9,7 @@ function OffersFiled(): JSX.Element {
   return (
     <>
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">{pickedOffers && pickedOffers.length} places to stay in {currentCity && currentCity.city}</b>
+      <b className="places__found">{pickedOffers && pickedOffers.length} places to stay in {currentCity && currentCity.name}</b>
       <form className="places__sorting" action="#" method="get">
         <SortingList/>
       </form>

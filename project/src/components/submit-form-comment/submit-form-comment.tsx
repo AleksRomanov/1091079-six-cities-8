@@ -3,7 +3,8 @@ import {nanoid} from 'nanoid';
 import React, {FormEvent, Fragment, useEffect, useState} from 'react';
 import {useSubmitCommentMutation} from '../../services/api';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
-import {setCurrentOfferComments} from '../../store/reducer';
+import {setCurrentOfferComments} from '../../store/app-reducer/app-reducer';
+import {isCommentsValid, isRatingValid} from '../../utils/utils';
 
 type OutsideCommentFormProps = {
   currentOfferId: string
@@ -11,31 +12,30 @@ type OutsideCommentFormProps = {
 
 function SubmitFormComment({currentOfferId}: OutsideCommentFormProps): JSX.Element {
   const dispatch = useAppDispatch();
-
   const [submitComment, {data}] = useSubmitCommentMutation();
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    commentValue.length >= 50 && submitComment({data: {commentValue, ratingValue}, currentOfferId});
-  };
+  const [isSubmitButtonDisabled, setSubmitButtonActiveStatus] = useState(true);
+  const [commentValue, setCommentValue] = useState('');
+  const [ratingValue, setRatingValue] = useState(0);
 
   useEffect(() => {
     data && dispatch(setCurrentOfferComments(data));
   }, [data, dispatch]);
 
-  const [commentValue, setCommentValue] = useState('');
-  const [ratingValue, setRatingValue] = useState(0);
-  const [isSubmitButtonDisabled, setSubmitButtonActiveStatus] = useState(true);
-
   useEffect(() => {
-    commentValue.length >= 50 && ratingValue !== 0 && setSubmitButtonActiveStatus(false);
+    isCommentsValid(commentValue) && isRatingValid(ratingValue) && setSubmitButtonActiveStatus(false);
   }, [commentValue, ratingValue]);
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    isCommentsValid(commentValue) && submitComment({data: {commentValue, ratingValue}, currentOfferId});
+  };
 
   function RatingPanel() {
     const panelMarkup = [];
     for (let i = 5; i >= 1; i--) {
       panelMarkup.push(
         <Fragment key={nanoid()}>
-          <input className="form__rating-input visually-hidden" name="rating" value={i} id={`${i}-stars`} type="radio" onChange={(evt) => {
+          <input className="form__rating-input visually-hidden" checked={ratingValue === i} name="rating" value={i} id={`${i}-stars`} type="radio" onChange={(evt) => {
             setRatingValue(i)
           }}/>
           <label htmlFor={`${i}-stars`} className="reviews__rating-label form__rating-label" title="perfect">

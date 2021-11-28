@@ -3,7 +3,7 @@ import {nanoid} from 'nanoid';
 import {useFetchCommentsQuery} from '../../services/api';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import React, {memo, useEffect} from 'react';
-import {setCurrentOfferComments} from '../../store/reducer';
+import {setCurrentOfferComments} from '../../store/app-reducer/app-reducer';
 import {ReviewType} from '../../types/reviewType';
 
 type ReviewsListOutsideProps = {
@@ -13,7 +13,7 @@ type ReviewsListOutsideProps = {
 
 function ReviewsList({currentOfferId, currentOfferComments}: ReviewsListOutsideProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const {data, isFetching, isSuccess: isSuccessFetchComments} = useFetchCommentsQuery(currentOfferId);
+  const {data, isFetching, isSuccess: isSuccessFetchComments} = useFetchCommentsQuery(currentOfferId, {refetchOnMountOrArgChange: true});
 
   useEffect(() => {
     if (isSuccessFetchComments) {
